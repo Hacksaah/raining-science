@@ -24,11 +24,8 @@ namespace BehaviorTree
             else
             {
                 Status = BehaviorStatus.RUNNING;
-
                 child = GetChild(curChildIndex);
             }
-
-            Run();
         }        
 
         public override void Run()
@@ -40,10 +37,12 @@ namespace BehaviorTree
                     break;
 
                 case BehaviorStatus.FAILED:
+                    reset();
                     fail();
                     break;
 
                 case BehaviorStatus.SUCCEEDED:
+                    reset();
                     success();
                     break;
 

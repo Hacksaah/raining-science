@@ -6,15 +6,19 @@ public class TopDownCamera : MonoBehaviour
 {
     [SerializeField]
     private GameObject player;
-    // Start is called before the first frame update
-    void Start()
-    {
-        this.gameObject.transform.position = new Vector3(player.gameObject.transform.position.x, player.gameObject.transform.position.y + 10, player.gameObject.transform.position.z);
-    }
 
-    // Update is called once per frame
-    void Update()
+    public float smoothSpeed = 0.125f;
+    public Vector3 offset;
+
+    public int mouseOffset = 300;
+    // LateUpdate is called after all other updates
+    void LateUpdate()
     {
-        this.gameObject.transform.position = new Vector3(player.gameObject.transform.position.x, player.gameObject.transform.position.y + 10, player.gameObject.transform.position.z);
+        Vector3 velocity = GetComponent<Camera>().velocity;
+        //TODO: Fix mousePos to have character be the 0,0,0 spot
+        Vector3 mousePos = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position) - Camera.main.WorldToScreenPoint(player.transform.position);
+        Vector3 posToGoTo = player.transform.position + offset + new Vector3(mousePos.x / mouseOffset, 0, mousePos.y / mouseOffset);
+        transform.position = Vector3.SmoothDamp(transform.position, posToGoTo, ref velocity, smoothSpeed);
+        //transform.position = new Vector3(smoothPos.x, smoothPos.y, smoothPos.z);
     }
 }

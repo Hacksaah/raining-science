@@ -7,25 +7,26 @@ public abstract class Weapon : MonoBehaviour
     protected LinkedList<Attachment> attachments = new LinkedList<Attachment>();
 
     protected float fireRate;
-    protected float damage;
-    protected float projectileSpeed;
     protected float reloadSpeed;
+    protected float projectileSpeed;
     protected float critRate;
 
+    protected int damage;
     protected int clipSize;
-    // current bullet count or max number of bullets a weapon can have?
-    protected int ammoCapacity;
+    protected int ammoInClip;
+    protected int maxAmmoCapacity;
+    protected int currentAmmoCapacity; // current amount of ammo
 
-    protected string name;
+    protected new string name;
 
-    public float FireRate { set { fireRate = value; } }
-    public float Damage { set { damage = value; } }
-    public float ProjectileSpeed { set { projectileSpeed = value; } }
-    public float ReloadSpeed { set { reloadSpeed = value; } }
-    public float CritRate { set { critRate = value; } }
+    public float FireRate { get { return fireRate; } set { fireRate = value; } }
+    public float ReloadSpeed { get { return reloadSpeed; } set { reloadSpeed = value; } }
+    public float ProjectileSpeed { get { return projectileSpeed; } set { projectileSpeed = value; } }
+    public float CritRate { get { return critRate; } set { critRate = value; } }
 
-    public int ClipSize { set { clipSize = value; } }
-    public int AmmoCapacity { set { ammoCapacity = value; } }
+    public int Damage { get { return damage; } set { damage = value; } }
+    public int ClipSize { get { return clipSize; } set { clipSize = value; } }
+    public int MaxAmmoCapacity { get { return maxAmmoCapacity; } set { maxAmmoCapacity = value; } }
 
     public string Name { get { return name; } }
 
@@ -37,8 +38,8 @@ public abstract class Weapon : MonoBehaviour
 
     public void ReloadWeapon()
     {
-        // TODO: Can be implemented in here,
-        // just need clarification on something first
+        currentAmmoCapacity -= clipSize - ammoInClip;
+        ammoInClip = clipSize;
     }
 
     public abstract void Shoot();

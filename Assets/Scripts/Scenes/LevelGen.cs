@@ -26,7 +26,7 @@ public class LevelGen : MonoBehaviour
             branchPercent = 1;
         if (numberOfRooms < 1)
             numberOfRooms = 1;
-        positions.AddFirst(new Vector3(0,0.5f,0));
+        positions.AddFirst(new Vector3(room.transform.position.x, room.transform.position.y, room.transform.position.z));
         numberOfRooms--;
         genLevel();
     }
@@ -34,17 +34,18 @@ public class LevelGen : MonoBehaviour
     void genLevel()
     {
         rooms.Enqueue(room);
+        GameObject currentRoom;
         while (roomsSpawned < numberOfRooms)
         {
-            GameObject currentRoom = rooms.Dequeue();
+            currentRoom = rooms.Dequeue();
+            while (rooms.Count == 0 && roomsSpawned < numberOfRooms)
+            {
+                spawnRooms(currentRoom);
+            }
             if (checkConnectedRooms(currentRoom))
                 continue;
             
             spawnRooms(currentRoom);
-            while (rooms.Count == 0 && roomsSpawned<numberOfRooms)
-            {
-                spawnRooms(currentRoom);
-            }
         }
     }
 

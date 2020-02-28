@@ -73,6 +73,9 @@ public class LevelGen : MonoBehaviour
                         break;
                         
                 }
+                face.y = currentRoom.transform.position.y;
+                face.x = Mathf.RoundToInt(face.x);
+                face.z = Mathf.RoundToInt(face.z);
 
                 if (checkConnectedRooms(currentRoom))
                 {

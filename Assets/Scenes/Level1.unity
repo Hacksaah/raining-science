@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   room: {fileID: 1672076980}
-  branchPercent: 100
+  branchPercent: 50
   numberOfRooms: 25
   maxConnectingRooms: 3
 --- !u!4 &639047700

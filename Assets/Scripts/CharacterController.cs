@@ -22,11 +22,11 @@ public class CharacterController : MonoBehaviour
 
     //Weapon list
     [SerializeField]
-    private Gun[] weaponsList;
+    private Weapon[] weaponsList;
 
     //Current weapon in hand
     [SerializeField]
-    private Gun currentWeapon;
+    private Weapon currentWeapon;
 
 
     // Start is called before the first frame update
@@ -122,12 +122,15 @@ public class CharacterController : MonoBehaviour
     private void HandleGun()
     {
         //Shoot
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Fire1"))
         {
             currentWeapon.Shoot();
         }
 
-
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            currentWeapon.ReloadWeapon();
+        }
 
         //Scroll up through weapons list
         if (Input.GetAxis("Mouse ScrollWheel") > 0)

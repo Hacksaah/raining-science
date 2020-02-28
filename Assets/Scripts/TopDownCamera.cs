@@ -15,7 +15,6 @@ public class TopDownCamera : MonoBehaviour
     void LateUpdate()
     {
         Vector3 velocity = GetComponent<Camera>().velocity;
-        //TODO: Fix mousePos to have character be the 0,0,0 spot
         Vector3 mousePos = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position) - Camera.main.WorldToScreenPoint(player.transform.position);
         Vector3 posToGoTo = player.transform.position + offset + new Vector3(mousePos.x / mouseOffset, 0, mousePos.y / mouseOffset);
         transform.position = Vector3.SmoothDamp(transform.position, posToGoTo, ref velocity, smoothSpeed);

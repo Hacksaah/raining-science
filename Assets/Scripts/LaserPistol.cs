@@ -21,15 +21,6 @@ public class LaserPistol : Weapon
         name = "Laser Pistol";
     }
 
-    // This is here for testing purposes and will be removed during integration
-    void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Shoot();
-        }
-    }
-
     public override void Shoot()
     {
         if (ammoInClip > 0)
@@ -40,8 +31,8 @@ public class LaserPistol : Weapon
             float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
             transform.rotation = new Quaternion(0, transform.rotation.y + 1, 0, 0);
 
-            GameObject b = Instantiate(laserBullet, transform.position /*+ (transform.parent.transform.forward / 2)*/, Quaternion.identity/*laserBullet.transform.rotation, null*/);
-            b.GetComponent<Rigidbody>().AddForce(Vector3.forward * projectileSpeed);/*velocity = transform.parent.transform.forward * projectileSpeed;*/
+            GameObject b = Instantiate(laserBullet, transform.position + (transform.parent.transform.forward / 2), laserBullet.transform.rotation, null);
+            b.GetComponent<Rigidbody>().AddForce(transform.parent.transform.forward * projectileSpeed);
         }
     }
 }

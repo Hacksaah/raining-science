@@ -60,17 +60,18 @@ public class LevelGen : MonoBehaviour
                 switch (x)
                 {
                     case 0:
-                        face = currentRoom.transform.position + currentRoom.transform.forward;
+                        face = currentRoom.transform.position + currentRoom.transform.up * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
                         break;
                     case 1:
-                        face = currentRoom.transform.position - currentRoom.transform.forward;
+                        face = currentRoom.transform.position - currentRoom.transform.up * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
                         break;
                     case 2:
-                        face = currentRoom.transform.position - currentRoom.transform.right;
+                        face = currentRoom.transform.position - currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
                         break;
                     case 3:
-                        face = currentRoom.transform.position + currentRoom.transform.right;
+                        face = currentRoom.transform.position + currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
                         break;
+                        
                 }
 
                 if (checkConnectedRooms(currentRoom))
@@ -95,10 +96,10 @@ public class LevelGen : MonoBehaviour
     {
         int numOfConnRooms = 0;
 
-        Vector3 frontFace = currentRoom.transform.position + currentRoom.transform.forward;
-        Vector3 backFace = currentRoom.transform.position - currentRoom.transform.forward;
-        Vector3 rightFace = currentRoom.transform.position + currentRoom.transform.right;
-        Vector3 leftFace = currentRoom.transform.position - currentRoom.transform.right;
+        Vector3 frontFace = currentRoom.transform.position + currentRoom.transform.up * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
+        Vector3 backFace = currentRoom.transform.position - currentRoom.transform.up * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
+        Vector3 rightFace = currentRoom.transform.position + currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
+        Vector3 leftFace = currentRoom.transform.position - currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
 
         if (positions.Contains(frontFace))
             numOfConnRooms++;

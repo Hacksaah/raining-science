@@ -86,8 +86,8 @@ public class LevelGen : MonoBehaviour
                 if (roomsSpawned < numberOfRooms && !positions.Contains(face))
                 {
                     positions.AddLast(face);
-                    GameObject newRoom = GameObject.Instantiate(room);
-                    newRoom.transform.position = face;
+                    GameObject newRoom = GameObject.Instantiate(room, face, Quaternion.Euler(Vector3.left * 90));
+                    //newRoom.transform.position = face;
                     rooms.Enqueue(newRoom);
                     roomsSpawned++;
                 }

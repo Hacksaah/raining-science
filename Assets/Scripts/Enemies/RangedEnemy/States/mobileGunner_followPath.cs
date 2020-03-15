@@ -33,12 +33,12 @@ public class mobileGunner_followPath : State<MobileGunner>
 
     public override void EnterState(MobileGunner owner)
     {
-        
+        //Debug.Log("Entering path follow state");
     }
 
     public override void ExitState(MobileGunner owner)
     {
-        
+        //Debug.Log("Exiting path follow state");
     }
 
     public override void UpdateState(MobileGunner owner)
@@ -46,38 +46,39 @@ public class mobileGunner_followPath : State<MobileGunner>
         FollowPath(owner);
     }
 
-    //-------- Custom Functions --------------------------
-
-    private void LookAtTarget(MobileGunner owner, Vector3 currWaypoint)
+    public override void FixedUpdateState(MobileGunner owner)
     {
-        Vector3 targetDir = currWaypoint - owner.transform.position;
-        Vector3 localTarget = owner.transform.InverseTransformPoint(currWaypoint);
+        // if the target has moved...find a new path
+        if (Vector3.Distance(owner.TestAttackTarget.transform.position, owner.movePath[owner.movePath.Length - 1]) > 3 * nodeRadius)
+        {
+            Debug.Log("Target moved");
+            owner.RequestPath();
+        }
 
-        float angle = Mathf.Atan2(localTarget.x, localTarget.z) * Mathf.Rad2Deg;
+        // Turn to face the current waypoint
+        owner.TurnToFace(owner.currTarget);
+    }
 
-        Vector3 eulerAngularVelocity = new Vector3(0, angle, 0) * 10;
-        Quaternion deltaRotation = Quaternion.Euler(eulerAngularVelocity * Time.deltaTime);
-        owner.rb.MoveRotation(owner.rb.rotation * deltaRotation);
-    }   
+    //-------- Custom Functions --------------------------
 
     private void FollowPath(MobileGunner owner)
     {
         if (owner.moveTargetIndex > -1)
         {
-            Vector3 currentWaypoint = owner.movePath[owner.moveTargetIndex];
-            if (Vector3.Distance(currentWaypoint, owner.transform.position) < nodeRadius)
+            owner.currTarget = owner.movePath[owner.moveTargetIndex];
+            if (Vector3.Distance(owner.currTarget, owner.transform.position) < nodeRadius)
             {
                 owner.moveTargetIndex++;
                 if (owner.moveTargetIndex >= owner.movePath.Length)
                 {
                     //Owner needs to find a new path...
-                    //Debug.Log("Owner needs a new path...");
                     owner.RequestPath();
                     owner.stateMachine.HaltState();
+                    return;
                 }
+                
             }
-            LookAtTarget(owner, currentWaypoint);
-            owner.transform.position = Vector3.MoveTowards(owner.transform.position, currentWaypoint, owner.stats.GetMoveSpeed() * Time.deltaTime);
+            owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.currTarget, owner.stats.GetMoveSpeed() * Time.deltaTime);
         }
         else
         {

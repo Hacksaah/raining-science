@@ -34,8 +34,6 @@ public class mobileGunner_followPath : State<MobileGunner>
     public override void EnterState(MobileGunner owner)
     {
         //Debug.Log("Entering path follow state");
-        if(owner.moveTargetIndex > -1 && owner.moveTargetIndex < owner.movePath.Length)
-            owner.currTarget = owner.movePath[owner.moveTargetIndex];
     }
 
     public override void ExitState(MobileGunner owner)
@@ -67,8 +65,8 @@ public class mobileGunner_followPath : State<MobileGunner>
                 {
                     owner.moveTargetIndex = -1;
                     //ToDO Owner should poll for a decision
+                    owner.currTarget = owner.AttackTarget.position;
                     owner.RequestPath();
-                    owner.stateMachine.HaltState();
                     return;
                 }
                 owner.currTarget = owner.movePath[owner.moveTargetIndex];

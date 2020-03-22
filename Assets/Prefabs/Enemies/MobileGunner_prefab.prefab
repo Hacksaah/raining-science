@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1734252470901273889}
   - component: {fileID: 8339964349909063709}
   m_Layer: 0
-  m_Name: Test_MobileGunner_prefab
+  m_Name: MobileGunner_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,7 +204,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6461959841681265373}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.534, y: 0.224, z: 1.0389}
+  m_LocalPosition: {x: 0.534, y: 0.078, z: 1.0389}
   m_LocalScale: {x: 0.23098873, y: 0.18077378, z: 1.3054651}
   m_Children:
   - {fileID: 7305713805066845229}

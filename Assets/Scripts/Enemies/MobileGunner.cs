@@ -5,20 +5,19 @@ using StateMachine;
 
 public class MobileGunner : EnemyActor
 {
-    public StateMachine<MobileGunner> stateMachine { get; set; }
+    private float timer_lineOfSight = 0.0f;
 
-    private float timer_lineOfSight = 0.0f;   
+    private StateMachine<MobileGunner> stateMachine;
+    public void HaltState() { stateMachine.HaltState(); }
 
-    void Awake()
+    MobileGunner()
     {
         stateMachine = new StateMachine<MobileGunner>(this);
-        Startup();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        RequestPath();
+    void Awake()
+    {        
+        Startup();
     }
 
     private void FixedUpdate()
@@ -29,22 +28,29 @@ public class MobileGunner : EnemyActor
     // Update is called once per frame
     void Update()
     {
-        stateMachine.Update();
         CheckLineOfSight();
+        stateMachine.Update();
+        
     }
 
-    public void MakeDecisionPoll()
+    private void OnEnable()
     {
+        RequestPath();
+        stateMachine.ChangeState(mobileGunner_followPath.Instance);
+    }
 
+    private void OnDisable()
+    {
+        stateMachine.HaltState();
     }
 
     void CheckLineOfSight()
     {
         RaycastHit hit;
-        Vector3 direction = TestAttackTarget.transform.position - transform.position;
+        Vector3 direction = AttackTarget.position - transform.position;
         if(Physics.Raycast(transform.position, direction, out hit, stats.GetSightDistance()))
         {
-            if(hit.transform == TestAttackTarget.transform)
+            if(hit.transform == AttackTarget)
             {
                 timer_lineOfSight += Time.deltaTime;
                 if(timer_lineOfSight >= 1.7f)
@@ -59,27 +65,7 @@ public class MobileGunner : EnemyActor
                     timer_lineOfSight -= Time.deltaTime;
             }
         }
-    }
-
-    public void RequestPath()
-    {
-        if (currTarget != null)
-        {
-            stateMachine.HaltState();
-            PathRequestManager.RequestPath(new PathRequest(transform.position, currTarget, OnPathFound));
-        }
-    }
-
-    public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
-    {
-        if (pathSuccessful)
-        {
-            System.Array.Clear(movePath, 0, movePath.Length);
-            movePath = newPath;
-            moveTargetIndex = 0;
-            stateMachine.ChangeState(mobileGunner_followPath.Instance);
-        }
-    }
+    }    
 
     public IEnumerator FireWeapon(int shotCount)
     {
@@ -100,7 +86,7 @@ public class MobileGunner : EnemyActor
         if(Random.Range(1, 100) > 65)
         {
             // Find some nearby vector to stand on
-            Vector3 openPosition = PathRequestManager.RequestNewMoveSpot(transform.position, (int)stats.GetSightDistance());
+            Vector3 openPosition = PathRequestManager.RequestNewMoveSpot(transform.position, (int)stats.GetSightDistance(), roomKey);
             currTarget = openPosition;
             RequestPath();
         }

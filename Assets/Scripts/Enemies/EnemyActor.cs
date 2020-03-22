@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using StateMachine;
 
 public class EnemyActor : MonoBehaviour
 {
     public EnemyStats stats;
 
     public int currHP;
-    public string room_tag;
+    public int roomKey = -1;
     public Vector3 currTarget;
 
     // Pathfinding variables    
@@ -22,21 +23,26 @@ public class EnemyActor : MonoBehaviour
     public Rigidbody rb;    
 
     //TEST variables
-    public GameObject TestAttackTarget; // being used for pathfinding and attack target
+    public Transform AttackTarget; // being used for pathfinding and attack target
 
     protected void Startup()
     {
         rb = GetComponent<Rigidbody>();
         weapon = GetComponent<EnemyWeapon>();
-        currTarget = TestAttackTarget.transform.position;
-        ResetActor();
+    }
+
+    public void SpawnActor(Vector3 position, Vector3 target)
+    {
+        transform.position = position;
+        currTarget = target;
+        ResetActor();        
     }
 
     public void ResetActor()
     {
         currHP = stats.GetMaxHP();
         System.Array.Clear(movePath, 0, movePath.Length);
-    }
+    }    
 
     //Turns this enemy actor to face a target vector3 without altering its X or Z rotation
     public void TurnToFace(Vector3 target)
@@ -60,7 +66,25 @@ public class EnemyActor : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }    
+    }
+
+    public void RequestPath()
+    {
+        if (currTarget != null)
+        {            
+            PathRequestManager.RequestPath(new PathRequest(transform.position, currTarget, roomKey, OnPathFound));
+        }
+    }
+
+    public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
+    {
+        if (pathSuccessful)
+        {
+            System.Array.Clear(movePath, 0, movePath.Length);
+            movePath = newPath;
+            moveTargetIndex = 0;
+        }
+    }
 
     private void OnDrawGizmos()
     {        

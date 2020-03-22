@@ -53,9 +53,9 @@ public class PathRequestManager : MonoBehaviour
         }
     }
 
-    public static Vector3 RequestNewMoveSpot(Vector3 position, int radius)
+    public static Vector3 RequestNewMoveSpot(Vector3 position, int radius, int roomKey)
     {
-        return instance.pathfinding.FindOpenNodePosition(position, radius);
+        return instance.pathfinding.FindOpenNodePosition(position, radius, roomKey);
     }
 }
 
@@ -64,12 +64,14 @@ public struct PathRequest
 {
     public Vector3 pathStart;
     public Vector3 pathEnd;
+    public int roomKey;
     public Action<Vector3[], bool> callback;
 
-    public PathRequest(Vector3 _start, Vector3 _end, Action<Vector3[], bool> _callback)
+    public PathRequest(Vector3 _start, Vector3 _end, int _roomKey, Action<Vector3[], bool> _callback)
     {
         pathStart = _start;
         pathEnd = _end;
+        roomKey = _roomKey;
         callback = _callback;
     }
 }

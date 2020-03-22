@@ -5,40 +5,21 @@ using UnityEngine;
 public class Level_Grid : MonoBehaviour
 {
     static Level_Grid instance;
-    private List<Room_Grid> rooms = new List<Room_Grid>();
+    public static Level_Grid Instance { get { return instance; } }
+    private Dictionary<int, Room_Grid> roomDict = new Dictionary<int, Room_Grid>();
+    private int roomKey = 0;
 
-    private void Awake()
-    {
-        instance = this;
+    Level_Grid() { instance = this; }
 
-    }
-    // Start is called before the first frame update
-    void Start()
+    public int AddRoomToLevel(Room_Grid room)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        roomDict.Add(roomKey, room);
+        roomKey++;
+        return roomKey - 1;
     }
 
-    public void AddRoomToLevelGrid(Room_Grid _room)
+    public Room_Grid GetRoom(int key)
     {
-
-    }
-
-    public void NodeFromWorldPoint(Vector3 _worldPos)
-    {
-
-        return;
-    }
-
-    public List<PathNode> GetNeighbors(PathNode centerNode)
-    {
-        List<PathNode> neighbours = new List<PathNode>();
-
-        return neighbours;
+        return roomDict[key];
     }
 }

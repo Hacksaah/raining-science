@@ -5,36 +5,36 @@ using Debug = UnityEngine.Debug;
 
 public class Pathfinding : MonoBehaviour
 {
-    Path_Grid grid;
+    Level_Grid levelGrid;
 
     public Transform start, target;
 
     private void Awake()
     {
-        grid = GetComponent<Path_Grid>();
+        levelGrid = GetComponent<Level_Grid>();
     }
 
     public void FindPath(PathRequest request, Action<PathResult> callback)
     {
         //Debug.Log("Looking for path");
-        //Debug.Log(grid.NodeFromWorldPoint(new Vector3(45, 1, 58)).gridX);
+
         Vector3[] waypoints = new Vector3[0];
         bool pathSuccess = false;
 
-        PathNode startNode = grid.NodeFromWorldPoint(request.pathStart);
-        PathNode targetNode = grid.NodeFromWorldPoint(request.pathEnd);
+        Room_Grid roomGrid = levelGrid.GetRoom(request.roomKey);
 
-        //Debug.Log("Startnode: " + startNode.worldPos + ", EndNode: " + targetNode.worldPos);
+        PathNode startNode = roomGrid.NodeFromWorldPoint(request.pathStart);
+        PathNode targetNode = roomGrid.NodeFromWorldPoint(request.pathEnd);
+        
 
         if(startNode.isWalkable && targetNode.isWalkable)
         {
-            Heap<PathNode> openSet = new Heap<PathNode>(grid.MaxSize);
+            Heap<PathNode> openSet = new Heap<PathNode>(roomGrid.MaxSize);
             HashSet<PathNode> closedSet = new HashSet<PathNode>();
             openSet.Add(startNode);
 
             while (openSet.Count > 0)
             {
-                //Debug.Log("Open set still open: " + openSet.Count);
                 PathNode currentNode = openSet.RemoveFirst();
 
                 closedSet.Add(currentNode);
@@ -42,13 +42,12 @@ public class Pathfinding : MonoBehaviour
                 //if reached the target node END HERE
                 if (currentNode == targetNode)
                 {
-                    //Debug.Log("bingo");
                     pathSuccess = true;
                     break;
                 }
 
                 //----------------Otherwise search neighbors-----------------------
-                foreach (PathNode neighbor in grid.GetNeighbours(currentNode))
+                foreach (PathNode neighbor in roomGrid.GetNeighbours(currentNode))
                 {
                     if (!neighbor.isWalkable || closedSet.Contains(neighbor))
                     {
@@ -79,7 +78,6 @@ public class Pathfinding : MonoBehaviour
         
         if (pathSuccess)
         {
-            //Debug.Log("Found path");
             waypoints = RetracePath(startNode, targetNode);
             callback(new PathResult(waypoints, pathSuccess, request.callback));
         }
@@ -129,10 +127,11 @@ public class Pathfinding : MonoBehaviour
         return waypoints.ToArray();
     }
 
-    public Vector3 FindOpenNodePosition(Vector3 startPosition, int searchRadius)
+    public Vector3 FindOpenNodePosition(Vector3 startPosition, int searchRadius, int roomKey)
     {
-        PathNode startNode = grid.NodeFromWorldPoint(startPosition);
-        List<PathNode> openNodes = grid.GetOpenNodes(startNode, searchRadius);
+        Room_Grid roomGrid = levelGrid.GetRoom(roomKey);
+        PathNode startNode = roomGrid.NodeFromWorldPoint(startPosition);
+        List<PathNode> openNodes = roomGrid.GetOpenNodes(startNode, searchRadius);
         int randomIndex = UnityEngine.Random.Range(0, openNodes.Count - 1);
         return openNodes[randomIndex].worldPos;
     }

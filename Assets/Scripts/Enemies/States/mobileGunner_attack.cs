@@ -33,7 +33,7 @@ public class mobileGunner_attack : State<MobileGunner>
     public override void EnterState(MobileGunner owner)
     {
         //Debug.Log("Entering attack state");
-        owner.currTarget = owner.TestAttackTarget.transform.position;
+        owner.currTarget = owner.AttackTarget.position;
         owner.StartCoroutine(owner.FireWeapon(3));
     }
 
@@ -44,7 +44,7 @@ public class mobileGunner_attack : State<MobileGunner>
 
     public override void UpdateState(MobileGunner owner)
     {
-        owner.currTarget = owner.TestAttackTarget.transform.position;
+        owner.currTarget = owner.AttackTarget.position;
     }
 
     public override void FixedUpdateState(MobileGunner owner)

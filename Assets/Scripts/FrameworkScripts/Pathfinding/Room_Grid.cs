@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Room_Grid : MonoBehaviour
 {
+    public Transform PlayerTransform;
+
     public LayerMask unwalkableLayer;
     public Vector2 gridWorldSize;
     public float nodeRadius;
@@ -11,6 +14,8 @@ public class Room_Grid : MonoBehaviour
 
     float nodeDiameter;
     int gridSizeX, gridSizeY;
+    private int roomKey;
+    public int RoomKey { get; }
 
     // Start is called before the first frame update
     void Awake()
@@ -45,8 +50,9 @@ public class Room_Grid : MonoBehaviour
                 grid[x, y] = new PathNode(walkable, worldPoint, x, y, movementPenalty);
             }
         }
-        Debug.Log("Pathfinding grid made");
-        // Add this room to the Level
+        Debug.Log("Room pathfinding grid made");
+        // Add this room to the Level and retreive the dictionary key value
+        roomKey = Level_Grid.Instance.AddRoomToLevel(this);
     }
 
     public PathNode NodeFromWorldPoint(Vector3 _worldPos)
@@ -86,16 +92,68 @@ public class Room_Grid : MonoBehaviour
         return neighbours;
     }
 
-    private void OnDrawGizmos()
+    public List<PathNode> GetOpenNodes(PathNode startNode, int searchRadius)
     {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
-        if (grid != null)
+        List<PathNode> openNodes = new List<PathNode>();
+        int x = startNode.gridX - searchRadius;
+        int maxX = x + 2 * searchRadius;
+        int y = startNode.gridY - searchRadius;
+        int maxY = y + 2 * searchRadius;
+        x = x < 0 ? 0 : x;
+        maxX = maxX >= gridSizeX ? gridSizeX : maxX;
+        y = y < 0 ? 0 : y;
+        maxY = maxY >= gridSizeY ? gridSizeY : maxY;
+        for (; x < maxX; x++)
         {
-            foreach (PathNode n in grid)
+            for (; y < maxY; y++)
             {
-                Gizmos.color = (n.isWalkable) ? Color.white : Color.red;
-                Gizmos.DrawCube(n.worldPos, Vector3.one * (nodeDiameter - nodeDiameter * 0.9f));
+                PathNode curNode = grid[x, y];
+                if (curNode.isWalkable)
+                {
+                    openNodes.Add(curNode);
+                }
             }
         }
+        return openNodes;
     }
+
+    //returns a random walkable spot in the room
+    public Vector3 AnOpenSpot()
+    {
+        Vector3 openSpot;
+
+        int x = Random.Range(0, gridSizeX);
+        int y = Random.Range(0, gridSizeY);
+
+        while (!grid[x, y].isWalkable)
+        {
+            if (x++ == gridSizeX)
+            {
+                x = 0;
+            }
+            else if (y++ == gridSizeY)
+            {
+                y = 0;
+            }
+        }
+        openSpot = grid[x, y].worldPos;
+
+        return openSpot;
+    }
+
+
+
+    //private void OnDrawGizmos()
+    //{
+    //    if(Selection.Contains(gameObject))
+    //        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
+    //    if (grid != null)
+    //    {
+    //        foreach (PathNode n in grid)
+    //        {
+    //            Gizmos.color = (n.isWalkable) ? Color.white : Color.red;
+    //            Gizmos.DrawCube(n.worldPos, Vector3.one * (nodeDiameter - nodeDiameter * 0.9f));
+    //        }
+    //    }
+    //}
 }

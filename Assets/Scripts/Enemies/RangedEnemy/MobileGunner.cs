@@ -7,9 +7,7 @@ public class MobileGunner : EnemyActor
 {
     public StateMachine<MobileGunner> stateMachine { get; set; }
 
-    private float timer_lineOfSight = 0.0f;
-
-    public Transform shootPosition; // the position where bullets will spawn from
+    private float timer_lineOfSight = 0.0f;   
 
     void Awake()
     {
@@ -33,6 +31,11 @@ public class MobileGunner : EnemyActor
     {
         stateMachine.Update();
         CheckLineOfSight();
+    }
+
+    public void MakeDecisionPoll()
+    {
+
     }
 
     void CheckLineOfSight()
@@ -63,7 +66,7 @@ public class MobileGunner : EnemyActor
         if (currTarget != null)
         {
             stateMachine.HaltState();
-            PathRequestManager.RequestPath(new PathRequest(transform.position, TestAttackTarget.transform.position, OnPathFound));
+            PathRequestManager.RequestPath(new PathRequest(transform.position, currTarget, OnPathFound));
         }
     }
 
@@ -71,28 +74,35 @@ public class MobileGunner : EnemyActor
     {
         if (pathSuccessful)
         {
+            System.Array.Clear(movePath, 0, movePath.Length);
             movePath = newPath;
             moveTargetIndex = 0;
             stateMachine.ChangeState(mobileGunner_followPath.Instance);
         }
     }
 
-    public IEnumerator FireWeapon(int shotCount, Vector3 shootAtPos)
+    public IEnumerator FireWeapon(int shotCount)
     {
         for(int i = 0; i < shotCount; i++)
         {
-            GameObject newBullet = Instantiate(projectilePrefab, shootPosition.position, Quaternion.identity);
-            newBullet.transform.LookAt(shootAtPos);
-
-            yield return new WaitForSeconds(Random.Range(0.1f, 0.7f));
+            weapon.FireWeapon(currTarget);            
+            float timer = 0.1f;
+            do
+            {
+                timer -= Time.deltaTime;
+                yield return null;
+            } while (timer >= 0);
         }
-        //What this enemy does after it's done firing.
+
+        //What this enemy does after it's done firing...
 
         // chance to find a new shoot position
-        if(Random.Range(1, 100) > 50)
+        if(Random.Range(1, 100) > 65)
         {
-            // Find some nearby vecto3 to stand on
-
+            // Find some nearby vector to stand on
+            Vector3 openPosition = PathRequestManager.RequestNewMoveSpot(transform.position, (int)stats.GetSightDistance());
+            currTarget = openPosition;
+            RequestPath();
         }
     }
 }

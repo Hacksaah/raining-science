@@ -52,6 +52,11 @@ public class PathRequestManager : MonoBehaviour
             results.Enqueue(result);
         }
     }
+
+    public static Vector3 RequestNewMoveSpot(Vector3 position, int radius)
+    {
+        return instance.pathfinding.FindOpenNodePosition(position, radius);
+    }
 }
 
 //Data package for making a pathfind request for an AI unit

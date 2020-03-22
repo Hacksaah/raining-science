@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Diagnostics;
 using System;
 using Debug = UnityEngine.Debug;
 
@@ -129,5 +127,13 @@ public class Pathfinding : MonoBehaviour
         }
         //Debug.Log(waypoints.Count);
         return waypoints.ToArray();
+    }
+
+    public Vector3 FindOpenNodePosition(Vector3 startPosition, int searchRadius)
+    {
+        PathNode startNode = grid.NodeFromWorldPoint(startPosition);
+        List<PathNode> openNodes = grid.GetOpenNodes(startNode, searchRadius);
+        int randomIndex = UnityEngine.Random.Range(0, openNodes.Count - 1);
+        return openNodes[randomIndex].worldPos;
     }
 }

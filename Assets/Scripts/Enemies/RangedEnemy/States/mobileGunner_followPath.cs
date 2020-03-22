@@ -34,6 +34,8 @@ public class mobileGunner_followPath : State<MobileGunner>
     public override void EnterState(MobileGunner owner)
     {
         //Debug.Log("Entering path follow state");
+        if(owner.moveTargetIndex > -1 && owner.moveTargetIndex < owner.movePath.Length)
+            owner.currTarget = owner.movePath[owner.moveTargetIndex];
     }
 
     public override void ExitState(MobileGunner owner)
@@ -48,13 +50,6 @@ public class mobileGunner_followPath : State<MobileGunner>
 
     public override void FixedUpdateState(MobileGunner owner)
     {
-        // if the target has moved...find a new path
-        if (Vector3.Distance(owner.TestAttackTarget.transform.position, owner.movePath[owner.movePath.Length - 1]) > 3 * nodeRadius)
-        {
-            Debug.Log("Target moved");
-            owner.RequestPath();
-        }
-
         // Turn to face the current waypoint
         owner.TurnToFace(owner.currTarget);
     }
@@ -64,19 +59,19 @@ public class mobileGunner_followPath : State<MobileGunner>
     private void FollowPath(MobileGunner owner)
     {
         if (owner.moveTargetIndex > -1)
-        {
-            owner.currTarget = owner.movePath[owner.moveTargetIndex];
+        {            
             if (Vector3.Distance(owner.currTarget, owner.transform.position) < nodeRadius)
             {
                 owner.moveTargetIndex++;
                 if (owner.moveTargetIndex >= owner.movePath.Length)
                 {
-                    //Owner needs to find a new path...
+                    owner.moveTargetIndex = -1;
+                    //ToDO Owner should poll for a decision
                     owner.RequestPath();
                     owner.stateMachine.HaltState();
                     return;
                 }
-                
+                owner.currTarget = owner.movePath[owner.moveTargetIndex];
             }
             owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.currTarget, owner.stats.GetMoveSpeed() * Time.deltaTime);
         }
@@ -84,6 +79,5 @@ public class mobileGunner_followPath : State<MobileGunner>
         {
             Debug.Log("Has no movePath");
         }
-
     }
 }

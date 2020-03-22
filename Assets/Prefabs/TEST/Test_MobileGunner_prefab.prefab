@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1734252470901274079}
   - component: {fileID: 1734252470901274078}
   - component: {fileID: 1734252470901273889}
+  - component: {fileID: 8339964349909063709}
   m_Layer: 0
   m_Name: Test_MobileGunner_prefab
   m_TagString: Untagged
@@ -124,16 +125,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8cc682c857920f409c95037a2d1a8d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currHP: 0
   stats: {fileID: 11400000, guid: b93b0346fd1d7cb4c9f65290ed0638d1, type: 2}
+  currHP: 0
+  room_tag: 
   currTarget: {x: 0, y: 0, z: 0}
   movePath: []
   moveTargetIndex: -1
   rb: {fileID: 0}
   TestAttackTarget: {fileID: 0}
+--- !u!114 &8339964349909063709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734252470901273888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bbd583a4e787ce458b1f1d433435f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootPosition: {fileID: 7305713805066845229}
   projectilePrefab: {fileID: 1507833653289100404, guid: 57553521b3bc88f44b1e8e84733b56a9,
     type: 3}
-  shootPosition: {fileID: 7305713805066845229}
 --- !u!1 &5118770597697643892
 GameObject:
   m_ObjectHideFlags: 0

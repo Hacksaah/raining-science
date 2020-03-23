@@ -27,6 +27,14 @@
             }
         }
 
+        public void FixedUpdate()
+        {
+            if(currentState != null)
+            {
+                currentState.FixedUpdateState(Owner);
+            }
+        }
+
         //stops the current state
         public void HaltState()
         {
@@ -41,5 +49,6 @@
         public abstract void EnterState(T owner);
         public abstract void ExitState(T owner);
         public abstract void UpdateState(T owner);
+        public abstract void FixedUpdateState(T owner);
     }
 }

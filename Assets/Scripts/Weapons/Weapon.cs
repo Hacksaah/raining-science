@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
+    public Transform shootFromTransform;
+
     protected LinkedList<Attachment> attachments = new LinkedList<Attachment>();
 
     protected float fireRate;
@@ -16,6 +18,9 @@ public abstract class Weapon : MonoBehaviour
     protected int ammoInClip;
     protected int maxAmmoCapacity;
     protected int currentAmmoCapacity; // current amount of ammo
+
+    protected float fireRateTimer;
+    protected float reloadTimer;
 
     protected new string name;
 
@@ -38,11 +43,34 @@ public abstract class Weapon : MonoBehaviour
 
     public void ReloadWeapon()
     {
-        currentAmmoCapacity -= clipSize - ammoInClip;
-        ammoInClip = clipSize;
+        if (ammoInClip < clipSize)
+        {
+            reloadTimer = reloadSpeed;
+            fireRateTimer = 0;
+            if(currentAmmoCapacity > 0)
+            {
+                currentAmmoCapacity = currentAmmoCapacity - clipSize + ammoInClip;
+                if (currentAmmoCapacity < 0)
+                {
+                    ammoInClip = clipSize + currentAmmoCapacity;
+                    currentAmmoCapacity = 0;
+                    return;
+                }
+            }            
+            ammoInClip = clipSize;
+        }
     }
 
-    public abstract void Shoot();
+    public abstract void Shoot(Vector3 target);
+
+    public float UpdateTimer(float timer)
+    {
+        if (timer > 0)
+            return timer - Time.deltaTime;
+        return 0;
+    }
+
+
 
     // TODO: Create an inner class called Builder in here to instantiate weapons
     // with whatever attachments the consumer of the API wants

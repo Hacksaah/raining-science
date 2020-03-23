@@ -22,8 +22,6 @@ public abstract class Weapon : MonoBehaviour
     protected float fireRateTimer;
     protected float reloadTimer;
 
-    protected bool readyToFire;
-
     protected new string name;
 
     public float FireRate { get { return fireRate; } set { fireRate = value; } }
@@ -45,38 +43,30 @@ public abstract class Weapon : MonoBehaviour
 
     public void ReloadWeapon()
     {
-        if (ammoInClip < clipSize && currentAmmoCapacity > 0)
+        if (ammoInClip < clipSize)
         {
             reloadTimer = reloadSpeed;
             fireRateTimer = 0;
-            currentAmmoCapacity = currentAmmoCapacity - clipSize + ammoInClip;
-            if(currentAmmoCapacity < 0)
+            if(currentAmmoCapacity > 0)
             {
-                ammoInClip = clipSize + currentAmmoCapacity;
-                currentAmmoCapacity = 0;
-                return;
-            }
+                currentAmmoCapacity = currentAmmoCapacity - clipSize + ammoInClip;
+                if (currentAmmoCapacity < 0)
+                {
+                    ammoInClip = clipSize + currentAmmoCapacity;
+                    currentAmmoCapacity = 0;
+                    return;
+                }
+            }            
             ammoInClip = clipSize;
         }
     }
 
     public abstract void Shoot(Vector3 target);
 
-    private void CheckTimers()
-    {
-        if (reloadSpeed <= 0 && fireRateTimer <= 0)
-            readyToFire = true;
-        else
-            readyToFire = false;
-    }
-
     public float UpdateTimer(float timer)
     {
         if (timer > 0)
-        {
             return timer - Time.deltaTime;
-        }
-        else if (timer < 0) CheckTimers();
         return 0;
     }
 

@@ -122,10 +122,7 @@ public class CharacterController : MonoBehaviour
     private void HandleGun()
     {
         //Shoot
-        if (Input.GetButtonDown("Fire1"))
-        {
-            currentWeapon.Shoot(mousePos.point);
-        }
+        currentWeapon.Shoot(mousePos.point);
 
         if(Input.GetKeyDown(KeyCode.R))
         {

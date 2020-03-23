@@ -8,6 +8,6 @@ public class IncreaseFireRate_Attachment : Attachment
 
     public override void alterWeapon(Weapon weapon)
     {
-        weapon.FireRate += (weapon.FireRate * amount);
+        weapon.FireRate -= (weapon.FireRate * amount);
     }
 }

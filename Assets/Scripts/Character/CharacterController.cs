@@ -28,6 +28,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private Weapon currentWeapon;
 
+    private RaycastHit mousePos;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,9 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out mousePos);        
+
         HandleMovement();
 
         HandleDash();
@@ -57,6 +61,7 @@ public class CharacterController : MonoBehaviour
         //Basic movement
         float moveX = 0f;
         float moveY = 0;
+
         if (Input.GetKey(KeyCode.W))
         {
             moveY = 1f;
@@ -85,38 +90,33 @@ public class CharacterController : MonoBehaviour
 
     }
 
+    private void FaceMouse()
+    {
+        Vector3 lookAtPosition = mousePos.point;
+        lookAtPosition.y = transform.position.y;
+        transform.LookAt(lookAtPosition);
+    }
+
     private void HandleDash()
     {
         //Dash if RMB clicked and dash not in progress
         if(Input.GetMouseButtonDown(1) && !dashing)
         {
-            dashTime = 0;
+            dashTime = maxDashTime;
             dashing = true;
         }
         //Move the player for the dash
-        if (dashTime < maxDashTime)
+        if (dashTime > 0)
         {
             rb.velocity = lastMoveDir * dashSpeed;
-            dashTime += Time.deltaTime;
+            dashTime -= Time.deltaTime;
         }
-        //If dash just completed
-        else if (dashing)
+        else if(dashTime < 0)
         {
-            //Take away the velocity from the dash
+            dashTime = 0;
             rb.velocity = Vector3.zero;
             dashing = false;
         }
-    }
-
-    private void FaceMouse()
-    {
-        //Gets player and mouse position from world
-        Vector2 playerPos = Camera.main.WorldToViewportPoint(transform.position);
-        Vector2 mousePos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        //Computes angle
-        float angle = Mathf.Atan2(playerPos.y - mousePos.y, mousePos.x - playerPos.x) * Mathf.Rad2Deg;
-        //Rotates player to look at mouse
-        transform.rotation = Quaternion.Euler(new Vector3(0f, angle + 90, 0f));
     }
 
     private void HandleGun()
@@ -124,7 +124,7 @@ public class CharacterController : MonoBehaviour
         //Shoot
         if (Input.GetButtonDown("Fire1"))
         {
-            currentWeapon.Shoot();
+            currentWeapon.Shoot(mousePos.point);
         }
 
         if(Input.GetKeyDown(KeyCode.R))

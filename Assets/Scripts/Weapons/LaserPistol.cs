@@ -1,15 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class LaserPistol : Weapon
 {
-    public GameObject laserBullet;
+    public GameObject projectilePrefab;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         fireRate = 0f;
-        reloadSpeed = 0.5f;
-        projectileSpeed = 1000f;
+        reloadSpeed = 1f;
+        projectileSpeed = 50f;
         critRate = 0.2f;
 
         damage = 20;
@@ -21,18 +24,31 @@ public class LaserPistol : Weapon
         name = "Laser Pistol";
     }
 
-    public override void Shoot()
+    private void Update()
     {
-        if (ammoInClip > 0)
+        fireRateTimer = UpdateTimer(fireRateTimer);
+        reloadTimer = UpdateTimer(reloadTimer);
+    }
+
+    public override void Shoot(Vector3 target)
+    {
+        if (fireRateTimer <= 0 && reloadTimer <= 0 && ammoInClip > 0)
         {
             ammoInClip--;
 
-            Vector2 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-            float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-            transform.rotation = new Quaternion(0, transform.rotation.y + 1, 0, 0);
+            WeaponProjectile projectile = Instantiate(projectilePrefab).GetComponent<WeaponProjectile>();
 
-            GameObject b = Instantiate(laserBullet, transform.position + (transform.parent.transform.forward / 2), laserBullet.transform.rotation, null);
-            b.GetComponent<Rigidbody>().AddForce(transform.parent.transform.forward * projectileSpeed);
+            projectile.gameObject.SetActive(false);
+
+            projectile.gameObject.transform.position = shootFromTransform.position;
+            target.y = shootFromTransform.position.y;
+            projectile.transform.LookAt(target);
+            projectile.speed = projectileSpeed;
+            projectile.damage = damage;
+
+            projectile.gameObject.SetActive(true);
+
+            fireRateTimer = fireRate;
         }
     }
 }

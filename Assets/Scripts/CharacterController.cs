@@ -99,8 +99,7 @@ public class CharacterController : MonoBehaviour
             rb.velocity = lastMoveDir * dashSpeed;
             dashTime += Time.deltaTime;
         }
-        //If dash just completed
-        else if (dashing)
+        else
         {
             //Take away the velocity from the dash
             rb.velocity = Vector3.zero;

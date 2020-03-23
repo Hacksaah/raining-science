@@ -5,8 +5,16 @@ using UnityEngine;
 public class Level_Grid : MonoBehaviour
 {
     static Level_Grid instance;
-    public static Level_Grid Instance { get { return instance; } }
+    public static Level_Grid Instance {
+        get
+        {
+            if (instance == null)
+                new Level_Grid();            
+            return instance;
+        }
+    }
     private Dictionary<int, Room_Grid> roomDict = new Dictionary<int, Room_Grid>();
+    [SerializeField]
     private int roomKey = 0;
 
     Level_Grid() { instance = this; }

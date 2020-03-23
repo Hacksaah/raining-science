@@ -11,11 +11,13 @@ public class Room_Grid : MonoBehaviour
     public Vector2 gridWorldSize;
     public float nodeRadius;
     PathNode[,] grid;
+    public PathNode[,] Grid { get { return grid; } }
 
     float nodeDiameter;
     int gridSizeX, gridSizeY;
+    [SerializeField]
     private int roomKey;
-    public int RoomKey { get; }
+    public int RoomKey { get { return roomKey; } }
 
     // Start is called before the first frame update
     void Awake()
@@ -44,7 +46,9 @@ public class Room_Grid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-                bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableLayer));
+                Vector3 nodeBox = Vector3.one * nodeRadius;
+                nodeBox.y /= 6;
+                bool walkable = !(Physics.CheckBox(worldPoint, nodeBox, Quaternion.identity, unwalkableLayer));
 
                 int movementPenalty = 0;
                 grid[x, y] = new PathNode(walkable, worldPoint, x, y, movementPenalty);
@@ -66,7 +70,6 @@ public class Room_Grid : MonoBehaviour
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
         return grid[x, y];
     }
-
 
     public List<PathNode> GetNeighbours(PathNode centerNode)
     {
@@ -127,11 +130,11 @@ public class Room_Grid : MonoBehaviour
 
         while (!grid[x, y].isWalkable)
         {
-            if (x++ == gridSizeX)
+            if (x++ >= gridSizeX)
             {
                 x = 0;
             }
-            else if (y++ == gridSizeY)
+            else if (y++ >= gridSizeY)
             {
                 y = 0;
             }
@@ -139,21 +142,5 @@ public class Room_Grid : MonoBehaviour
         openSpot = grid[x, y].worldPos;
 
         return openSpot;
-    }
-
-
-
-    //private void OnDrawGizmos()
-    //{
-    //    if(Selection.Contains(gameObject))
-    //        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
-    //    if (grid != null)
-    //    {
-    //        foreach (PathNode n in grid)
-    //        {
-    //            Gizmos.color = (n.isWalkable) ? Color.white : Color.red;
-    //            Gizmos.DrawCube(n.worldPos, Vector3.one * (nodeDiameter - nodeDiameter * 0.9f));
-    //        }
-    //    }
-    //}
+    }    
 }

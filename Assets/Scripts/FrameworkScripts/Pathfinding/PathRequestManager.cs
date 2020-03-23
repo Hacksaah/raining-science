@@ -11,9 +11,10 @@ public class PathRequestManager : MonoBehaviour
     static PathRequestManager instance;
     Pathfinding pathfinding;
 
+    PathRequestManager() { instance = this; }
+
     private void Awake()
     {
-        instance = this;
         pathfinding = GetComponent<Pathfinding>();
         Debug.Log("Path Request Manager made");
     }

@@ -9,12 +9,12 @@ public class EnemyActor : MonoBehaviour
     public EnemyStats stats;
 
     public int currHP;
-    public int roomKey = -1;
+    public int roomKey;
     public Vector3 currTarget;
 
     // Pathfinding variables    
     public Vector3[] movePath;
-    public int moveTargetIndex = -1;
+    public int moveTargetIndex;
 
     //Custom Components
     protected EnemyWeapon weapon;
@@ -29,6 +29,8 @@ public class EnemyActor : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         weapon = GetComponent<EnemyWeapon>();
+        moveTargetIndex = -1;
+        roomKey = -1;
     }
 
     public void SpawnActor(Vector3 position, Vector3 target)
@@ -70,8 +72,8 @@ public class EnemyActor : MonoBehaviour
 
     public void RequestPath()
     {
-        if (currTarget != null)
-        {            
+        if (currTarget != null && roomKey > -1)
+        {
             PathRequestManager.RequestPath(new PathRequest(transform.position, currTarget, roomKey, OnPathFound));
         }
     }
@@ -80,18 +82,12 @@ public class EnemyActor : MonoBehaviour
     {
         if (pathSuccessful)
         {
-            System.Array.Clear(movePath, 0, movePath.Length);
-            movePath = newPath;
+            if(movePath.Length >  0)
+                System.Array.Clear(movePath, 0, movePath.Length);
+            movePath = newPath;            
             moveTargetIndex = 0;
+            currTarget = movePath[moveTargetIndex];
         }
     }
 
-    private void OnDrawGizmos()
-    {        
-        if (Selection.Contains(gameObject))
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, stats.GetSightDistance());
-        }
-    }
 }

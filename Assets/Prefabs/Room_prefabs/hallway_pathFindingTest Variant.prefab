@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5991579986476365743}
   - component: {fileID: 4256872884396687064}
   - component: {fileID: 4191227038718535541}
+  - component: {fileID: 3162617036430717194}
+  - component: {fileID: 6489281125468845044}
   m_Layer: 0
   m_Name: Pathing_Grid
   m_TagString: Untagged
@@ -67,8 +69,37 @@ MonoBehaviour:
   unwalkableLayer:
     serializedVersion: 2
     m_Bits: 512
-  gridWorldSize: {x: 200, y: 200}
+  gridWorldSize: {x: 202, y: 202}
   nodeRadius: 2
+  roomKey: 0
+--- !u!114 &3162617036430717194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265815074876094383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6f106691a6af44987b0c317b676d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showIfSelected: 1
+--- !u!114 &6489281125468845044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265815074876094383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 532f3f4cda5e9e84ba69ff2be14446d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 1734252470901273888, guid: 44f777f05e02fbe42bc2112fddf27e5e,
+    type: 3}
+  spawnCount: 5
 --- !u!1 &2330576780346520471
 GameObject:
   m_ObjectHideFlags: 0

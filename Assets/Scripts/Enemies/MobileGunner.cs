@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using StateMachine;
+using UnityEditor;
 
 public class MobileGunner : EnemyActor
 {
@@ -89,6 +90,7 @@ public class MobileGunner : EnemyActor
             Vector3 openPosition = PathRequestManager.RequestNewMoveSpot(transform.position, (int)stats.GetSightDistance(), roomKey);
             currTarget = openPosition;
             RequestPath();
+            stateMachine.ChangeState(mobileGunner_followPath.Instance);
         }
     }
 }

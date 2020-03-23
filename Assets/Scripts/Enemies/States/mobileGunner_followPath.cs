@@ -50,14 +50,8 @@ public class mobileGunner_followPath : State<MobileGunner>
     {
         // Turn to face the current waypoint
         owner.TurnToFace(owner.currTarget);
-    }
-
-    //-------- Custom Functions --------------------------
-
-    private void FollowPath(MobileGunner owner)
-    {
         if (owner.moveTargetIndex > -1)
-        {            
+        {
             if (Vector3.Distance(owner.currTarget, owner.transform.position) < nodeRadius)
             {
                 owner.moveTargetIndex++;
@@ -71,11 +65,21 @@ public class mobileGunner_followPath : State<MobileGunner>
                 }
                 owner.currTarget = owner.movePath[owner.moveTargetIndex];
             }
+        }
+    }
+
+    //-------- Custom Functions --------------------------
+
+    private void FollowPath(MobileGunner owner)
+    {
+        if (owner.moveTargetIndex > -1)
+        {
             owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.currTarget, owner.stats.GetMoveSpeed() * Time.deltaTime);
+            Debug.Log("Moving towards" + owner.currTarget.ToString());
         }
         else
         {
-            Debug.Log("Has no movePath");
+            //Debug.Log("Has no movePath");
         }
     }
 }

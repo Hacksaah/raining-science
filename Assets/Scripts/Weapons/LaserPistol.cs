@@ -37,7 +37,7 @@ public class LaserPistol : Weapon
             if (fireRateTimer == 0 && reloadTimer == 0 && ammoInClip > 0)
             {
                 ammoInClip--;
-
+                
                 WeaponProjectile projectile = Instantiate(projectilePrefab).GetComponent<WeaponProjectile>();
 
                 projectile.gameObject.SetActive(false);

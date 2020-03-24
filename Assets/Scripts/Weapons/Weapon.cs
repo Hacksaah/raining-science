@@ -37,7 +37,7 @@ public abstract class Weapon : MonoBehaviour
 
     public void AddAttachment(Attachment attachment)
     {
-        attachment.alterWeapon(this);
+        attachment.AlterWeapon(this);
         attachments.AddLast(attachment);
     }
 

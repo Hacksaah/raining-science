@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class Attachment
 {
-    public abstract void alterWeapon(Weapon weapon); 
+    public abstract void AlterWeapon(Weapon weapon);
 }

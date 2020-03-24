@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class IncreaseFireRate_Attachment : Attachment
 {
-    public float amount = 0.35f;
+    private float amount = 0.35f;
 
-    public override void alterWeapon(Weapon weapon)
+    public override void AlterWeapon(Weapon weapon)
     {
         weapon.FireRate -= (weapon.FireRate * amount);
     }
+
 }

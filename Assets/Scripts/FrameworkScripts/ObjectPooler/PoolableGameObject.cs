@@ -9,6 +9,6 @@ public class PoolableGameObject : MonoBehaviour
 
     private void OnDisable()
     {
-        GameObjectPooler.ReturnItemToPool(gameObject, key);
+        GameObjectPoolManager.ReturnItemToPool(gameObject, key);
     }
 }

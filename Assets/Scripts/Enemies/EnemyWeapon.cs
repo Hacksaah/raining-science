@@ -9,7 +9,7 @@ public class EnemyWeapon : MonoBehaviour
 
     public void FireWeapon(Vector3 target)
     {
-        GameObject newBullet = GameObjectPooler.RequestItemFromPool(projectileKey);
+        GameObject newBullet = GameObjectPoolManager.RequestItemFromPool(projectileKey);
         newBullet.transform.position = shootPosition.position;
         Vector3 shootAt = target;
         shootAt.y = shootPosition.position.y;

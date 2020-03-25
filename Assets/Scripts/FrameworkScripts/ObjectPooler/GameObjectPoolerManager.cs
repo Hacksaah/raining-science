@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameObjectPooler : MonoBehaviour
+// this is the global object pooling manager that all the poolable objects will communicate with
+public class GameObjectPoolManager : MonoBehaviour
 {
     public Pooler[] Objects;
 

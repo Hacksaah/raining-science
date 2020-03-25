@@ -75,7 +75,6 @@ public class mobileGunner_followPath : State<MobileGunner>
         if (owner.moveTargetIndex > -1)
         {
             owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.currTarget, owner.stats.GetMoveSpeed() * Time.deltaTime);
-            Debug.Log("Moving towards" + owner.currTarget.ToString());
         }
         else
         {

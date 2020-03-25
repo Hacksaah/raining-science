@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd027d61299221749a5a52e405b0e72a, type: 3}
+  m_Name: Weapon_ProjTest
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1507833653289100404, guid: 57553521b3bc88f44b1e8e84733b56a9, type: 3}
+  key: basic
+  amount: 12
+  maxAmountAllowed: 12
+  expandPool: 1

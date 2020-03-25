@@ -14,13 +14,21 @@ public class WeaponProjectile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnEnable()
+    public void FireProjectile(float _speed, int _damage, Vector3 _target)
     {
+        speed = _speed;
+        damage = _damage;
+        transform.LookAt(_target);
         rb.AddForce(transform.forward * speed, ForceMode.Impulse);
     }
 
     private void OnDisable()
     {
         rb.velocity = Vector3.zero;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        gameObject.SetActive(false);
     }
 }

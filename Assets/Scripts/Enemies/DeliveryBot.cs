@@ -6,6 +6,7 @@ using StateMachine;
 public class DeliveryBot : EnemyActor
 {
     private StateMachine<DeliveryBot> stateMachine;
+    public Transform rayOrigin;
 
     public float explosionForce;
     public float blastRadius;
@@ -39,5 +40,22 @@ public class DeliveryBot : EnemyActor
         if (!isAlive)
             stateMachine.ChangeState(deliveryBot_explosion.Instance);
         stateMachine.Update();        
+    }
+
+    public IEnumerator StopAndRotate(float angle, float turnSpeed)
+    {
+        State<DeliveryBot> saveState = stateMachine.currentState;
+        stateMachine.HaltState();
+        yield return new WaitForSeconds(0.65f);
+        float total = angle;
+        while(total > 0)
+        {
+            float diff = angle * turnSpeed * Time.deltaTime;
+            total -= diff;
+            transform.Rotate(Vector3.up, diff);
+
+            yield return null;
+        }
+        stateMachine.ChangeState(saveState);
     }
 }

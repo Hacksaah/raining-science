@@ -6,6 +6,8 @@ using StateMachine;
 public class deliveryBot_patrol : State<DeliveryBot>
 {
     float moveSpeed = 7.0f;
+    Ray ray;
+    RaycastHit hit;
 
     private static deliveryBot_patrol instance;
     private deliveryBot_patrol()
@@ -44,6 +46,12 @@ public class deliveryBot_patrol : State<DeliveryBot>
 
     public override void UpdateState(DeliveryBot owner)
     {
-        //owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.transform.position + owner.transform.forward, moveSpeed * Time.deltaTime);
+        owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.transform.position + owner.transform.forward, moveSpeed * Time.deltaTime);
+        
+        Physics.Raycast(owner.rayOrigin.position, owner.transform.forward, out hit, 1.5f);
+        if (hit.collider)
+        {
+            owner.StartCoroutine(owner.StopAndRotate(90, 3.0f));
+        }
     }
 }

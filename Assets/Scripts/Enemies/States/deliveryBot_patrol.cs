@@ -5,6 +5,8 @@ using StateMachine;
 
 public class deliveryBot_patrol : State<DeliveryBot>
 {
+    float moveSpeed = 7.0f;
+
     private static deliveryBot_patrol instance;
     private deliveryBot_patrol()
     {
@@ -42,6 +44,6 @@ public class deliveryBot_patrol : State<DeliveryBot>
 
     public override void UpdateState(DeliveryBot owner)
     {
-        owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.transform.position + owner.transform.forward, owner.stats.GetMoveSpeed() * Time.deltaTime);
+        //owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.transform.position + owner.transform.forward, moveSpeed * Time.deltaTime);
     }
 }

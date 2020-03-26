@@ -48,11 +48,9 @@ public class mobileGunner_followPath : State<MobileGunner>
 
     public override void FixedUpdateState(MobileGunner owner)
     {
-        // Turn to face the current waypoint
-        owner.TurnToFace(owner.currTarget);
+        // Turn to face the current waypoint        
         if (owner.moveTargetIndex > -1)
-        {
-            owner.currTarget = owner.movePath[owner.moveTargetIndex];
+        {            
             if (Vector3.Distance(owner.currTarget, owner.transform.position) < nodeRadius)
             {
                 owner.moveTargetIndex++;
@@ -63,8 +61,10 @@ public class mobileGunner_followPath : State<MobileGunner>
                     owner.currTarget = owner.AttackTarget.position;
                     owner.RequestPath();
                     return;
-                }                
+                }
             }
+            Vector3 moveTo = owner.movePath[owner.moveTargetIndex];
+            owner.currTarget = moveTo;
         }
     }
 
@@ -74,11 +74,9 @@ public class mobileGunner_followPath : State<MobileGunner>
     {
         if (owner.moveTargetIndex > -1)
         {
+            owner.TurnToFace(owner.currTarget, 8f);
+            //owner.rb.AddForce(owner.transform.forward * owner.stats.GetMoveSpeed() * Time.deltaTime);
             owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.currTarget, owner.stats.GetMoveSpeed() * Time.deltaTime);
-        }
-        else
-        {
-            //Debug.Log("Has no movePath");
         }
     }
 }

@@ -47,20 +47,18 @@ public class EnemyActor : MonoBehaviour
     {
         currHP = stats.GetMaxHP();
         System.Array.Clear(movePath, 0, movePath.Length);
-    }    
+    }
 
     //Turns this enemy actor to face a target vector3 without altering its X or Z rotation
-    public void TurnToFace(Vector3 target)
+    public void TurnToFace(Vector3 target, float turnSpeed)
     {
         if(target != null)
         {
             Vector3 lookDir = transform.InverseTransformPoint(target);
 
             float angle = Mathf.Atan2(lookDir.x, lookDir.z) * Mathf.Rad2Deg;
-
-            Vector3 eulerAngularVelocity = Vector3.up * angle * 10;
-            Quaternion deltaRotation = Quaternion.Euler(eulerAngularVelocity * Time.deltaTime);
-            rb.MoveRotation(rb.rotation * deltaRotation);
+            Vector3 eulerAngularVelocity = Vector3.up * angle * turnSpeed * Time.deltaTime;
+            transform.Rotate(eulerAngularVelocity);
         }        
     }
 

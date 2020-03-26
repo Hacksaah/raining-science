@@ -11,6 +11,7 @@ public class DeliveryBot : EnemyActor
     public float explosionForce;
     public float blastRadius;
     public LayerMask explosionLayers;
+    public ParticleSystem explosiveParticles;
 
     DeliveryBot()
     {
@@ -20,11 +21,11 @@ public class DeliveryBot : EnemyActor
     private void Awake()
     {
         Startup();
+        explosiveParticles = GetComponent<ParticleSystem>();
         SpawnActor(transform.position, Vector3.zero);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
         stateMachine.ChangeState(deliveryBot_patrol.Instance);
     }

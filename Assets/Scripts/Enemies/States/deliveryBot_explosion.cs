@@ -66,6 +66,7 @@ public class deliveryBot_explosion : State<DeliveryBot>
                 }
                 rb.isKinematic = false;
                 rb.AddExplosionForce(owner.explosionForce, owner.transform.position, owner.blastRadius, 0.65f, ForceMode.Impulse);
+                owner.explosiveParticles.Play();
             }
         }
     }

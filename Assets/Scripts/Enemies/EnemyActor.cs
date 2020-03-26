@@ -12,6 +12,8 @@ public class EnemyActor : MonoBehaviour
     public int roomKey;
     public Vector3 currTarget;
 
+    protected bool isAlive;
+
     // Pathfinding variables    
     public Vector3[] movePath;
     public int moveTargetIndex;
@@ -37,6 +39,7 @@ public class EnemyActor : MonoBehaviour
     {
         transform.position = position;
         currTarget = target;
+        isAlive = true;
         ResetActor();        
     }
 
@@ -66,7 +69,9 @@ public class EnemyActor : MonoBehaviour
         currHP -= incomingDamage;
         if (currHP <= 0)
         {
-            Destroy(gameObject);
+            rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.None;
+            isAlive = false;
         }
     }
 

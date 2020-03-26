@@ -124,7 +124,7 @@ public class CharacterController : MonoBehaviour
             rb.velocity = lastMoveDir * dashSpeed;
             dashTime -= Time.deltaTime;
         }
-        else if(dashTime < 0)
+        else
         {
             dashTime = 0;
             rb.velocity = Vector3.zero;

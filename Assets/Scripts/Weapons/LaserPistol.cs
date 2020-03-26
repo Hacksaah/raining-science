@@ -51,7 +51,7 @@ public class LaserPistol : Weapon
                 fireRateTimer = fireRate;                
             }
         }
-        if (Input.GetButtonUp("Fire1"))
+        else if (Input.GetButtonUp("Fire1"))
         {
             fireRateTimer = 0;
         }

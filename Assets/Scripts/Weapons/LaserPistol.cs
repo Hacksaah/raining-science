@@ -21,6 +21,8 @@ public class LaserPistol : Weapon
         maxAmmoCapacity = -1;
         currentAmmoCapacity = maxAmmoCapacity;
 
+        reloading = false;
+
         name = "Laser Pistol";
         projectilePoolKey = "laser";
     }
@@ -28,31 +30,32 @@ public class LaserPistol : Weapon
     private void Update()
     {
         fireRateTimer = UpdateTimer(fireRateTimer);
-        reloadTimer = UpdateTimer(reloadTimer);
     }
 
     public override void Shoot(Vector3 target, PlayerStats stats)
     {
         if(Input.GetButton("Fire1"))
         {
-            if (fireRateTimer == 0 && reloadTimer == 0 && ammoInClip > 0)
+            if (fireRateTimer == 0 && !reloading && ammoInClip > 0)
             {
                 ammoInClip--;
                 stats.AmmoInClip = ammoInClip;
                 updateUI.Raise();
-                
+
                 WeaponProjectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<WeaponProjectile>();
 
                 projectile.gameObject.transform.position = shootFromTransform.position;
                 target.y = shootFromTransform.position.y;
                 projectile.FireProjectile(projectileSpeed, damage, target);
 
-                fireRateTimer = fireRate;
+                fireRateTimer = fireRate;                
             }
         }
         if (Input.GetButtonUp("Fire1"))
         {
             fireRateTimer = 0;
         }
+        if (ammoInClip == 0 && !reloading && Input.GetButtonDown("Fire1"))
+            ReloadWeapon(stats);
     }
 }

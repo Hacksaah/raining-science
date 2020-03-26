@@ -11,6 +11,7 @@ public abstract class Weapon : MonoBehaviour
     protected string projectilePoolKey;
 
     public GameEvent updateUI;
+    public GameEvent reloadEvent;
 
     protected LinkedList<Attachment> attachments = new LinkedList<Attachment>();
 
@@ -26,7 +27,7 @@ public abstract class Weapon : MonoBehaviour
     protected int currentAmmoCapacity; // current amount of ammo
     
     protected float fireRateTimer;
-    protected float reloadTimer;
+    protected bool reloading;
 
     //Added
     protected int attachmentSlots;
@@ -67,25 +68,9 @@ public abstract class Weapon : MonoBehaviour
     {
         if (ammoInClip < clipSize)
         {
-            reloadTimer = reloadSpeed;
             fireRateTimer = 0;
-            if(currentAmmoCapacity > 0)
-            {
-                currentAmmoCapacity = currentAmmoCapacity - clipSize + ammoInClip;
-                if (currentAmmoCapacity < 0)
-                {
-                    ammoInClip = clipSize + currentAmmoCapacity;
-                    currentAmmoCapacity = 0;
-                    stats.AmmoCapacity = currentAmmoCapacity;
-                    stats.AmmoInClip = ammoInClip;
-                    updateUI.Raise();
-                    return;
-                }
-                stats.AmmoCapacity = currentAmmoCapacity;
-            }            
-            ammoInClip = clipSize;
-            stats.AmmoInClip = ammoInClip;
-            updateUI.Raise();
+            reloading = true;
+            StartCoroutine(ReloadDelay(stats));
         }
     }
 
@@ -98,7 +83,30 @@ public abstract class Weapon : MonoBehaviour
         return 0;
     }
 
-
+    protected IEnumerator ReloadDelay(PlayerStats stats)
+    {
+        stats.ReloadTime = reloadSpeed;
+        reloadEvent.Raise();
+        yield return new WaitForSeconds(reloadSpeed);
+        if (currentAmmoCapacity > 0)
+        {
+            currentAmmoCapacity = currentAmmoCapacity - clipSize + ammoInClip;
+            if (currentAmmoCapacity < 0)
+            {
+                ammoInClip = clipSize + currentAmmoCapacity;
+                currentAmmoCapacity = 0;
+                stats.AmmoCapacity = currentAmmoCapacity;
+                stats.AmmoInClip = ammoInClip;
+                updateUI.Raise();
+                yield break;
+            }
+            stats.AmmoCapacity = currentAmmoCapacity;
+        }
+        ammoInClip = clipSize;
+        stats.AmmoInClip = ammoInClip;
+        updateUI.Raise();
+        reloading = false;
+    }
 
     // TODO: Create an inner class called Builder in here to instantiate weapons
     // with whatever attachments the consumer of the API wants

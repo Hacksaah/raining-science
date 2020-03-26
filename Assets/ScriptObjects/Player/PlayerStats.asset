@@ -18,3 +18,4 @@ MonoBehaviour:
   currentAmmoCapacity: {fileID: 11400000, guid: 16b9ab1c539889d4b82d75958d952753,
     type: 2}
   currentAmmoInClip: {fileID: 11400000, guid: 187dce8eeb75e0d4ba1125dd534bc7a0, type: 2}
+  currentReloadTime: {fileID: 11400000, guid: a762c50ef479c5c4c96fe9474a0a6841, type: 2}

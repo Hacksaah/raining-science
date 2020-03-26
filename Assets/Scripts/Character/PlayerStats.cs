@@ -17,6 +17,8 @@ public class PlayerStats : ScriptableObject
     private VarInt currentAmmoCapacity;
     [SerializeField]
     private VarInt currentAmmoInClip;
+    [SerializeField]
+    private VarFloat currentReloadTime;
 
     public int MaxHP { get { return maxHP.value; } }
     public int CurrHP { get { return currHP.value; } set { currHP.value = value; } }
@@ -24,4 +26,5 @@ public class PlayerStats : ScriptableObject
 
     public int AmmoInClip { set { currentAmmoInClip.value = value; } }
     public int AmmoCapacity { set { currentAmmoCapacity.value = value; } }
+    public float ReloadTime { get { return currentReloadTime.value; } set { currentReloadTime.value = value; } }
 }

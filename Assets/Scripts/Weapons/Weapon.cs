@@ -6,6 +6,9 @@ public abstract class Weapon : MonoBehaviour
 {
     public Transform shootFromTransform;
 
+    [SerializeField]
+    protected string projectilePoolKey;
+
     protected LinkedList<Attachment> attachments = new LinkedList<Attachment>();
 
     protected float fireRate;

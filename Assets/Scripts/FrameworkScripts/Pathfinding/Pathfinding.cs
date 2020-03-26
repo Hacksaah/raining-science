@@ -25,7 +25,6 @@ public class Pathfinding : MonoBehaviour
 
         PathNode startNode = roomGrid.NodeFromWorldPoint(request.pathStart);
         PathNode targetNode = roomGrid.NodeFromWorldPoint(request.pathEnd);
-        Debug.Log("TargetNode is " + targetNode.worldPos.ToString());
         
 
         if(startNode.isWalkable && targetNode.isWalkable)

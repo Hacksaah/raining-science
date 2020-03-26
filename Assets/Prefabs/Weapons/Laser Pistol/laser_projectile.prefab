@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3239264200461061297}
   - component: {fileID: 3239264200461061310}
   - component: {fileID: -1077041144882745155}
+  - component: {fileID: -1950653314293750901}
   m_Layer: 0
   m_Name: laser_projectile
   m_TagString: Untagged
@@ -125,3 +126,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   damage: 0
+--- !u!114 &-1950653314293750901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3239264200461061311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b81efb2161e8e74a85f35b45c344a66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 

@@ -22,6 +22,6 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

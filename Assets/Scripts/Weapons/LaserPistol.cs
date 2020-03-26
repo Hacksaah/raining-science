@@ -22,6 +22,7 @@ public class LaserPistol : Weapon
         currentAmmoCapacity = maxAmmoCapacity;
 
         name = "Laser Pistol";
+        projectilePoolKey = "laser";
     }
 
     private void Update()
@@ -38,17 +39,11 @@ public class LaserPistol : Weapon
             {
                 ammoInClip--;
                 
-                WeaponProjectile projectile = Instantiate(projectilePrefab).GetComponent<WeaponProjectile>();
-
-                projectile.gameObject.SetActive(false);
+                WeaponProjectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<WeaponProjectile>();
 
                 projectile.gameObject.transform.position = shootFromTransform.position;
                 target.y = shootFromTransform.position.y;
-                projectile.transform.LookAt(target);
-                projectile.speed = projectileSpeed;
-                projectile.damage = damage;
-
-                projectile.gameObject.SetActive(true);
+                projectile.FireProjectile(projectileSpeed, damage, target);
 
                 fireRateTimer = fireRate;
             }

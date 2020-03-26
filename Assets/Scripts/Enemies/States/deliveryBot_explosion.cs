@@ -32,11 +32,11 @@ public class deliveryBot_explosion : State<DeliveryBot>
 
     public override void EnterState(DeliveryBot owner)
     {
+        Explode(owner);
     }
 
     public override void ExitState(DeliveryBot owner)
     {
-
     }
 
     public override void FixedUpdateState(DeliveryBot owner)
@@ -45,8 +45,6 @@ public class deliveryBot_explosion : State<DeliveryBot>
 
     public override void UpdateState(DeliveryBot owner)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            Explode(owner);
     }
 
     private void Explode(DeliveryBot owner)
@@ -59,7 +57,7 @@ public class deliveryBot_explosion : State<DeliveryBot>
             if(rb != null)
             {
                 rb.isKinematic = false;
-                rb.AddExplosionForce(owner.explosionForce, owner.transform.position, owner.blastRadius, 1, ForceMode.Impulse);
+                rb.AddExplosionForce(owner.explosionForce, owner.transform.position, owner.blastRadius, 0.65f, ForceMode.Impulse);
                 if(col.gameObject.tag == "Player")
                 {
                     // hurt player

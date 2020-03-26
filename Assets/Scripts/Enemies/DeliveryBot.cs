@@ -19,12 +19,13 @@ public class DeliveryBot : EnemyActor
     private void Awake()
     {
         Startup();
+        SpawnActor(transform.position, Vector3.zero);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        stateMachine.ChangeState(deliveryBot_explosion.Instance);
+        stateMachine.ChangeState(deliveryBot_patrol.Instance);
     }
 
     private void FixedUpdate()
@@ -35,6 +36,8 @@ public class DeliveryBot : EnemyActor
     // Update is called once per frame
     void Update()
     {
+        if (!isAlive)
+            stateMachine.ChangeState(deliveryBot_explosion.Instance);
         stateMachine.Update();        
     }
 }

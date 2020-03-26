@@ -52,6 +52,7 @@ public class mobileGunner_followPath : State<MobileGunner>
         owner.TurnToFace(owner.currTarget);
         if (owner.moveTargetIndex > -1)
         {
+            owner.currTarget = owner.movePath[owner.moveTargetIndex];
             if (Vector3.Distance(owner.currTarget, owner.transform.position) < nodeRadius)
             {
                 owner.moveTargetIndex++;
@@ -62,8 +63,7 @@ public class mobileGunner_followPath : State<MobileGunner>
                     owner.currTarget = owner.AttackTarget.position;
                     owner.RequestPath();
                     return;
-                }
-                owner.currTarget = owner.movePath[owner.moveTargetIndex];
+                }                
             }
         }
     }

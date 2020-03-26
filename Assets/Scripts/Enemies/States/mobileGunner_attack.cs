@@ -49,6 +49,6 @@ public class mobileGunner_attack : State<MobileGunner>
 
     public override void FixedUpdateState(MobileGunner owner)
     {
-        owner.TurnToFace(owner.currTarget);
+        owner.TurnToFace(owner.currTarget, 10f);
     }
 }

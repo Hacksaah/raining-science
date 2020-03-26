@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad149a9554cb4342902802e020eeed6, type: 3}
+  m_Name: DeliveryBotStats
+  m_EditorClassIdentifier: 
+  maxHP: {fileID: 11400000, guid: 1dfab9b73f95d4b4f8bee36ed9fba6e3, type: 2}
+  moveSpeed: {fileID: 11400000, guid: 90a97dd6c6dc0254f9f064d311eec284, type: 2}
+  enemyName: {fileID: 0}
+  sightDistance: {fileID: 11400000, guid: ddd8c3931195363459bcb7ac91bf8e04, type: 2}

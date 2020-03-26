@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd027d61299221749a5a52e405b0e72a, type: 3}
-  m_Name: Weapon_ProjTest
+  m_Script: {fileID: 11500000, guid: bd96c623ad3991f4bb985d2c06708f84, type: 3}
+  m_Name: deliveryBotSightDistance
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1507833653289100404, guid: 57553521b3bc88f44b1e8e84733b56a9, type: 3}
-  key: basic
-  amount: 127
-  maxAmountAllowed: -1
-  expandPool: 1
+  value: 10

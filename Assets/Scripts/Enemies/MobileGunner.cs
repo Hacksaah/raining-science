@@ -29,9 +29,14 @@ public class MobileGunner : EnemyActor
     // Update is called once per frame
     void Update()
     {
-        CheckLineOfSight();
-        stateMachine.Update();
-        
+        if (isAlive)
+            CheckLineOfSight();
+        else
+        {
+            stateMachine.HaltState();
+            StartCoroutine(TurnToRagdoll());
+        }
+        stateMachine.Update();        
     }
 
     private void OnEnable()
@@ -93,4 +98,6 @@ public class MobileGunner : EnemyActor
             stateMachine.ChangeState(mobileGunner_followPath.Instance);
         }
     }
+
+    
 }

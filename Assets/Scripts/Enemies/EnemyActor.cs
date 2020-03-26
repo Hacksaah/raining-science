@@ -12,6 +12,8 @@ public class EnemyActor : MonoBehaviour
     public int roomKey;
     public Vector3 currTarget;
 
+    protected bool isAlive;
+
     // Pathfinding variables    
     public Vector3[] movePath;
     public int moveTargetIndex;
@@ -37,6 +39,7 @@ public class EnemyActor : MonoBehaviour
     {
         transform.position = position;
         currTarget = target;
+        isAlive = true;
         ResetActor();        
     }
 
@@ -44,21 +47,21 @@ public class EnemyActor : MonoBehaviour
     {
         currHP = stats.GetMaxHP();
         System.Array.Clear(movePath, 0, movePath.Length);
-    }    
+    }
 
     //Turns this enemy actor to face a target vector3 without altering its X or Z rotation
-    public void TurnToFace(Vector3 target)
+    public float TurnToFace(Vector3 target, float turnSpeed)
     {
         if(target != null)
         {
             Vector3 lookDir = transform.InverseTransformPoint(target);
 
             float angle = Mathf.Atan2(lookDir.x, lookDir.z) * Mathf.Rad2Deg;
-
-            Vector3 eulerAngularVelocity = Vector3.up * angle * 10;
-            Quaternion deltaRotation = Quaternion.Euler(eulerAngularVelocity * Time.deltaTime);
-            rb.MoveRotation(rb.rotation * deltaRotation);
-        }        
+            Vector3 eulerAngularVelocity = Vector3.up * angle * turnSpeed * Time.deltaTime;
+            transform.Rotate(eulerAngularVelocity);
+            return angle;
+        }
+        return 0;
     }
 
     public void TakeDamage(int incomingDamage)
@@ -66,7 +69,9 @@ public class EnemyActor : MonoBehaviour
         currHP -= incomingDamage;
         if (currHP <= 0)
         {
-            Destroy(gameObject);
+            rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.None;
+            isAlive = false;
         }
     }
 
@@ -90,4 +95,13 @@ public class EnemyActor : MonoBehaviour
         }
     }
 
+    protected IEnumerator TurnToRagdoll()
+    {
+        yield return new WaitForSeconds(1);
+        while (rb.velocity.magnitude > 3)
+        {
+            yield return null;
+        }
+        rb.mass = 0;
+    }
 }

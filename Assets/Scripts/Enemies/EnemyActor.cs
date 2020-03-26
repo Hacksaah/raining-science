@@ -50,7 +50,7 @@ public class EnemyActor : MonoBehaviour
     }
 
     //Turns this enemy actor to face a target vector3 without altering its X or Z rotation
-    public void TurnToFace(Vector3 target, float turnSpeed)
+    public float TurnToFace(Vector3 target, float turnSpeed)
     {
         if(target != null)
         {
@@ -59,7 +59,9 @@ public class EnemyActor : MonoBehaviour
             float angle = Mathf.Atan2(lookDir.x, lookDir.z) * Mathf.Rad2Deg;
             Vector3 eulerAngularVelocity = Vector3.up * angle * turnSpeed * Time.deltaTime;
             transform.Rotate(eulerAngularVelocity);
-        }        
+            return angle;
+        }
+        return 0;
     }
 
     public void TakeDamage(int incomingDamage)

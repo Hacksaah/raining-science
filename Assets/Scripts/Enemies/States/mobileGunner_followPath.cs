@@ -43,7 +43,12 @@ public class mobileGunner_followPath : State<MobileGunner>
 
     public override void UpdateState(MobileGunner owner)
     {
-        FollowPath(owner);
+        // follows along the path to the current target
+        if (owner.moveTargetIndex > -1)
+        {
+            owner.TurnToFace(owner.currTarget, 8f);
+            owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.currTarget, owner.stats.GetMoveSpeed() * Time.deltaTime);
+        }
     }
 
     public override void FixedUpdateState(MobileGunner owner)
@@ -65,18 +70,6 @@ public class mobileGunner_followPath : State<MobileGunner>
             }
             Vector3 moveTo = owner.movePath[owner.moveTargetIndex];
             owner.currTarget = moveTo;
-        }
-    }
-
-    //-------- Custom Functions --------------------------
-
-    private void FollowPath(MobileGunner owner)
-    {
-        if (owner.moveTargetIndex > -1)
-        {
-            owner.TurnToFace(owner.currTarget, 8f);
-            //owner.rb.AddForce(owner.transform.forward * owner.stats.GetMoveSpeed() * Time.deltaTime);
-            owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.currTarget, owner.stats.GetMoveSpeed() * Time.deltaTime);
         }
     }
 }

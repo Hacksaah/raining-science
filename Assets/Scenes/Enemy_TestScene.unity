@@ -770,10 +770,10 @@ MonoBehaviour:
   movePath: []
   moveTargetIndex: 0
   rb: {fileID: 0}
-  AttackTarget: {fileID: 0}
+  AttackTarget: {fileID: 630423476}
   rayOrigin: {fileID: 1540727798}
-  explosionForce: 30
-  blastRadius: 10
+  explosionForce: 5
+  blastRadius: 5
   explosionLayers:
     serializedVersion: 2
     m_Bits: 2048
@@ -1104,7 +1104,7 @@ PrefabInstance:
     - target: {fileID: 6489281125468845044, guid: 886fc4fe9b691054abf141fcee62ab9c,
         type: 3}
       propertyPath: spawnCount
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8256831968387647886, guid: 886fc4fe9b691054abf141fcee62ab9c,
         type: 3}

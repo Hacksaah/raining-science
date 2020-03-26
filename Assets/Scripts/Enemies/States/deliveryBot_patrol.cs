@@ -5,7 +5,7 @@ using StateMachine;
 
 public class deliveryBot_patrol : State<DeliveryBot>
 {
-    float moveSpeed = 7.0f;
+    float moveSpeed = 5.0f;
     Ray ray;
     RaycastHit hit;
 

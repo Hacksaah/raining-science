@@ -1,17 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterController : MonoBehaviour
 {
     //Player rigidbody
     private Rigidbody rb;
 
+    //Player HP
+    [SerializeField]
+    private int health;
+
     //Walking speed
     [SerializeField]
     private float movementSpeed;
 
     //Direction last moved in 
+    [SerializeField]
     private Vector3 lastMoveDir;
 
     //Dash Variables
@@ -28,6 +34,10 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private Weapon currentWeapon;
 
+    public Text ammoText;
+
+    public AttachmentPanel attachmentPanel;
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +47,8 @@ public class CharacterController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         dashTime = maxDashTime;
         currentWeapon = weaponsList[0];
+        health = 100;
+        UpdateAmmoText();
     }
 
     // Update is called once per frame
@@ -49,6 +61,13 @@ public class CharacterController : MonoBehaviour
         FaceMouse();
 
         HandleGun();
+
+        if(Input.GetKeyDown(KeyCode.E)) //TODO: Add specifics to when the menu is opened and add the attachment picked up
+        {
+            //Open Attachments Menu
+            //Attachment newAttachment;
+            //attachmentPanel.UpdatePanel(newAttachment);
+        }
     }
 
 
@@ -99,8 +118,7 @@ public class CharacterController : MonoBehaviour
             rb.velocity = lastMoveDir * dashSpeed;
             dashTime += Time.deltaTime;
         }
-        //If dash just completed
-        else if (dashing)
+        else
         {
             //Take away the velocity from the dash
             rb.velocity = Vector3.zero;
@@ -125,11 +143,13 @@ public class CharacterController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             currentWeapon.Shoot();
+            UpdateAmmoText();
         }
 
         if(Input.GetKeyDown(KeyCode.R))
         {
             currentWeapon.ReloadWeapon();
+            UpdateAmmoText();
         }
 
         //Scroll up through weapons list
@@ -143,6 +163,8 @@ public class CharacterController : MonoBehaviour
             {
                 currentWeapon = weaponsList[System.Array.IndexOf(weaponsList, currentWeapon) - 1];
             }
+            UpdateAmmoText();
+            //TODO: Update weapon sprite to currentWeapon's sprite
         }
         //Scroll down through weapons list
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
@@ -155,6 +177,19 @@ public class CharacterController : MonoBehaviour
             {
                 currentWeapon = weaponsList[System.Array.IndexOf(weaponsList, currentWeapon) + 1];
             }
+            UpdateAmmoText();
+            //TODO: Update weapon sprite to currentWeapon's sprite
         }
+    }
+
+    private void UpdateAmmoText()
+    {
+        ammoText.text = "Ammo: " + currentWeapon.AmmoInClip;
+    }
+
+    private void UpdateHealth(int val)
+    {
+        health += val;
+        //Update health bar
     }
 }

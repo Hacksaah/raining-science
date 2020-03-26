@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9711d51cbbfd3143bebc88a6529ce3d, type: 3}
+  m_Name: PlayerStats
+  m_EditorClassIdentifier: 
+  maxHP: {fileID: 11400000, guid: 947f134425feb31458cf4437dfce751e, type: 2}
+  currHP: {fileID: 11400000, guid: 259be62af53ad264baa4c67bc5feada7, type: 2}
+  moveSpeed: {fileID: 11400000, guid: f4d76ec0a6ab7a04abcc1ae6be50128d, type: 2}
+  currentAmmoCapacity: {fileID: 11400000, guid: 16b9ab1c539889d4b82d75958d952753,
+    type: 2}
+  currentAmmoInClip: {fileID: 11400000, guid: 187dce8eeb75e0d4ba1125dd534bc7a0, type: 2}

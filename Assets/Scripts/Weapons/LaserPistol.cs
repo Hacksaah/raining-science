@@ -31,13 +31,15 @@ public class LaserPistol : Weapon
         reloadTimer = UpdateTimer(reloadTimer);
     }
 
-    public override void Shoot(Vector3 target)
+    public override void Shoot(Vector3 target, PlayerStats stats)
     {
         if(Input.GetButton("Fire1"))
         {
             if (fireRateTimer == 0 && reloadTimer == 0 && ammoInClip > 0)
             {
                 ammoInClip--;
+                stats.AmmoInClip = ammoInClip;
+                updateUI.Raise();
                 
                 WeaponProjectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<WeaponProjectile>();
 

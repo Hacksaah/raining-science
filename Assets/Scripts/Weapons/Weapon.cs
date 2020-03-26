@@ -10,6 +10,8 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField]
     protected string projectilePoolKey;
 
+    public GameEvent updateUI;
+
     protected LinkedList<Attachment> attachments = new LinkedList<Attachment>();
 
     protected float fireRate;
@@ -35,7 +37,7 @@ public abstract class Weapon : MonoBehaviour
     //Attachment variables
     //Added
     protected bool doubleShot;
-    protected DoubleShotAttachment DS;
+    //protected DoubleShotAttachment DS;
 
     public float FireRate { get { return fireRate; } set { fireRate = value; } }
     public float ReloadSpeed { get { return reloadSpeed; } set { reloadSpeed = value; } }
@@ -61,7 +63,7 @@ public abstract class Weapon : MonoBehaviour
         attachments.AddLast(attachment);
     }
 
-    public void ReloadWeapon()
+    public void ReloadWeapon(PlayerStats stats)
     {
         if (ammoInClip < clipSize)
         {
@@ -74,14 +76,20 @@ public abstract class Weapon : MonoBehaviour
                 {
                     ammoInClip = clipSize + currentAmmoCapacity;
                     currentAmmoCapacity = 0;
+                    stats.AmmoCapacity = currentAmmoCapacity;
+                    stats.AmmoInClip = ammoInClip;
+                    updateUI.Raise();
                     return;
                 }
+                stats.AmmoCapacity = currentAmmoCapacity;
             }            
             ammoInClip = clipSize;
+            stats.AmmoInClip = ammoInClip;
+            updateUI.Raise();
         }
     }
 
-    public abstract void Shoot(Vector3 target);
+    public abstract void Shoot(Vector3 target, PlayerStats stats);
 
     public float UpdateTimer(float timer)
     {

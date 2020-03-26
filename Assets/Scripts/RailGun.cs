@@ -25,7 +25,7 @@ public class RailGun : Weapon
     }
 
 
-    public override void Shoot()
+    public override void Shoot(Vector3 target, PlayerStats stats)
     {
         if(doubleShot)
         {

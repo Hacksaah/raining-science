@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class CharacterController : MonoBehaviour
 {
+    public PlayerStats stats;
+
+    public GameEvent playerUIReady;
+    public GameEvent takeDamage;
+
     //Player rigidbody
     private Rigidbody rb;
 
     //Player HP
-    [SerializeField]
-    private int health;
-
-    //Walking speed
-    [SerializeField]
-    private float movementSpeed;
+    public int currHP;
 
     //Direction last moved in 
     [SerializeField]
@@ -35,9 +35,6 @@ public class CharacterController : MonoBehaviour
     private Weapon currentWeapon;
 
     private RaycastHit mousePos;
-    public Text ammoText;
-
-    public AttachmentPanel attachmentPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -45,17 +42,15 @@ public class CharacterController : MonoBehaviour
         //Set base variables
         lastMoveDir = Vector3.zero;
         rb = GetComponent<Rigidbody>();
-        dashTime = maxDashTime;
-        currentWeapon = weaponsList[0];
-        health = 100;
-        UpdateAmmoText();
+        SpawnPlayer();
+        playerUIReady.Raise();
     }
 
     // Update is called once per frame
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out mousePos);        
+        Physics.Raycast(ray, out mousePos);
 
         HandleMovement();
 
@@ -104,7 +99,7 @@ public class CharacterController : MonoBehaviour
         }
 
         //Execute movement
-        transform.position += (lastMoveDir * movementSpeed * Time.deltaTime);
+        transform.position += (lastMoveDir * stats.MoveSpeed * Time.deltaTime);
 
     }
 
@@ -140,12 +135,11 @@ public class CharacterController : MonoBehaviour
     private void HandleGun()
     {
         //Shoot
-        currentWeapon.Shoot(mousePos.point);
+        currentWeapon.Shoot(mousePos.point, stats);
 
         if(Input.GetKeyDown(KeyCode.R))
         {
-            currentWeapon.ReloadWeapon();
-            UpdateAmmoText();
+            currentWeapon.ReloadWeapon(stats);
         }
 
         //Scroll up through weapons list
@@ -159,7 +153,6 @@ public class CharacterController : MonoBehaviour
             {
                 currentWeapon = weaponsList[System.Array.IndexOf(weaponsList, currentWeapon) - 1];
             }
-            UpdateAmmoText();
             //TODO: Update weapon sprite to currentWeapon's sprite
         }
         //Scroll down through weapons list
@@ -173,19 +166,27 @@ public class CharacterController : MonoBehaviour
             {
                 currentWeapon = weaponsList[System.Array.IndexOf(weaponsList, currentWeapon) + 1];
             }
-            UpdateAmmoText();
             //TODO: Update weapon sprite to currentWeapon's sprite
         }
     }
 
-    private void UpdateAmmoText()
+    public void TakeDamage(int damage)
     {
-        ammoText.text = "Ammo: " + currentWeapon.AmmoInClip;
+        stats.CurrHP = stats.CurrHP - damage;
+        takeDamage.Raise();
+        if(stats.CurrHP <= 0)
+        {
+            // ToDo player death
+        }
     }
 
-    private void UpdateHealth(int val)
+    private void SpawnPlayer()
     {
-        health += val;
-        //Update health bar
+        dashTime = maxDashTime;
+        stats.CurrHP = stats.MaxHP;
+
+        currentWeapon = weaponsList[0];
+        stats.AmmoInClip = currentWeapon.AmmoInClip;
+        stats.AmmoCapacity = currentWeapon.MaxAmmoCapacity;
     }
 }

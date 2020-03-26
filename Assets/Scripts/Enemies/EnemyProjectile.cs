@@ -22,6 +22,8 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.tag == "Player")
+            collision.gameObject.GetComponent<CharacterController>().TakeDamage(damage);
         gameObject.SetActive(false);
     }
 }

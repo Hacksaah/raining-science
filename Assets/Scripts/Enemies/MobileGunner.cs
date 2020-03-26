@@ -32,7 +32,10 @@ public class MobileGunner : EnemyActor
         if (isAlive)
             CheckLineOfSight();
         else
+        {
             stateMachine.HaltState();
+            StartCoroutine(TurnToRagdoll());
+        }
         stateMachine.Update();        
     }
 
@@ -95,4 +98,6 @@ public class MobileGunner : EnemyActor
             stateMachine.ChangeState(mobileGunner_followPath.Instance);
         }
     }
+
+    
 }

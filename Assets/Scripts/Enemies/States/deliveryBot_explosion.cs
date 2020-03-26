@@ -56,8 +56,6 @@ public class deliveryBot_explosion : State<DeliveryBot>
             Rigidbody rb = col.GetComponent<Rigidbody>();
             if(rb != null)
             {
-                rb.isKinematic = false;
-                rb.AddExplosionForce(owner.explosionForce, owner.transform.position, owner.blastRadius, 0.65f, ForceMode.Impulse);
                 if(col.gameObject.tag == "Player")
                 {
                     // hurt player
@@ -66,6 +64,8 @@ public class deliveryBot_explosion : State<DeliveryBot>
                 {
                     col.GetComponent<EnemyActor>().TakeDamage(65);
                 }
+                rb.isKinematic = false;
+                rb.AddExplosionForce(owner.explosionForce, owner.transform.position, owner.blastRadius, 0.65f, ForceMode.Impulse);
             }
         }
     }

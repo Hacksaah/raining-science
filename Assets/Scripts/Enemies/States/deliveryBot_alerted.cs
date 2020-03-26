@@ -46,8 +46,8 @@ public class deliveryBot_alerted : State<DeliveryBot>
         {
             owner.TakeDamage(999);
         }
-        float angle = owner.TurnToFace(owner.AttackTarget.position, 1.15f);
-        if (angle < 55 && angle > -55 && Vector3.Distance(owner.transform.position, owner.AttackTarget.position) < 1.25f)
+        float angle = owner.TurnToFace(owner.AttackTarget.position, 1.3f);
+        if (angle < 90 && angle > -90 && Vector3.Distance(owner.transform.position, owner.AttackTarget.position) < 1.25f)
         {
             owner.TakeDamage(999);
         }

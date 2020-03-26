@@ -47,7 +47,7 @@ public class DeliveryBot : EnemyActor
         if (currHP == stats.GetMaxHP())
         {
             stateMachine.ChangeState(deliveryBot_alerted.Instance);
-            StartCoroutine(StopAndTurnToFaceDynamicTarget(AttackTarget, 1.75f));
+            StartCoroutine(StopAndTurnToFaceDynamicTarget(AttackTarget, 2.5f));
         }
         base.TakeDamage(damage);
     }
@@ -69,7 +69,7 @@ public class DeliveryBot : EnemyActor
         stateMachine.ChangeState(saveState);
     }
 
-    // a dynamic target is a gameobject that may change position between frames
+    // a dynamic target is a gameobject that may change position after this coroutine is called
     IEnumerator StopAndTurnToFaceDynamicTarget(Transform target, float turnSpeed)
     {
         State<DeliveryBot> saveState = stateMachine.currentState;

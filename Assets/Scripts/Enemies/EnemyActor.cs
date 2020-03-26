@@ -95,4 +95,13 @@ public class EnemyActor : MonoBehaviour
         }
     }
 
+    protected IEnumerator TurnToRagdoll()
+    {
+        yield return new WaitForSeconds(1);
+        while (rb.velocity.magnitude > 3)
+        {
+            yield return null;
+        }
+        rb.mass = 0;
+    }
 }

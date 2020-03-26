@@ -15,4 +15,4 @@ MonoBehaviour:
   maxHP: {fileID: 11400000, guid: 1dfab9b73f95d4b4f8bee36ed9fba6e3, type: 2}
   moveSpeed: {fileID: 11400000, guid: 90a97dd6c6dc0254f9f064d311eec284, type: 2}
   enemyName: {fileID: 0}
-  sightDistance: {fileID: 0}
+  sightDistance: {fileID: 11400000, guid: ddd8c3931195363459bcb7ac91bf8e04, type: 2}

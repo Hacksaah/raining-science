@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public abstract class Weapon : MonoBehaviour
 {
-    protected LinkedList<Attachment> attachments = new LinkedList<Attachment>();
+    public LinkedList<Attachment> attachments = new LinkedList<Attachment>();
 
     protected float fireRate;
     protected float reloadSpeed;
@@ -27,7 +27,6 @@ public abstract class Weapon : MonoBehaviour
     //Attachment variables
     //Added
     protected bool doubleShot;
-    protected DoubleShotAttachment DS;
 
     public float FireRate { get { return fireRate; } set { fireRate = value; } }
     public float ReloadSpeed { get { return reloadSpeed; } set { reloadSpeed = value; } }

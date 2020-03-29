@@ -4,5 +4,8 @@ using UnityEngine;
 
 public abstract class Attachment
 {
-    public abstract void alterWeapon(Weapon weapon); 
+    protected string name;
+    public abstract void alterWeapon(Weapon weapon);
+
+    public string Name { get { return name; } }
 }

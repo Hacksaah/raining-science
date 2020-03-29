@@ -36,7 +36,8 @@ public class CharacterController : MonoBehaviour
 
     public Text ammoText;
 
-    public AttachmentPanel attachmentPanel;
+    public GameObject attachmentPanel;
+    public GameObject attachmentWorldObject;
 
 
     // Start is called before the first frame update
@@ -62,11 +63,19 @@ public class CharacterController : MonoBehaviour
 
         HandleGun();
 
-        if(Input.GetKeyDown(KeyCode.E)) //TODO: Add specifics to when the menu is opened and add the attachment picked up
+        if(Input.GetKeyDown(KeyCode.E) && !attachmentPanel.activeInHierarchy)// && attachmentWorldObject != null) //TODO: Add specifics to when the menu is opened
         {
             //Open Attachments Menu
-            //Attachment newAttachment;
-            //attachmentPanel.UpdatePanel(newAttachment);
+            attachmentPanel.SetActive(true);
+
+            //Get attachment
+            //Attachment attachmentToUse = attachmentWorldObject.GetComponent<Attachment>();
+
+            attachmentPanel.GetComponent<AttachmentPanel>().UpdatePanel(currentWeapon);//, attachmentToUse);
+        }
+        else if(Input.GetKeyDown(KeyCode.E) && attachmentPanel.activeInHierarchy)
+        {
+            attachmentPanel.GetComponent<AttachmentPanel>().CloseMenu();
         }
     }
 

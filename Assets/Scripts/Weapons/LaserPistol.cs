@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class LaserPistol : Weapon
 {
-    public GameObject projectilePrefab;
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +11,7 @@ public class LaserPistol : Weapon
         projectileSpeed = 50f;
         critRate = 0.2f;
 
-        damage = 20;
+        damage = 5;
         clipSize = 6;
         ammoInClip = clipSize;
         maxAmmoCapacity = -1;

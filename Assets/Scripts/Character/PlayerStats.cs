@@ -12,6 +12,8 @@ public class PlayerStats : ScriptableObject
 
     [SerializeField]
     private VarFloat moveSpeed;
+    [SerializeField]
+    private VarFloat dashSpeed;
 
     [SerializeField]
     private VarInt currentAmmoCapacity;
@@ -23,6 +25,7 @@ public class PlayerStats : ScriptableObject
     public int MaxHP { get { return maxHP.value; } }
     public int CurrHP { get { return currHP.value; } set { currHP.value = value; } }
     public float MoveSpeed { get { return moveSpeed.value; } }
+    public float DashSpeed { get { return dashSpeed.value; } }
 
     public int AmmoInClip { set { currentAmmoInClip.value = value; } }
     public int AmmoCapacity { set { currentAmmoCapacity.value = value; } }

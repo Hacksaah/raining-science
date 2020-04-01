@@ -10,18 +10,16 @@ public class CharacterController : MonoBehaviour
     public GameEvent playerUIReady;
     public GameEvent takeDamage;
 
+    public GameObject isGrounded;
+
     //Player rigidbody
     private Rigidbody rb;
-
-    //Player HP
-    public int currHP;
 
     //Direction last moved in 
     [SerializeField]
     private Vector3 lastMoveDir;
 
     //Dash Variables
-    public float dashSpeed;
     public float maxDashTime;
     private float dashTime;
     private bool dashing;
@@ -52,6 +50,9 @@ public class CharacterController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out mousePos);
 
+        if (!rb.isKinematic)
+            isGrounded.SetActive(true);
+
         HandleMovement();
 
         HandleDash();
@@ -67,7 +68,6 @@ public class CharacterController : MonoBehaviour
             //attachmentPanel.UpdatePanel(newAttachment);
         }
     }
-
 
     private void HandleMovement()
     {
@@ -99,7 +99,10 @@ public class CharacterController : MonoBehaviour
         }
 
         //Execute movement
-        transform.position += (lastMoveDir * stats.MoveSpeed * Time.deltaTime);
+        if(rb.isKinematic)
+            transform.position += (lastMoveDir * stats.MoveSpeed * Time.deltaTime);
+        else
+            rb.AddForce(lastMoveDir * stats.MoveSpeed * Time.deltaTime);
 
     }
 
@@ -121,13 +124,12 @@ public class CharacterController : MonoBehaviour
         //Move the player for the dash
         if (dashTime > 0)
         {
-            rb.velocity = lastMoveDir * dashSpeed;
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + lastMoveDir, stats.DashSpeed);
             dashTime -= Time.deltaTime;
         }
-        else
+        else if(dashing)
         {
             dashTime = 0;
-            rb.velocity = Vector3.zero;
             dashing = false;
         }
     }

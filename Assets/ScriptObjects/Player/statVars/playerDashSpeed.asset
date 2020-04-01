@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd027d61299221749a5a52e405b0e72a, type: 3}
-  m_Name: Laser_projectile
+  m_Script: {fileID: 11500000, guid: bd96c623ad3991f4bb985d2c06708f84, type: 3}
+  m_Name: playerDashSpeed
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3239264200461061311, guid: 2ef51fffc658b4b4b8b872ae1e792ba6, type: 3}
-  key: laser
-  amount: 10
-  maxAmountAllowed: -1
-  expandPool: 1
+  value: 0.15

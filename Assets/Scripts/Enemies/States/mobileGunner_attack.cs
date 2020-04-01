@@ -5,8 +5,6 @@ using StateMachine;
 
 public class mobileGunner_attack : State<MobileGunner>
 {
-
-
     private static mobileGunner_attack instance;
     private mobileGunner_attack()
     {

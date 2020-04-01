@@ -148,6 +148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootPosition: {fileID: 7305713805066845229}
   projectileKey: basic
+  projectileSpeed: 50
+  damage: 5
 --- !u!114 &3684451531903810458
 MonoBehaviour:
   m_ObjectHideFlags: 0

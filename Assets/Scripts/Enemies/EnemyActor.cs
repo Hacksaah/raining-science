@@ -64,13 +64,14 @@ public class EnemyActor : MonoBehaviour
         return 0;
     }
 
-    public void TakeDamage(int incomingDamage)
+    public virtual void TakeDamage(int incomingDamage, Vector3 force)
     {
         currHP -= incomingDamage;
-        if (currHP <= 0)
+        if (isAlive && currHP <= 0)
         {
             rb.isKinematic = false;
             rb.constraints = RigidbodyConstraints.None;
+            rb.AddForce(force.normalized * 7, ForceMode.Impulse);
             isAlive = false;
         }
     }
@@ -87,8 +88,8 @@ public class EnemyActor : MonoBehaviour
     {
         if (pathSuccessful)
         {
-            if(movePath.Length >  0)
-                System.Array.Clear(movePath, 0, movePath.Length);
+            //if (movePath.Length > 0)
+            //    System.Array.Clear(movePath, 0, movePath.Length);
             movePath = newPath;            
             moveTargetIndex = 0;
             currTarget = movePath[moveTargetIndex];
@@ -96,7 +97,7 @@ public class EnemyActor : MonoBehaviour
     }
 
     protected IEnumerator TurnToRagdoll()
-    {
+    {        
         yield return new WaitForSeconds(1);
         while (rb.velocity.magnitude > 3)
         {

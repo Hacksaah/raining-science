@@ -6,6 +6,7 @@ using StateMachine;
 public class DeliveryBot : EnemyActor
 {
     private StateMachine<DeliveryBot> stateMachine;
+    public void HaltState() { stateMachine.HaltState(); }
     public Transform rayOrigin;
 
     public float explosionForce;
@@ -39,18 +40,20 @@ public class DeliveryBot : EnemyActor
     void Update()
     {
         if (!isAlive)
+        {
             stateMachine.ChangeState(deliveryBot_explosion.Instance);
+        }
         stateMachine.Update();        
     }
 
-    public new void TakeDamage(int damage)
+    public override void TakeDamage(int damage, Vector3 force)
     {
         if (currHP == stats.GetMaxHP())
         {
             stateMachine.ChangeState(deliveryBot_alerted.Instance);
             StartCoroutine(StopAndTurnToFaceDynamicTarget(AttackTarget, 2.5f));
         }
-        base.TakeDamage(damage);
+        base.TakeDamage(damage, force);
     }
 
     public IEnumerator StopAndRotate(float angle, float turnSpeed)

@@ -125,8 +125,8 @@ public class Room_Grid : MonoBehaviour
     {
         Vector3 openSpot;
 
-        int x = Random.Range(0, gridSizeX);
-        int y = Random.Range(0, gridSizeY);
+        int x = Random.Range(0, gridSizeX-1);
+        int y = Random.Range(0, gridSizeY-1);
 
         while (!grid[x, y].isWalkable)
         {

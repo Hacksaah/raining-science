@@ -75,10 +75,18 @@ public class MobileGunner : EnemyActor
 
     public IEnumerator FireWeapon(int shotCount)
     {
+        float timer = 0.75f;
+        while(timer > 0)
+        {
+            //TurnToFace(AttackTarget.position, 4);
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
         for(int i = 0; i < shotCount; i++)
         {
             weapon.FireWeapon(currTarget);            
-            float timer = 0.1f;
+            timer = 0.1f;
             do
             {
                 timer -= Time.deltaTime;

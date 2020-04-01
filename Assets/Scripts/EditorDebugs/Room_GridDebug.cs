@@ -7,7 +7,7 @@ public class Room_GridDebug : MonoBehaviour
 {
     public bool showIfSelected = true;
 
-    Room_Grid roomGrid;
+    public Room_Grid roomGrid;
 
     private void Awake()
     {
@@ -25,11 +25,14 @@ public class Room_GridDebug : MonoBehaviour
                 {
                     Vector3 nodeBox = Vector3.one * 0.6f * (roomGrid.nodeRadius * 2);
                     nodeBox.y /= 6;
-                    foreach (PathNode n in roomGrid.Grid)
+                    if(roomGrid.Grid != null)
                     {
-                        Gizmos.color = (n.isWalkable) ? Color.cyan : Color.red;
-                        Gizmos.DrawCube(n.worldPos, nodeBox);
-                    }
+                        foreach (PathNode n in roomGrid.Grid)
+                        {
+                            Gizmos.color = (n.isWalkable) ? Color.cyan : Color.red;
+                            Gizmos.DrawCube(n.worldPos, nodeBox);
+                        }
+                    }                    
                 }
             }
         }
@@ -40,10 +43,13 @@ public class Room_GridDebug : MonoBehaviour
             {
                 Vector3 nodeBox = Vector3.one * 0.6f * (roomGrid.nodeRadius * 2);
                 nodeBox.y /= 6;
-                foreach (PathNode n in roomGrid.Grid)
+                if (roomGrid.Grid != null)
                 {
-                    Gizmos.color = (n.isWalkable) ? Color.cyan : Color.red;
-                    Gizmos.DrawCube(n.worldPos, nodeBox);
+                    foreach (PathNode n in roomGrid.Grid)
+                    {
+                        Gizmos.color = (n.isWalkable) ? Color.cyan : Color.red;
+                        Gizmos.DrawCube(n.worldPos, nodeBox);
+                    }
                 }
             }
         }

@@ -31,8 +31,9 @@ public class deliveryBot_explosion : State<DeliveryBot>
     }
 
     public override void EnterState(DeliveryBot owner)
-    {
+    {        
         Explode(owner);
+        owner.HaltState();
     }
 
     public override void ExitState(DeliveryBot owner)
@@ -50,7 +51,6 @@ public class deliveryBot_explosion : State<DeliveryBot>
     private void Explode(DeliveryBot owner)
     {
         hitColliders = Physics.OverlapSphere(owner.transform.position, owner.blastRadius, owner.explosionLayers);
-
         foreach(Collider col in hitColliders)
         {
             Rigidbody rb = col.GetComponent<Rigidbody>();
@@ -58,14 +58,15 @@ public class deliveryBot_explosion : State<DeliveryBot>
             {
                 if(col.gameObject.tag == "Player")
                 {
-                    // hurt player
+                    col.gameObject.GetComponent<CharacterController>().TakeDamage(40);
                 }
                 else if(col.gameObject.tag == "Enemy")
                 {
-                    col.GetComponent<EnemyActor>().TakeDamage(65);
+                    col.GetComponent<EnemyActor>().TakeDamage(40, Vector3.zero);
                 }
                 rb.isKinematic = false;
-                rb.AddExplosionForce(owner.explosionForce, owner.transform.position, owner.blastRadius, 0.65f, ForceMode.Impulse);
+                Vector3 explosiveForce = ((rb.position - owner.transform.position).normalized + Vector3.up * 0.85f) * owner.blastRadius;
+                rb.AddForce(explosiveForce, ForceMode.Impulse);
                 owner.explosiveParticles.Play();
             }
         }

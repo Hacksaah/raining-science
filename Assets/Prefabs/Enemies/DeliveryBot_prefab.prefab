@@ -121,7 +121,6 @@ GameObject:
   - component: {fileID: 234422367315717053}
   - component: {fileID: 234422367315717024}
   - component: {fileID: 234422367315717055}
-  - component: {fileID: 234422367315717054}
   m_Layer: 0
   m_Name: whitepart
   m_TagString: Untagged
@@ -190,19 +189,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &234422367315717054
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234422367315717052}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &234422367404991758
 GameObject:
   m_ObjectHideFlags: 0
@@ -5060,8 +5046,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   AttackTarget: {fileID: 0}
   rayOrigin: {fileID: 234422367009252492}
-  explosionForce: 5.5
-  blastRadius: 10
+  explosionForce: 2
+  blastRadius: 7
   explosionLayers:
     serializedVersion: 2
     m_Bits: 2048

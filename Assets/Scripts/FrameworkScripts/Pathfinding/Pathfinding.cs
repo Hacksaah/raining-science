@@ -71,9 +71,9 @@ public class Pathfinding : MonoBehaviour
         }
         else
         {
-            Debug.Log("Start or target is not walkable node");
-            Debug.Log("Start: " + startNode.isWalkable);
-            Debug.Log("End: " + targetNode.isWalkable);
+            //Debug.Log("Start or target is not walkable node");
+            //Debug.Log("Start: " + startNode.isWalkable);
+            //Debug.Log("End: " + targetNode.isWalkable);
         }
         
         if (pathSuccess)

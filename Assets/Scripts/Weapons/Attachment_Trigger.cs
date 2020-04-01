@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attachment_Trigger : MonoBehaviour
+public class Attachment_Trigger : Interactable
 {
     public GameObject ParentGameObject;
     public Attachment attachment;
 
     public int attachmentID = 0;
+    private int interactId;
 
     private void Awake()
     {
@@ -24,8 +25,21 @@ public class Attachment_Trigger : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            // ToDo
-            // Give the player this attachment...
+            // notify interact manager
+            interactId = InteractManager.Instance.AddItemToQueue(this);
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            InteractManager.Instance.RemoveItemFromQueue(interactId);
+        }
+    }
+
+    public override void Interact()
+    {        
+        AttachmentUI.Instance.ActivateUI(attachment);
     }
 }

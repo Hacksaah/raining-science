@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject EnemyPrefab;
+    public List<GameObject> EnemyPrefabs;
 
     public int spawnCount = 10;
 
@@ -26,8 +26,9 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemies()
     {
         for(int i = 0; i < spawnCount; i++)
-        {            
-            EnemyActor newEnemy = Instantiate(EnemyPrefab).GetComponent<EnemyActor>();
+        {
+            int rand = Random.Range(0, EnemyPrefabs.Count);
+            EnemyActor newEnemy = Instantiate(EnemyPrefabs[rand]).GetComponent<EnemyActor>();
             newEnemy.gameObject.SetActive(false);
             newEnemy.roomKey = roomGrid.RoomKey;
             newEnemy.AttackTarget = roomGrid.PlayerTransform;

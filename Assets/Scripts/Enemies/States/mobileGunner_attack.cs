@@ -5,8 +5,6 @@ using StateMachine;
 
 public class mobileGunner_attack : State<MobileGunner>
 {
-
-
     private static mobileGunner_attack instance;
     private mobileGunner_attack()
     {
@@ -49,6 +47,6 @@ public class mobileGunner_attack : State<MobileGunner>
 
     public override void FixedUpdateState(MobileGunner owner)
     {
-        owner.TurnToFace(owner.currTarget, 10f);
+        owner.TurnToFace(owner.currTarget, 5f);
     }
 }

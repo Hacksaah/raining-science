@@ -39,8 +39,11 @@ public class GameObjectPoolManager : MonoBehaviour
         if (pools.TryGetValue(key, out pool))
         {
             GameObject obj = pool.GetObjectFromPool();
-            obj.SetActive(true);
-            return obj;
+            if (obj != null)
+            {
+                obj.SetActive(true);
+                return obj;
+            }
         }
         return null;
     }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd027d61299221749a5a52e405b0e72a, type: 3}
-  m_Name: Laser_projectile
+  m_Name: RailGun_projectile
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3239264200461061311, guid: 2ef51fffc658b4b4b8b872ae1e792ba6, type: 3}
-  key: laser
-  amount: 0
-  maxAmountAllowed: -1
+  prefab: {fileID: 8746464177808224085, guid: 3156a95845911124e9fb96f5af76b078, type: 3}
+  key: railGun
+  amount: 5
+  maxAmountAllowed: 10
   expandPool: 1

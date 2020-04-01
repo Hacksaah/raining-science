@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RailGun_2 : Weapon
 {
+    public Light pointLight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class RailGun_2 : Weapon
             if(!reloading && fireRateTimer < fireRate)
             {
                 fireRateTimer += Time.deltaTime;
+                pointLight.intensity += Time.deltaTime;
             }
         }
         else if (Input.GetButtonUp("Fire1"))
@@ -62,6 +65,7 @@ public class RailGun_2 : Weapon
                 projectile.FireProjectile(projectileSpeed, damage, size, target);
 
                 fireRateTimer = 0;
+                pointLight.intensity = 0;
                 ReloadWeapon(stats);
             }
         }

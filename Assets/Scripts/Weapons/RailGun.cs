@@ -2,7 +2,7 @@
 
 public class RailGun : Weapon
 {
-    public GameObject railgunBullet;
+    public GameObject railgunBullet;    
 
     // Start is called before the first frame update
     void Start()

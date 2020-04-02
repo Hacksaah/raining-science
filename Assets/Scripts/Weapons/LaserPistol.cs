@@ -38,7 +38,7 @@ public class LaserPistol : Weapon
                 stats.AmmoInClip = ammoInClip;
                 updateUI.Raise();
 
-                WeaponProjectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<WeaponProjectile>();
+                Laser_projectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<Laser_projectile>();
 
                 projectile.gameObject.transform.position = shootFromTransform.position;
                 target.y = shootFromTransform.position.y;

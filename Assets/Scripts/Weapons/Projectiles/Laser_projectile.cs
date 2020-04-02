@@ -11,11 +11,12 @@ public class Laser_projectile : WeaponProjectile
         gameObject.SetActive(false);
     }
 
-    public void FireProjectile(float _speed, int _damage, Vector3 _target)
+    public void FireProjectile(float _speed, int _damage, float shootBloom, Vector3 _target)
     {
         speed = _speed;
         damage = _damage;
         transform.LookAt(_target);
+        transform.Rotate(Vector3.up, Random.Range(-shootBloom, shootBloom));
         rb.AddForce(transform.forward * speed, ForceMode.Impulse);
     }
 }

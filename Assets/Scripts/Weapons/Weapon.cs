@@ -19,6 +19,7 @@ public abstract class Weapon : MonoBehaviour
     protected float reloadSpeed;
     protected float projectileSpeed;
     protected float critRate;
+    protected float shootBloom;
 
     protected int damage;
     protected int clipSize;

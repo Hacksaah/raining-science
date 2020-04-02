@@ -12,10 +12,20 @@ public class LightGun_projectile : MonoBehaviour
         lineRend = GetComponent<LineRenderer>();
     }
 
-    public void FireProjectile(Vector3 start, int damage, Vector3 target)
+    public void FireProjectile(Vector3 start, int damage, float shootBloom, Vector3 target)
     {
         lineRend.SetPosition(0, start);
-        Vector3 dir = (target - start).normalized;
+        Vector3 dir = Vector3.Normalize(target - start);
+        int angleOffset = 0;
+        if(dir.x < 0)
+            angleOffset = 180;
+        else if(dir.z < 0)
+            angleOffset = 360;
+
+        float angle = (Mathf.Atan(dir.z / dir.x) * Mathf.Rad2Deg + shootBloom + angleOffset) * Mathf.Deg2Rad;
+        dir.x = Mathf.Cos(angle);
+        dir.z = Mathf.Sin(angle);
+
         Ray ray = new Ray(start, dir);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, 75))

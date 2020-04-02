@@ -10,6 +10,7 @@ public class LaserPistol : Weapon
         reloadSpeed = 1f;
         projectileSpeed = 50f;
         critRate = 0.2f;
+        shootBloom = 7;
 
         damage = 5;
         clipSize = 6;
@@ -42,7 +43,7 @@ public class LaserPistol : Weapon
 
                 projectile.gameObject.transform.position = shootFromTransform.position;
                 target.y = shootFromTransform.position.y;
-                projectile.FireProjectile(projectileSpeed, damage, target);
+                projectile.FireProjectile(projectileSpeed, damage, shootBloom, target);
 
                 fireRateTimer = fireRate;                
             }

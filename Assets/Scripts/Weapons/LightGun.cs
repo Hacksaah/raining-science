@@ -6,7 +6,8 @@ public class LightGun : Weapon
 {
     private float rampUpTime, rampUpTimer;
     private float currFireRate;
-    private int rampUpModifier;
+    private float currShootBloom;
+    private int rampUpModifier;    
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +16,7 @@ public class LightGun : Weapon
         reloadSpeed = 0.85f;
         projectileSpeed = 60f;
         critRate = 0.2f;
+        shootBloom = 7;
 
         damage = 3;
         clipSize = 80;
@@ -30,16 +32,19 @@ public class LightGun : Weapon
         rampUpTime = 4f / 5;
         rampUpModifier = 5;
         currFireRate = fireRate * rampUpModifier;
+        currShootBloom = shootBloom * rampUpModifier;
     }
 
     // Update is called once per frame
     void Update()
     {
-        fireRateTimer = UpdateTimer(fireRateTimer);
+        fireRateTimer = UpdateTimer(fireRateTimer);        
     }
 
     public override void Shoot(Vector3 target, PlayerStats stats)
     {
+        target.y = transform.position.y;
+        transform.LookAt(target);
         if (Input.GetButton("Fire1"))
         {
             // if we havent ramped up yet
@@ -51,6 +56,7 @@ public class LightGun : Weapon
                     // Conduct ramp up
                     rampUpModifier--;
                     currFireRate = fireRate * rampUpModifier;
+                    currShootBloom = shootBloom * rampUpModifier;
                     rampUpTimer = rampUpTime;
                 }
             }
@@ -64,9 +70,8 @@ public class LightGun : Weapon
 
                 fireRateTimer = currFireRate;
 
-                LightGun_projectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<LightGun_projectile>();                
-                target.y = shootFromTransform.position.y;
-                projectile.FireProjectile(shootFromTransform.position, damage, target);
+                LightGun_projectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<LightGun_projectile>();                                
+                projectile.FireProjectile(shootFromTransform.position, damage, Random.Range(-currShootBloom, currShootBloom), target);
             }
         }
         if (Input.GetButtonUp("Fire1"))
@@ -74,6 +79,7 @@ public class LightGun : Weapon
             rampUpModifier = 5;
             rampUpTimer = 0;
             currFireRate = fireRate * rampUpModifier;
-        }
+            currShootBloom = shootBloom * rampUpModifier;
+        }        
     }
 }

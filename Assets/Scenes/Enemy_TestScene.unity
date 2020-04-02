@@ -622,6 +622,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5e28440bede05834589784dd19d0eb49, type: 2}
   - {fileID: 11400000, guid: fbd659bb03f62394b8490d397b3cfe0e, type: 2}
   - {fileID: 11400000, guid: 482f349c8e4d42a479504146cdb919ac, type: 2}
+  - {fileID: 11400000, guid: f8987de25e971b7488411cd46c9f8895, type: 2}
 --- !u!1 &1230952495
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,6 +1096,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: lightGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941482557816473884, guid: ea9c481957d4d9b429f796a74e4cc157,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea9c481957d4d9b429f796a74e4cc157, type: 3}

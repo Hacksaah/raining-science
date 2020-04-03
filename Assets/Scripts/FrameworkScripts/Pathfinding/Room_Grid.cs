@@ -129,13 +129,13 @@ public class Room_Grid : MonoBehaviour
 
         while (!grid[x, y].isWalkable)
         {
-            if (x++ >= gridSizeX)
+            x++;            
+            if (x == gridSizeX)
             {
                 x = 0;
-            }
-            else if (y++ >= gridSizeY)
-            {
-                y = 0;
+                y++;
+                if (y == gridSizeY)
+                    y = 0;
             }
         }
         openSpot = grid[x, y].worldPos;

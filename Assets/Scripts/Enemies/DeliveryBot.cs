@@ -39,7 +39,7 @@ public class DeliveryBot : EnemyActor
     // Update is called once per frame
     void Update()
     {
-        if (!isAlive)
+        if (currHP <= 0 && isAlive)
         {
             stateMachine.ChangeState(deliveryBot_explosion.Instance);
         }
@@ -53,7 +53,13 @@ public class DeliveryBot : EnemyActor
             stateMachine.ChangeState(deliveryBot_alerted.Instance);
             StartCoroutine(StopAndTurnToFaceDynamicTarget(AttackTarget, 2.5f));
         }
-        base.TakeDamage(damage, force);
+        if (isAlive)
+        {
+            base.TakeDamage(damage, force);
+            if (currHP <= 0)
+                isAlive = true;
+        }
+        
     }
 
     public IEnumerator StopAndRotate(float angle, float turnSpeed)

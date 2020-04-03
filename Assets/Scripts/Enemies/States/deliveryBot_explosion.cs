@@ -31,8 +31,9 @@ public class deliveryBot_explosion : State<DeliveryBot>
     }
 
     public override void EnterState(DeliveryBot owner)
-    {        
+    {
         Explode(owner);
+        owner.isAlive = false;
         owner.HaltState();
     }
 
@@ -56,8 +57,8 @@ public class deliveryBot_explosion : State<DeliveryBot>
             Rigidbody rb = col.GetComponent<Rigidbody>();
             if(rb != null)
             {
-                if(col.gameObject.tag == "Player")
-                {
+                if(col.gameObject.tag == "Player")                {
+                    
                     col.gameObject.GetComponent<CharacterController>().TakeDamage(40);
                 }
                 else if(col.gameObject.tag == "Enemy")
@@ -65,7 +66,9 @@ public class deliveryBot_explosion : State<DeliveryBot>
                     col.GetComponent<EnemyActor>().TakeDamage(40, Vector3.zero);
                 }
                 rb.isKinematic = false;
-                Vector3 explosiveForce = ((rb.position - owner.transform.position).normalized + Vector3.up * 0.85f) * owner.blastRadius;
+                Vector3 explosiveForce = (rb.position - owner.transform.position).normalized;
+                explosiveForce.y = 0.65f;
+                explosiveForce *= owner.explosionForce;
                 rb.AddForce(explosiveForce, ForceMode.Impulse);
                 owner.explosiveParticles.Play();
             }

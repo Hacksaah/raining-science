@@ -5046,7 +5046,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   AttackTarget: {fileID: 0}
   rayOrigin: {fileID: 234422367009252492}
-  explosionForce: 2
+  explosionForce: 10
   blastRadius: 7
   explosionLayers:
     serializedVersion: 2

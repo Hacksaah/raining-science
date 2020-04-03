@@ -464,10 +464,10 @@ MonoBehaviour:
   lastMoveDir: {x: 0, y: 0, z: 0}
   maxDashTime: 0.15
   weaponsList:
-  - {fileID: 6752622888552610859}
-  - {fileID: 2043522250}
   - {fileID: 1873404613}
-  currentWeapon: {fileID: 6752622888552610859}
+  - {fileID: 2043522250}
+  - {fileID: 6752622888552610859}
+  currentWeapon: {fileID: 0}
 --- !u!54 &630423472
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1041,6 +1041,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489281125468845044, guid: 886fc4fe9b691054abf141fcee62ab9c,
+        type: 3}
+      propertyPath: spawnCount
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8256831968387647886, guid: 886fc4fe9b691054abf141fcee62ab9c,
         type: 3}

@@ -12,7 +12,7 @@ public class EnemyActor : MonoBehaviour
     public int roomKey;
     public Vector3 currTarget;
 
-    protected bool isAlive;
+    public bool isAlive;
 
     // Pathfinding variables    
     public Vector3[] movePath;

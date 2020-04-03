@@ -47,7 +47,6 @@ public class Room_Grid : MonoBehaviour
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
                 Vector3 nodeBox = Vector3.one * nodeRadius;
-                nodeBox.y /= 6;
                 bool walkable = !(Physics.CheckBox(worldPoint, nodeBox, Quaternion.identity, unwalkableLayer));
 
                 int movementPenalty = 0;

@@ -32,7 +32,7 @@ public class deliveryBot_alerted : State<DeliveryBot>
     }
 
     public override void EnterState(DeliveryBot owner)
-    {        
+    {
     }
 
     public override void ExitState(DeliveryBot owner)

@@ -32,6 +32,7 @@ public class deliveryBot_explosion : State<DeliveryBot>
 
     public override void EnterState(DeliveryBot owner)
     {
+        owner.StopAllCoroutines();
         Explode(owner);
         owner.isAlive = false;
         owner.HaltState();

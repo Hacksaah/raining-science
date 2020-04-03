@@ -39,25 +39,28 @@ public class DeliveryBot : EnemyActor
     // Update is called once per frame
     void Update()
     {
-        if (currHP <= 0 && isAlive)
-        {
-            stateMachine.ChangeState(deliveryBot_explosion.Instance);
-        }
         stateMachine.Update();        
     }
 
     public override void TakeDamage(int damage, Vector3 force)
-    {
-        if (currHP == stats.GetMaxHP())
-        {
-            stateMachine.ChangeState(deliveryBot_alerted.Instance);
-            StartCoroutine(StopAndTurnToFaceDynamicTarget(AttackTarget, 2.5f));
-        }
+    {        
         if (isAlive)
         {
-            base.TakeDamage(damage, force);
+            if (currHP == stats.GetMaxHP())
+            {
+                stateMachine.ChangeState(deliveryBot_alerted.Instance);
+                StartCoroutine(StopAndTurnToFaceDynamicTarget(AttackTarget, 2.5f));
+            }
+
+            currHP -= damage;
             if (currHP <= 0)
-                isAlive = true;
+            {
+                isAlive = false;
+                rb.isKinematic = false;
+                rb.constraints = RigidbodyConstraints.None;
+                rb.AddForce(force.normalized * 7, ForceMode.Impulse);
+                stateMachine.ChangeState(deliveryBot_explosion.Instance);
+            }
         }
         
     }

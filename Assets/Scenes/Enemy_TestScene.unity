@@ -465,6 +465,8 @@ MonoBehaviour:
   maxDashTime: 0.15
   weaponsList:
   - {fileID: 6752622888552610859}
+  - {fileID: 2043522250}
+  - {fileID: 1873404613}
   currentWeapon: {fileID: 6752622888552610859}
 --- !u!54 &630423472
 Rigidbody:
@@ -915,6 +917,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 9157678550209611159}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1873404613 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6752622887126169415, guid: 00bc7094cb53e05459f0e3fe6b50b722,
+    type: 3}
+  m_PrefabInstance: {fileID: 6752622887267932350}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff15cf1c6d15fa40a2e87d04c00c803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1956013235
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,6 +987,18 @@ Transform:
   m_Father: {fileID: 630423476}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2043522250 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3698409536695697743, guid: b30e5934eb9025a4e994fca10464b86d,
+    type: 3}
+  m_PrefabInstance: {fileID: 9157678550209611159}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d58b1c8d10a5be049bc1e1eea4de79c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2074849512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1486,7 +1512,7 @@ PrefabInstance:
     - target: {fileID: 6752622887126169417, guid: 00bc7094cb53e05459f0e3fe6b50b722,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00bc7094cb53e05459f0e3fe6b50b722, type: 3}
@@ -1578,7 +1604,7 @@ PrefabInstance:
     - target: {fileID: 9157678550685881507, guid: b30e5934eb9025a4e994fca10464b86d,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9157678550685881505, guid: b30e5934eb9025a4e994fca10464b86d, type: 3}

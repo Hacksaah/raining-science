@@ -34,14 +34,18 @@ public class CharacterController : MonoBehaviour
 
     private RaycastHit mousePos;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         //Set base variables
+        rb = GetComponent<Rigidbody>();        
         lastMoveDir = Vector3.zero;
-        rb = GetComponent<Rigidbody>();
-        SpawnPlayer();
-        playerUIReady.Raise();
+        SpawnPlayer();        
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {        
+        
     }
 
     // Update is called once per frame
@@ -60,13 +64,6 @@ public class CharacterController : MonoBehaviour
         FaceMouse();
 
         HandleGun();
-
-        if(Input.GetKeyDown(KeyCode.E)) //TODO: Add specifics to when the menu is opened and add the attachment picked up
-        {
-            //Open Attachments Menu
-            //Attachment newAttachment;
-            //attachmentPanel.UpdatePanel(newAttachment);
-        }
     }
 
     private void HandleMovement()
@@ -149,11 +146,15 @@ public class CharacterController : MonoBehaviour
         {
             if (System.Array.IndexOf(weaponsList, currentWeapon) - 1 < 0)
             {
+                currentWeapon.gameObject.SetActive(false);
                 currentWeapon = weaponsList[weaponsList.Length - 1];
+                currentWeapon.gameObject.SetActive(true);
             }
             else
             {
+                currentWeapon.gameObject.SetActive(false);
                 currentWeapon = weaponsList[System.Array.IndexOf(weaponsList, currentWeapon) - 1];
+                currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
         }
@@ -162,11 +163,15 @@ public class CharacterController : MonoBehaviour
         {
             if (System.Array.IndexOf(weaponsList, currentWeapon) >= weaponsList.Length - 1)
             {
+                currentWeapon.gameObject.SetActive(false);
                 currentWeapon = weaponsList[0];
+                currentWeapon.gameObject.SetActive(true);
             }
             else
             {
+                currentWeapon.gameObject.SetActive(false);
                 currentWeapon = weaponsList[System.Array.IndexOf(weaponsList, currentWeapon) + 1];
+                currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
         }
@@ -188,7 +193,14 @@ public class CharacterController : MonoBehaviour
         stats.CurrHP = stats.MaxHP;
 
         currentWeapon = weaponsList[0];
+        foreach (Weapon weapon in weaponsList)
+        {
+            weapon.gameObject.SetActive(false);
+        }
+        currentWeapon.gameObject.SetActive(true);
         stats.AmmoInClip = currentWeapon.AmmoInClip;
         stats.AmmoCapacity = currentWeapon.MaxAmmoCapacity;
+
+        playerUIReady.Raise();
     }
 }

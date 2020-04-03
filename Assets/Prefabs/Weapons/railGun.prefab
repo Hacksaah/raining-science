@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 9157678550685881518}
   - component: {fileID: 9157678550685881519}
   - component: {fileID: 9157678550685881504}
-  - component: {fileID: 9157678550685881505}
+  - component: {fileID: 3698409536695697743}
   m_Layer: 0
   m_Name: railGun
   m_TagString: Untagged
@@ -218,7 +218,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9157678550685881505
+--- !u!114 &3698409536695697743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9157678550685881507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b500bc1544c7ac7408fb6771ff326097, type: 3}
+  m_Script: {fileID: 11500000, guid: d58b1c8d10a5be049bc1e1eea4de79c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shootFromTransform: {fileID: 9157678550136626236}

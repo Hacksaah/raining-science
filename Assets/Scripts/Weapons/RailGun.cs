@@ -2,71 +2,70 @@
 
 public class RailGun : Weapon
 {
-    public GameObject railgunBullet;    
+    public Light pointLight;
 
     // Start is called before the first frame update
     void Start()
     {
-        fireRate = 0f;
-        reloadSpeed = 0.5f;
-        projectileSpeed = 5000f;
+        fireRate = 1.2f;
+        reloadSpeed = 0.85f;
+        projectileSpeed = 60f;
         critRate = 0.2f;
 
-        damage = 20;
-        clipSize = 6;
+        damage = 40;
+        clipSize = 1;
         ammoInClip = clipSize;
-        maxAmmoCapacity = 30;
+        maxAmmoCapacity = -1;
         currentAmmoCapacity = maxAmmoCapacity;
 
-        doubleShot = false;
+        reloading = false;
 
-        name = "Rail Gun";
-        //AddAttachment(DS);
+        name = "Rail Gun 2";
+        projectilePoolKey = "railGun";
     }
-
 
     public override void Shoot(Vector3 target, PlayerStats stats)
     {
-        if(doubleShot)
+        if (Input.GetButton("Fire1"))
         {
-            ShootTwo();
-            return;
+            if (!reloading && fireRateTimer < fireRate)
+            {
+                fireRateTimer += Time.deltaTime;
+                pointLight.intensity += Time.deltaTime;
+            }
         }
-        if (ammoInClip > 0)
+        else if (Input.GetButtonUp("Fire1"))
         {
-            ammoInClip--;
+            if (!reloading)
+            {
+                ammoInClip--;
+                stats.AmmoInClip = ammoInClip;
+                updateUI.Raise();
 
-            Vector2 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-            float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-            transform.rotation = new Quaternion(0, transform.rotation.y + 1, 0, 0);
+                RailGun_projectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<RailGun_projectile>();
 
-            GameObject b = Instantiate(railgunBullet, transform.position + (transform.parent.transform.forward / 2), railgunBullet.transform.rotation, null);
-            b.GetComponent<Rigidbody>().AddForce(transform.parent.transform.forward * projectileSpeed);
-        }
-    }
-    public void ShootTwo()
-    {
-        if (ammoInClip > 0)
-        {
-            ammoInClip--;
+                int size;
+                if (fireRateTimer >= fireRate)
+                {
+                    size = 3;
+                }
+                else if (fireRateTimer <= fireRate / 3)
+                {
+                    size = 1;
+                }
+                else
+                {
+                    size = 2;
+                }
 
-            Vector2 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-            float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-            transform.rotation = new Quaternion(0, transform.rotation.y + 1, 0, 0);
+                projectile.gameObject.transform.position = shootFromTransform.position;
+                target.y = shootFromTransform.position.y;
+                projectile.FireProjectile(projectileSpeed, damage, size, target);
 
-            GameObject b = Instantiate(railgunBullet, transform.position + (transform.parent.transform.forward / 2), railgunBullet.transform.rotation, null);
-            b.GetComponent<Rigidbody>().AddForce(transform.parent.transform.forward * projectileSpeed);
-        }
-        if (ammoInClip > 0)
-        {
-            ammoInClip--;
-
-            Vector2 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-            float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-            transform.rotation = new Quaternion(0, transform.rotation.y + 1, 0, 0);
-
-            GameObject b = Instantiate(railgunBullet, transform.position + (transform.parent.transform.forward / 2), railgunBullet.transform.rotation, null);
-            b.GetComponent<Rigidbody>().AddForce(transform.parent.transform.forward * projectileSpeed);
+                fireRateTimer = 0;
+                pointLight.intensity = 0;
+                ReloadWeapon(stats);
+            }
         }
     }
 }

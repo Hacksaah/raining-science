@@ -71,7 +71,7 @@ public class EnemyActor : MonoBehaviour
         {
             rb.isKinematic = false;
             rb.constraints = RigidbodyConstraints.None;
-            rb.AddForce(force.normalized * 7, ForceMode.Impulse);
+            rb.AddForce(((force.normalized + (Vector3.up * 0.25f)) * 9), ForceMode.Impulse);
             isAlive = false;
         }
     }

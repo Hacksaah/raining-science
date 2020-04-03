@@ -30,7 +30,7 @@ public class CharacterController : MonoBehaviour
 
     //Current weapon in hand
     [SerializeField]
-    private Weapon currentWeapon;
+    private Weapon currentWeapon;    
 
     private RaycastHit mousePos;
 

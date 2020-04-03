@@ -13,7 +13,7 @@ public abstract class Weapon : MonoBehaviour
     public GameEvent updateUI;
     public GameEvent reloadEvent;
 
-    protected LinkedList<Attachment> attachments = new LinkedList<Attachment>();
+    public LinkedList<Attachment> attachments = new LinkedList<Attachment>();
 
     protected float fireRate;
     protected float reloadSpeed;
@@ -45,11 +45,10 @@ public abstract class Weapon : MonoBehaviour
     public float ReloadSpeed { get { return reloadSpeed; } set { reloadSpeed = value; } }
     public float ProjectileSpeed { get { return projectileSpeed; } set { projectileSpeed = value; } }
     public float CritRate { get { return critRate; } set { critRate = value; } }
-
     public int Damage { get { return damage; } set { damage = value; } }
+
     public int ClipSize { get { return clipSize; } set { clipSize = value; } }
     public int MaxAmmoCapacity { get { return maxAmmoCapacity; } set { maxAmmoCapacity = value; } }
-    //Added
     public int AmmoInClip { get { return ammoInClip; } set { ammoInClip = value; } }
     public int AttachmentSlots { get { return attachmentSlots; } set { attachmentSlots = value; } }
     public Sprite GunSprite { get { return gunSprite; } set { gunSprite = value; } }

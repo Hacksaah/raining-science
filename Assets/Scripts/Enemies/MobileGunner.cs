@@ -85,7 +85,7 @@ public class MobileGunner : EnemyActor
 
         for(int i = 0; i < shotCount; i++)
         {
-            weapon.FireWeapon(currTarget);            
+            weapon.FireWeapon(AttackTarget.position);            
             timer = 0.1f;
             do
             {

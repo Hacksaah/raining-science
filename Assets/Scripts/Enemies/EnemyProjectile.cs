@@ -29,6 +29,11 @@ public class EnemyProjectile : MonoBehaviour
         timeToLive = 10f;
     }
 
+    private void OnDisable()
+    {
+        rb.velocity = Vector3.zero;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")

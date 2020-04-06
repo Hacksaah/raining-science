@@ -18,9 +18,6 @@ public class EnemyActor : MonoBehaviour
     public Vector3[] movePath;
     public int moveTargetIndex;
 
-    //Custom Components
-    protected EnemyWeapon weapon;
-
     // Physic Components
     public Rigidbody rb;    
 
@@ -30,7 +27,6 @@ public class EnemyActor : MonoBehaviour
     protected void Startup()
     {
         rb = GetComponent<Rigidbody>();
-        weapon = GetComponent<EnemyWeapon>();
         moveTargetIndex = -1;
         roomKey = -1;
     }
@@ -40,7 +36,7 @@ public class EnemyActor : MonoBehaviour
         transform.position = position;
         currTarget = target;
         isAlive = true;
-        ResetActor();        
+        ResetActor();
     }
 
     public void ResetActor()

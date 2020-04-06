@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad149a9554cb4342902802e020eeed6, type: 3}
+  m_Name: MobileBossStats
+  m_EditorClassIdentifier: 
+  maxHP: {fileID: 11400000, guid: 398f728b2a362e64cb2a1f74c6026be4, type: 2}
+  moveSpeed: {fileID: 11400000, guid: 84a55eb1fb03a0d4ca821aaab696c343, type: 2}
+  enemyName: {fileID: 0}
+  sightDistance: {fileID: 11400000, guid: 9d3800cd942e9734dbc7c27be09a4a01, type: 2}

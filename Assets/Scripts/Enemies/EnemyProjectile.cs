@@ -41,11 +41,13 @@ public class EnemyProjectile : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void FireProjectile(float _speed, int _damage, Vector3 _target)
+    public void FireProjectile(float _speed, int _damage, int shootBloom, Vector3 _target)
     {
         speed = _speed;
         damage = _damage;
         transform.LookAt(_target);
+        if (shootBloom != 0)
+            transform.Rotate(Vector3.up, shootBloom);
         rb.AddForce(transform.forward * speed, ForceMode.Impulse);
     }
 }

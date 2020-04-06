@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 1507833653289100404, guid: 57553521b3bc88f44b1e8e84733b56a9, type: 3}
   key: basic
-  amount: 15
-  maxAmountAllowed: -1
+  amount: 43
+  maxAmountAllowed: 50
   expandPool: 1

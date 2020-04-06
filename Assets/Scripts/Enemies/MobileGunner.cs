@@ -6,6 +6,8 @@ using UnityEditor;
 
 public class MobileGunner : EnemyActor
 {
+    //Custom Components
+    protected EnemyWeapon weapon;
     private float timer_lineOfSight = 0.0f;
 
     private StateMachine<MobileGunner> stateMachine;
@@ -19,6 +21,7 @@ public class MobileGunner : EnemyActor
     void Awake()
     {        
         Startup();
+        weapon = GetComponent<EnemyWeapon>();
     }
 
     private void FixedUpdate()
@@ -85,7 +88,7 @@ public class MobileGunner : EnemyActor
 
         for(int i = 0; i < shotCount; i++)
         {
-            weapon.FireWeapon(AttackTarget.position);            
+            weapon.FireWeapon(AttackTarget.position, 0);            
             timer = 0.1f;
             do
             {

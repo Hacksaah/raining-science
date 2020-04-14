@@ -29,6 +29,7 @@ public class EnemyActor : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         moveTargetIndex = -1;
         roomKey = -1;
+        AttackTarget = GameObjectPoolManager.PlayerTarget;
     }
 
     public void SpawnActor(Vector3 position, Vector3 target)
@@ -60,7 +61,7 @@ public class EnemyActor : MonoBehaviour
         return 0;
     }
 
-    public virtual void TakeDamage(int incomingDamage, Vector3 force)
+    public virtual void TakeDamage(int incomingDamage, Vector3 force, Damage_Type dam_Type)
     {
         currHP -= incomingDamage;
         if (isAlive && currHP <= 0)

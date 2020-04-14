@@ -7,7 +7,7 @@ public class Laser_projectile : WeaponProjectile
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Enemy")
-            collision.gameObject.GetComponent<EnemyActor>().TakeDamage(damage, rb.velocity);
+            collision.gameObject.GetComponent<EnemyActor>().TakeDamage(damage, rb.velocity, Damage_Type.PROJECTILE);
         gameObject.SetActive(false);
     }
 

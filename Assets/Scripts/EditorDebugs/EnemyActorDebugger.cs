@@ -4,7 +4,7 @@ using UnityEditor;
 
 public class EnemyActorDebugger : MonoBehaviour
 {
-    EnemyActor enemyActor;
+    public EnemyActor enemyActor;
 
     public bool isSelected = true;
     public bool seeViewDistance = false;

@@ -24,6 +24,7 @@ public class DeliveryBot : EnemyActor
         Startup();
         explosiveParticles = GetComponent<ParticleSystem>();
         SpawnActor(transform.position, Vector3.zero);
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -35,14 +36,13 @@ public class DeliveryBot : EnemyActor
     {
         stateMachine.FixedUpdate();
     }   
-
-    // Update is called once per frame
+    
     void Update()
     {
         stateMachine.Update();        
     }
 
-    public override void TakeDamage(int damage, Vector3 force)
+    public override void TakeDamage(int damage, Vector3 force, Damage_Type dam_Type)
     {        
         if (isAlive)
         {

@@ -32,7 +32,7 @@ public class LightGun_projectile : MonoBehaviour
         {
             if(hit.collider.gameObject.tag == "Enemy")
             {
-                hit.collider.gameObject.GetComponent<EnemyActor>().TakeDamage(damage, dir);
+                hit.collider.gameObject.GetComponent<EnemyActor>().TakeDamage(damage, dir, Damage_Type.PROJECTILE);
             }
             
             lineRend.SetPosition(1, hit.point);

@@ -6,9 +6,9 @@ public class AttachmentUI : MonoBehaviour
 {
     public static AttachmentUI Instance;
 
-    public GameEvent getCurrentWeapon;
+    public GameEvent getCurrentWeapon_event;
     public Weapon CurrentlyHeldWeapon;
-    public GameObject p;
+
     private void Awake()
     {
         Instance = this;
@@ -24,8 +24,7 @@ public class AttachmentUI : MonoBehaviour
     public void ActivateUI(Attachment incomingAttachment)
     {
         gameObject.SetActive(true);
-        //TODO: Change p.GetComponent<LaserPistol>() to get the weapon via GameEvent
-        CurrentlyHeldWeapon = p.GetComponent<LaserPistol>();
+        getCurrentWeapon_event.Raise();
         gameObject.GetComponent<AttachmentPanel>().UpdatePanel(CurrentlyHeldWeapon, incomingAttachment);
     }
 }

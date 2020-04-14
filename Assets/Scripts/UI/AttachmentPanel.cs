@@ -17,10 +17,10 @@ public class AttachmentPanel : MonoBehaviour
 
     private void Start()
     {
-        //Testing new attachment -- to be removed
-        TripleShotAttachment TS = new TripleShotAttachment();
-        UnequippedAttachment.text = TS.Name;
-        newAttachment = TS;
+        ////Testing new attachment -- to be removed
+        //TripleShotAttachment TS = new TripleShotAttachment();
+        //UnequippedAttachment.text = TS.Name;
+        //newAttachment = TS;
     }
 
     //Sets up relevant fields in the attachment panel
@@ -29,7 +29,8 @@ public class AttachmentPanel : MonoBehaviour
     {
         weaponToChange = currentGun;
         Title.text = "Max Attachments: " + weaponToChange.AttachmentSlots;
-        //newAttachment = attachmentToUse;
+        newAttachment = attachmentToUse;
+        UnequippedAttachment.text = attachmentToUse.Name;
 
         //Change Gun sprite
         //insert currentGun sprite
@@ -77,7 +78,6 @@ public class AttachmentPanel : MonoBehaviour
 
             //Add new attachment after last node
             weaponToChange.attachments.AddAfter(lastNode, newAttachmentNode);
-
 
             //TODO - Destroy attachment in the world
             //newAttachment = null;

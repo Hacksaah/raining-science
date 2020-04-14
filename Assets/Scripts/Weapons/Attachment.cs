@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Attachment
 {
     protected string name;
+    protected string flavorText;
     public abstract void AlterWeapon(Weapon weapon);
     public abstract void AlterFire(Weapon weapon);
 

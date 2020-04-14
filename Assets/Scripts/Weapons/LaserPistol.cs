@@ -17,6 +17,7 @@ public class LaserPistol : Weapon
         ammoInClip = clipSize;
         maxAmmoCapacity = -1;
         currentAmmoCapacity = maxAmmoCapacity;
+        attachmentSlots = 3;
 
         reloading = false;
 
@@ -45,7 +46,7 @@ public class LaserPistol : Weapon
                 target.y = shootFromTransform.position.y;
                 projectile.FireProjectile(projectileSpeed, damage, shootBloom, target);
 
-                fireRateTimer = fireRate;                
+                fireRateTimer = fireRate;
             }
         }
         else if (Input.GetButtonUp("Fire1"))

@@ -259,9 +259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8aa1e20b92bdf49ba6e69d5849dd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getCurrentWeapon: {fileID: 0}
+  getCurrentWeapon_event: {fileID: 11400000, guid: bbbbfbe8bbdb5004a8d0ee7a17f234f0,
+    type: 2}
   CurrentlyHeldWeapon: {fileID: 0}
-  p: {fileID: 0}
 --- !u!1 &4141266939485821981
 GameObject:
   m_ObjectHideFlags: 0

@@ -203,4 +203,9 @@ public class CharacterController : MonoBehaviour
 
         playerUIReady.Raise();
     }
+
+    public void GiveCurrentWeapon()
+    {
+        AttachmentUI.Instance.CurrentlyHeldWeapon = currentWeapon;
+    }
 }

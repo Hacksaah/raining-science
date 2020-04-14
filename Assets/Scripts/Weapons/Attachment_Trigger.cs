@@ -39,7 +39,8 @@ public class Attachment_Trigger : Interactable
     }
 
     public override void Interact()
-    {        
+    {
+        //AttachmentUI.Instance.getCurrentWeapon.Raise();
         AttachmentUI.Instance.ActivateUI(attachment);
     }
 }

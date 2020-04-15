@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8394327858174438662}
   - component: {fileID: 8394327858174438663}
   m_Layer: 13
-  m_Name: healthOrb
+  m_Name: gunnerBoss_healthOrb
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,4 +123,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6072a15b9cc5894da70a17a35738cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 6c8df24feea64f945af3ee5ca68d85bb, type: 2}
+  currHP: 0
+  roomKey: 0
+  currTarget: {x: 0, y: 0, z: 0}
+  isAlive: 0
+  movePath: []
+  moveTargetIndex: 0
+  rb: {fileID: 0}
+  AttackTarget: {fileID: 0}
+  bossMaxHP: {fileID: 11400000, guid: e576b943bafeaed4a8c8aa9d95fb644c, type: 2}
+  bossCurrHP: {fileID: 11400000, guid: 16f758e47f6631346bb9f2098dc2d23b, type: 2}
   force: 5000

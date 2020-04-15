@@ -105,7 +105,10 @@ public class MobileGunner : EnemyActor
             // Find some nearby vector to stand on
             Vector3 openPosition = PathRequestManager.RequestNewMoveSpot(transform.position, (int)stats.GetSightDistance(), roomKey);
             currTarget = openPosition;
+            moveTargetIndex = -1;
             RequestPath();
+            while (moveTargetIndex == -1)
+                yield return null;
             stateMachine.ChangeState(mobileGunner_followPath.Instance);
         }
     }

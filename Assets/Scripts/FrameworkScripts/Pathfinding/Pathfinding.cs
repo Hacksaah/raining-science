@@ -135,4 +135,11 @@ public class Pathfinding : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, openNodes.Count - 1);
         return openNodes[randomIndex].worldPos;
     }
+
+    public Vector3 FindOpenPositionBetween(Vector3 targetPosition, int searchMin, int searchMax, int roomKey)
+    {
+        Room_Grid room_Grid = levelGrid.GetRoom(roomKey);
+        // Return a random open world position from nose
+        return room_Grid.FindRandomSpotBetween(targetPosition, searchMin, searchMax);
+    }
 }

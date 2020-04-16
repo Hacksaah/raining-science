@@ -17,6 +17,7 @@ public class GunnerBoss : EnemyActor
     public VarInt bossMaxHP;
     public VarInt bossCurrHP;
 
+    public bool pathNotDone = false;
     private bool spinAttack = false;
     private Vector3 spinTurretOffest;
 
@@ -66,8 +67,48 @@ public class GunnerBoss : EnemyActor
         }
     }
 
+    public IEnumerator RequestMovePathToAttack()
+    {
+        currTarget = PathRequestManager.FindOpenMoveSpotBetween(AttackTarget.position, 25, 45, roomKey);
+        RequestPath();
+        while (moveTargetIndex == -1)
+            yield return null;
+
+        pathNotDone = true;
+        currTarget.y = transform.position.y;
+        float moveSpeed = stats.GetMoveSpeed();
+        int lenght = movePath.Length;
+        while (moveTargetIndex < lenght)
+        {            
+            transform.position = Vector3.MoveTowards(transform.position, currTarget, moveSpeed * Time.deltaTime);
+            if (Vector3.Distance(currTarget, transform.position) < 2.0f)
+            {
+                moveTargetIndex++;
+                if(moveTargetIndex < lenght)
+                {
+                    currTarget = movePath[moveTargetIndex];
+                    currTarget.y = transform.position.y;
+                }
+                    
+            }
+            yield return null;
+        }
+        moveTargetIndex = -1;
+        pathNotDone = false;
+        currTarget = AttackTarget.position;
+    }
+
     public IEnumerator FireShotGuns()
     {
+        currTarget = AttackTarget.transform.position;
+
+        float timer = 0.75f;
+        while(timer > 0)
+        {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
         Vector3 dir = transform.position + transform.forward * 100;
 
         shotGunTurret1.FireWeapon(dir, -5);
@@ -75,7 +116,7 @@ public class GunnerBoss : EnemyActor
         shotGunTurret1.FireWeapon(dir, 5);
         shotGunTurret1.FireWeapon(dir, 15);
 
-        float timer = Random.Range(0.2f, 0.4f);
+        timer = Random.Range(0.2f, 0.4f);
         while (timer > 0)
         {
             timer -= Time.deltaTime;

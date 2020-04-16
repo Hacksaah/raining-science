@@ -58,6 +58,11 @@ public class PathRequestManager : MonoBehaviour
     {
         return instance.pathfinding.FindOpenNodePosition(position, radius, roomKey);
     }
+
+    public static Vector3 FindOpenMoveSpotBetween(Vector3 target, int searchMin, int searchMax, int roomKey)
+    {
+        return instance.pathfinding.FindOpenPositionBetween(target, searchMin, searchMax, roomKey);
+    }
 }
 
 //Data package for making a pathfind request for an AI unit

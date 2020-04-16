@@ -29,7 +29,7 @@ public class gunnerBoss_phase1 : State<GunnerBoss>
     }
 
     private int attackCount = 0;
-    private float timeBetweenAttacks = 0;
+    private float timeBetweenThoughts = 0;
     private float turnSpeed = 7;
 
     public override void EnterState(GunnerBoss owner)
@@ -44,24 +44,28 @@ public class gunnerBoss_phase1 : State<GunnerBoss>
 
     public override void FixedUpdateState(GunnerBoss owner)
     {
-        owner.currTarget = owner.AttackTarget.position;
         owner.TurnToFace(owner.currTarget, turnSpeed);
     }
 
     public override void UpdateState(GunnerBoss owner)
     {
-        if(timeBetweenAttacks > 0)
+        if(timeBetweenThoughts > 0 || owner.pathNotDone)
         {
-            timeBetweenAttacks -= Time.deltaTime;
+            timeBetweenThoughts -= Time.deltaTime;
+            if (owner.moveTargetIndex < 0)
+                owner.currTarget = owner.AttackTarget.position;
         }
         else
         {
             attackCount++;
-            timeBetweenAttacks = Random.Range(3f, 5);
+            timeBetweenThoughts = Random.Range(3f, 5);
             int chance = Random.Range(0, 1000 / attackCount);
-            if (chance < 20)
+            if (owner.moveTargetIndex == -1 && Random.Range(0, 100) < 25)
+                owner.StartCoroutine(owner.RequestMovePathToAttack());
+            else if (chance < 20)
             {
                 owner.StartCoroutine(owner.SpawnExplosiveBot());
+                owner.currTarget = owner.AttackTarget.transform.position;
             }
             else
             {

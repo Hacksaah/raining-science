@@ -119,6 +119,48 @@ public class Room_Grid : MonoBehaviour
         return openNodes;
     }
 
+    public Vector3 FindRandomSpotBetween(Vector3 target, int searchMin, int searchMax)
+    {
+        PathNode targetNode = NodeFromWorldPoint(target);
+        int x = targetNode.gridX - searchMax;        
+        int y = targetNode.gridY - searchMax;        
+        int xMax = x + 2*searchMax;
+        int yMax = y + 2*searchMax;
+
+        int xBound1 = targetNode.gridX - searchMin;
+        int xBound2 = targetNode.gridX + searchMin;
+        int yBound1 = targetNode.gridY - searchMin;
+        int yBound2 = targetNode.gridY + searchMin;
+
+        x = x < 0 ? 0 : x;
+        y = y < 0 ? 0 : y;
+        xMax = xMax >= gridSizeX ? gridSizeX : xMax;
+        yMax = yMax >= gridSizeY ? gridSizeY : yMax;
+
+        xBound1 = xBound1 < 0 ? 0 : xBound1;
+        yBound1 = yBound1 < 0 ? 0 : yBound1;
+        xBound2 = xBound2 >= gridSizeX ? gridSizeX : xBound2;
+        yBound2 = yBound2 >= gridSizeY ? gridSizeY : yBound2;
+
+        List<PathNode> nodes = new List<PathNode>();
+
+        for(; x < xMax; x++)
+        {
+            for(; y < yMax; y++)
+            {
+                if (x >= xBound1 && y >= yBound1 && x <= xBound2 && y <= yBound2)
+                    continue;
+                else if (grid[x, y].isWalkable)
+                    nodes.Add(grid[x, y]);
+            }
+        }
+
+        if (nodes.Count != 0)
+            return nodes[Random.Range(0, nodes.Count)].worldPos;
+
+        return Vector3.zero;
+    }
+
     //returns a random walkable spot in the room
     public Vector3 AnOpenSpot()
     {

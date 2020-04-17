@@ -50,6 +50,7 @@ public class GunnerBoss : EnemyActor
     // Start is called before the first frame update
     void Start()
     {
+        BossUI.Instance.gameObject.SetActive(true);
         AttackTarget = GameObjectPoolManager.PlayerTarget;
         stateMachine.ChangeState(gunnerBoss_phase1.Instance);
     }

@@ -140,7 +140,7 @@ public class Room_Grid : MonoBehaviour
         xBound1 = xBound1 < 0 ? 0 : xBound1;
         yBound1 = yBound1 < 0 ? 0 : yBound1;
         xBound2 = xBound2 >= gridSizeX ? gridSizeX : xBound2;
-        yBound2 = yBound2 >= gridSizeY ? gridSizeY : yBound2;
+        yBound2 = yBound2 >= gridSizeY ? gridSizeY : yBound2;        
 
         List<PathNode> nodes = new List<PathNode>();
 

@@ -39,7 +39,8 @@ public class gunnerBoss_phase1 : State<GunnerBoss>
 
     public override void ExitState(GunnerBoss owner)
     {
-
+        owner.spinAttack = false;
+        owner.pathNotDone = false;
     }
 
     public override void FixedUpdateState(GunnerBoss owner)

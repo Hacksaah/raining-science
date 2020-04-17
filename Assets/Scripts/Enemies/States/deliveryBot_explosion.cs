@@ -70,9 +70,9 @@ public class deliveryBot_explosion : State<DeliveryBot>
                 Vector3 explosiveForce = (rb.position - owner.transform.position).normalized;
                 explosiveForce.y = 0.65f;
                 explosiveForce *= owner.explosionForce;
-                rb.AddForce(explosiveForce, ForceMode.Impulse);
-                owner.explosiveParticles.Play();
+                rb.AddForce(explosiveForce, ForceMode.Impulse);                
             }
         }
+        owner.explosiveParticles.Play();
     }
 }

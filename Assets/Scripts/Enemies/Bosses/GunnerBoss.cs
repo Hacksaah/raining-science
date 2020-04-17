@@ -11,14 +11,19 @@ public class GunnerBoss : EnemyActor
     public EnemyWeapon shotGunTurret2;
     public EnemyWeapon spinningTurret;
 
-    public Transform spinTurretTurnPosition;
+    public ParticleSystem explosiveParticles;
+    
     public GameObject HealthOrb_GameObj;
 
     public VarInt bossMaxHP;
     public VarInt bossCurrHP;
 
+    [HideInInspector]
     public bool pathNotDone = false;
-    private bool spinAttack = false;
+    [HideInInspector]
+    public bool spinAttack = false;
+
+    private Transform spinTurretTurnPosition;
     private Vector3 spinTurretOffest;
 
     GunnerBoss()
@@ -28,6 +33,8 @@ public class GunnerBoss : EnemyActor
 
     private void Awake()
     {
+        spinTurretTurnPosition = transform.GetChild(3);
+
         HealthOrb_GameObj = Instantiate(HealthOrb_GameObj);
         // ignore collision between this actor and the health orb
         Collider col = HealthOrb_GameObj.GetComponent<Collider>();
@@ -69,12 +76,12 @@ public class GunnerBoss : EnemyActor
 
     public IEnumerator RequestMovePathToAttack()
     {
-        currTarget = PathRequestManager.FindOpenMoveSpotBetween(AttackTarget.position, 25, 45, roomKey);
+        currTarget = PathRequestManager.FindOpenMoveSpotBetween(AttackTarget.position, 2, 6, roomKey);
         RequestPath();
+        pathNotDone = true;
         while (moveTargetIndex == -1)
             yield return null;
-
-        pathNotDone = true;
+        
         currTarget.y = transform.position.y;
         float moveSpeed = stats.GetMoveSpeed();
         int lenght = movePath.Length;
@@ -162,7 +169,6 @@ public class GunnerBoss : EnemyActor
 
     public IEnumerator RetreiveHealthOrb()
     {
-        //# to-do
         stateMachine.HaltState();
 
         //Retreive path to orb
@@ -170,32 +176,43 @@ public class GunnerBoss : EnemyActor
         RequestPath();
         while(moveTargetIndex < 0)
             yield return null;
+        currTarget.y = transform.position.y;
         int lenght = movePath.Length;
         float moveSpeed = stats.GetMoveSpeed();
         float moveSpeedRampUP = 1.0f;
-        while(moveTargetIndex < lenght)
+        while (moveTargetIndex != lenght)
         {
             TurnToFace(currTarget, 8f);
-            if (moveTargetIndex < lenght - 1) {
-                transform.position = Vector3.MoveTowards(transform.position, currTarget, moveSpeed * moveSpeedRampUP * Time.deltaTime);
-                moveSpeedRampUP += Time.deltaTime * 2;
-                if (Vector3.Distance(currTarget, transform.position) < 2.0f)
-                {
-                    moveTargetIndex++;
-                    currTarget = movePath[moveTargetIndex];
-                }
-            }
-            else
+            transform.position = Vector3.MoveTowards(transform.position, currTarget, moveSpeed * moveSpeedRampUP * Time.deltaTime);
+            moveSpeedRampUP += Time.deltaTime;
+            if (moveTargetIndex == lenght - 1 && Vector3.Distance(transform.position, HealthOrb_GameObj.transform.position) <= 6.0f)
+                moveTargetIndex = lenght;
+            else if (Vector3.Distance(currTarget, transform.position) < 2.0f)
             {
-                currTarget = HealthOrb_GameObj.transform.position;
-                transform.position = Vector3.MoveTowards(transform.position, HealthOrb_GameObj.transform.position, moveSpeed * moveSpeedRampUP * Time.deltaTime);
-                if (Vector3.Distance(transform.position, HealthOrb_GameObj.transform.position) < 6.0f)
-                    moveTargetIndex++;
+                moveTargetIndex++;
+                if (moveTargetIndex < lenght)
+                {
+                    currTarget = movePath[moveTargetIndex];
+                    currTarget.y = transform.position.y;
+                }
+                else
+                {
+                    currTarget = HealthOrb_GameObj.transform.position;
+                    moveTargetIndex = -1;
+                    RequestPath();
+                    while (moveTargetIndex < 0)
+                        yield return null;
+                    lenght = movePath.Length;
+                }
             }
             yield return null;
         }
         moveTargetIndex = -1;
+        StartCoroutine(PickUpHealthOrb());
+    }
 
+    private IEnumerator PickUpHealthOrb()
+    {
         //Pick it up
         Rigidbody orbRB = HealthOrb_GameObj.GetComponent<Rigidbody>();
         orbRB.velocity = Vector3.zero;
@@ -210,12 +227,14 @@ public class GunnerBoss : EnemyActor
         HealthOrb_GameObj.SetActive(false);
 
         //Change state to attack phase
-        if(bossCurrHP.value <= 0)
+        if (bossCurrHP.value <= 0)
         {
-            //blow up
+            StartCoroutine(Explode());
         }
-
-        stateMachine.ChangeState(gunnerBoss_phase1.Instance);
+        else
+        {
+            stateMachine.ChangeState(gunnerBoss_phase1.Instance);
+        }
     }
 
     public IEnumerator SpawnExplosiveBot()
@@ -225,6 +244,56 @@ public class GunnerBoss : EnemyActor
         Vector3 target = bot.transform.position + transform.forward;
         target.y = bot.transform.position.y;
         bot.transform.LookAt(target);
+        yield return null;
+    }
+
+    private IEnumerator Explode()
+    {
+        float timer = 0;
+        float startX = transform.position.x;
+        float startZ = transform.position.z;
+        while(timer < 2.1f)
+        {
+            Vector3 newPos = transform.position;
+            float diff = timer * .2f;
+            newPos.x = Random.Range(startX - diff, startX + diff);
+            newPos.z = Random.Range(startZ - diff, startZ + diff);
+            transform.position = newPos;
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        rb.constraints = RigidbodyConstraints.None;
+        rb.isKinematic = false;
+        rb.mass = 1;
+        Vector3 dir = -transform.forward + Vector3.up;
+        Vector3 position = transform.position;
+        position.y = position.y + 1;
+        rb.AddForceAtPosition(dir * 4, position, ForceMode.Impulse);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10, 11);
+        foreach (Collider col in hitColliders)
+        {
+            Rigidbody rb = col.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                if (col.gameObject.tag == "Player")
+                {
+
+                    col.gameObject.GetComponent<CharacterController>().TakeDamage(40);
+                }
+                else if (col.gameObject.tag == "Enemy")
+                {
+                    col.GetComponent<EnemyActor>().TakeDamage(40, Vector3.zero, Damage_Type.EXPLOSIVE);
+                }
+                rb.isKinematic = false;
+                Vector3 explosiveForce = (rb.position - transform.position).normalized;
+                explosiveForce.y = 0.65f;
+                explosiveForce *= 10;
+                rb.AddForce(explosiveForce, ForceMode.Impulse);                
+            }
+        }
+        explosiveParticles.Play();
         yield return null;
     }
 }

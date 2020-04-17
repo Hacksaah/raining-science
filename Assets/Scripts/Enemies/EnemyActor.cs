@@ -88,9 +88,12 @@ public class EnemyActor : MonoBehaviour
         {
             //if (movePath.Length > 0)
             //    System.Array.Clear(movePath, 0, movePath.Length);
-            movePath = newPath;            
-            moveTargetIndex = 0;
-            currTarget = movePath[moveTargetIndex];
+            movePath = newPath;
+            if(newPath.Length > 0)
+            {
+                moveTargetIndex = 0;
+                currTarget = movePath[moveTargetIndex];
+            }            
         }
     }
 

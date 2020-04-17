@@ -28,11 +28,12 @@ public class gunnerBoss_intermission : State<GunnerBoss>
         }
     }
 
-    private float timer = 30.0f;
+    private float timer;
 
     public override void EnterState(GunnerBoss owner)
-    {        
+    {
         timer = 5.0f;
+        owner.StopAllCoroutines();
         owner.EjectHealthOrb();
     }
 

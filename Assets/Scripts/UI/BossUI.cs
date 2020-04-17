@@ -15,6 +15,7 @@ public class BossUI : MonoBehaviour
     {
         slider = GetComponent<Slider>();
         Instance = this;
+        gameObject.SetActive(false);
     }
 
     public void ReadyUI()
@@ -26,5 +27,7 @@ public class BossUI : MonoBehaviour
     public void UpdateHealthBar()
     {
         slider.value = bossCurrHP.value;
+        if (bossCurrHP.value <= 0)
+            gameObject.SetActive(false);
     }
 }

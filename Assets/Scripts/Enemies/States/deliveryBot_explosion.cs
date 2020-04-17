@@ -64,15 +64,15 @@ public class deliveryBot_explosion : State<DeliveryBot>
                 }
                 else if(col.gameObject.tag == "Enemy")
                 {
-                    col.GetComponent<EnemyActor>().TakeDamage(40, Vector3.zero);
+                    col.GetComponent<EnemyActor>().TakeDamage(40, Vector3.zero, Damage_Type.EXPLOSIVE);
                 }
                 rb.isKinematic = false;
                 Vector3 explosiveForce = (rb.position - owner.transform.position).normalized;
                 explosiveForce.y = 0.65f;
                 explosiveForce *= owner.explosionForce;
-                rb.AddForce(explosiveForce, ForceMode.Impulse);
-                owner.explosiveParticles.Play();
+                rb.AddForce(explosiveForce, ForceMode.Impulse);                
             }
         }
+        owner.explosiveParticles.Play();
     }
 }

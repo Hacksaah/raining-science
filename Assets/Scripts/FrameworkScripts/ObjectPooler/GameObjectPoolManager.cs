@@ -5,12 +5,17 @@ using UnityEngine;
 // this is the global object pooling manager that all the poolable objects will communicate with
 public class GameObjectPoolManager : MonoBehaviour
 {
-    public Pooler[] Objects;
+    public Pooler[] Objects;    
+    public static Transform PlayerTarget;
+
+    [SerializeField]
+    private Transform playerTarget;
 
     public static Dictionary<string, Pooler> pools = new Dictionary<string, Pooler>();
 
     void Awake()
     {
+        PlayerTarget = playerTarget;
         foreach(Pooler options in Objects)
         {
             for(int i = 0; i < options.amount; i++)

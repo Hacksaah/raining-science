@@ -6,6 +6,7 @@ public class WeaponProjectile : MonoBehaviour
 {
     public float speed;
     public int damage;
+    public Damage_Type damage_type;
 
     protected float timeToLive;
     protected Rigidbody rb;

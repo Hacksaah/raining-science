@@ -8,13 +8,13 @@ public class EnemyWeapon : MonoBehaviour
     public string projectileKey;
 
     public float projectileSpeed;
-    public int damage;    
+    public int damage;
 
-    public void FireWeapon(Vector3 target)
+    public void FireWeapon(Vector3 target, int shootBloom)
     {
         EnemyProjectile projectile = GameObjectPoolManager.RequestItemFromPool(projectileKey).GetComponent<EnemyProjectile>();
         projectile.gameObject.transform.position = shootPosition.position;
         target.y = shootPosition.position.y;
-        projectile.FireProjectile(projectileSpeed, damage, target);
+        projectile.FireProjectile(projectileSpeed, damage, shootBloom, target);
     }
 }

@@ -44,12 +44,12 @@ public class deliveryBot_alerted : State<DeliveryBot>
         Physics.Raycast(owner.rayOrigin.position, owner.transform.forward, out hit, 1.25f);
         if (hit.collider)
         {
-            owner.TakeDamage(owner.currHP, Vector3.zero);
+            owner.TakeDamage(owner.currHP, Vector3.zero, 0);
         }
         float angle = owner.TurnToFace(owner.AttackTarget.position, 1.3f);
         if (angle < 90 && angle > -90 && Vector3.Distance(owner.transform.position, owner.AttackTarget.position) < 1.25f)
         {
-            owner.TakeDamage(owner.currHP, Vector3.zero);
+            owner.TakeDamage(owner.currHP, Vector3.zero, 0);
         }
     }
 

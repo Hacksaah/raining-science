@@ -18,9 +18,6 @@ public class EnemyActor : MonoBehaviour
     public Vector3[] movePath;
     public int moveTargetIndex;
 
-    //Custom Components
-    protected EnemyWeapon weapon;
-
     // Physic Components
     public Rigidbody rb;    
 
@@ -30,9 +27,9 @@ public class EnemyActor : MonoBehaviour
     protected void Startup()
     {
         rb = GetComponent<Rigidbody>();
-        weapon = GetComponent<EnemyWeapon>();
         moveTargetIndex = -1;
         roomKey = -1;
+        AttackTarget = GameObjectPoolManager.PlayerTarget;
     }
 
     public void SpawnActor(Vector3 position, Vector3 target)
@@ -40,7 +37,7 @@ public class EnemyActor : MonoBehaviour
         transform.position = position;
         currTarget = target;
         isAlive = true;
-        ResetActor();        
+        ResetActor();
     }
 
     public void ResetActor()
@@ -64,7 +61,7 @@ public class EnemyActor : MonoBehaviour
         return 0;
     }
 
-    public virtual void TakeDamage(int incomingDamage, Vector3 force)
+    public virtual void TakeDamage(int incomingDamage, Vector3 force, Damage_Type dam_Type)
     {
         currHP -= incomingDamage;
         if (isAlive && currHP <= 0)
@@ -91,9 +88,12 @@ public class EnemyActor : MonoBehaviour
         {
             //if (movePath.Length > 0)
             //    System.Array.Clear(movePath, 0, movePath.Length);
-            movePath = newPath;            
-            moveTargetIndex = 0;
-            currTarget = movePath[moveTargetIndex];
+            movePath = newPath;
+            if(newPath.Length > 0)
+            {
+                moveTargetIndex = 0;
+                currTarget = movePath[moveTargetIndex];
+            }            
         }
     }
 

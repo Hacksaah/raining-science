@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Laser_projectile : WeaponProjectile
 {
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Enemy")
-            collision.gameObject.GetComponent<EnemyActor>().TakeDamage(damage, rb.velocity);
+        if (other.gameObject.tag == "Enemy")
+            other.gameObject.GetComponent<EnemyActor>().TakeDamage(damage, rb.velocity, Damage_Type.PROJECTILE);
         gameObject.SetActive(false);
     }
 

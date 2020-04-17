@@ -33,7 +33,7 @@ public class RailGun_projectile : WeaponProjectile
         if (other.gameObject.tag == "Enemy")
         {
             enemyHitCount++;
-            other.gameObject.GetComponent<EnemyActor>().TakeDamage(damage, rb.velocity);
+            other.gameObject.GetComponent<EnemyActor>().TakeDamage(damage, rb.velocity, Damage_Type.PROJECTILE);
             if (size > 1)
             {
                 if (enemyHitCount % (size * 2) == 0)

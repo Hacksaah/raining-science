@@ -6,6 +6,9 @@ public class AttachmentUI : MonoBehaviour
 {
     public static AttachmentUI Instance;
 
+    public GameEvent getCurrentWeapon_event;
+    public Weapon CurrentlyHeldWeapon;
+
     private void Awake()
     {
         Instance = this;
@@ -21,5 +24,7 @@ public class AttachmentUI : MonoBehaviour
     public void ActivateUI(Attachment incomingAttachment)
     {
         gameObject.SetActive(true);
+        getCurrentWeapon_event.Raise();
+        gameObject.GetComponent<AttachmentPanel>().UpdatePanel(CurrentlyHeldWeapon, incomingAttachment);
     }
 }

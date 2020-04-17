@@ -7,7 +7,7 @@ public class LightGun : Weapon
     private float rampUpTime, rampUpTimer;
     private float currFireRate;
     private float currShootBloom;
-    private int rampUpModifier;    
+    private int rampUpModifier;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +23,7 @@ public class LightGun : Weapon
         ammoInClip = clipSize;
         maxAmmoCapacity = -1;
         currentAmmoCapacity = maxAmmoCapacity;
+        attachmentSlots = 4;
 
         reloading = false;
 

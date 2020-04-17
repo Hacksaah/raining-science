@@ -17,19 +17,20 @@ public class AttachmentPanel : MonoBehaviour
 
     private void Start()
     {
-        //Testing new attachment -- to be removed
-        TripleShotAttachment TS = new TripleShotAttachment();
-        UnequippedAttachment.text = TS.Name;
-        newAttachment = TS;
+        ////Testing new attachment -- to be removed
+        //TripleShotAttachment TS = new TripleShotAttachment();
+        //UnequippedAttachment.text = TS.Name;
+        //newAttachment = TS;
     }
 
     //Sets up relevant fields in the attachment panel
     //Sets up the buttons with attachments, text fields with names, and images with sprites
-    public void UpdatePanel(Weapon currentGun)//, Attachment attachmentToUse)//, Attachment newAttachment)
+    public void UpdatePanel(Weapon currentGun, Attachment attachmentToUse)
     {
         weaponToChange = currentGun;
         Title.text = "Max Attachments: " + weaponToChange.AttachmentSlots;
-        //newAttachment = attachmentToUse
+        newAttachment = attachmentToUse;
+        UnequippedAttachment.text = attachmentToUse.Name;
 
         //Change Gun sprite
         //insert currentGun sprite
@@ -80,6 +81,8 @@ public class AttachmentPanel : MonoBehaviour
 
             //TODO - Destroy attachment in the world
             //newAttachment = null;
+
+            CloseMenu();
         }
         else //If the selected button is available and has an attachment
         {
@@ -101,7 +104,7 @@ public class AttachmentPanel : MonoBehaviour
             //Remove old attachment
             weaponToChange.attachments.Remove(current);
         }
-        UpdatePanel(weaponToChange);
+        UpdatePanel(weaponToChange, newAttachment);
     }
 
     public void CloseMenu()
@@ -112,6 +115,21 @@ public class AttachmentPanel : MonoBehaviour
     public void ChangeWeapon(Weapon newWeapon)
     {
         weaponToChange = newWeapon;
-        UpdatePanel(weaponToChange);
+        UpdatePanel(weaponToChange, newAttachment);
+    }
+
+    public void Update()
+    {
+        /*
+        //TODO: Change weapon based on scroll
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            //ChangeWeapon();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            //ChangeWeapon();
+        }
+        */
     }
 }

@@ -39,7 +39,7 @@ public class Attachment_Trigger : Interactable
     }
 
     public override void Interact()
-    {        
+    {
         AttachmentUI.Instance.ActivateUI(attachment);
     }
 }

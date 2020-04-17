@@ -17,6 +17,7 @@ public class RailGun : Weapon
         ammoInClip = clipSize;
         maxAmmoCapacity = -1;
         currentAmmoCapacity = maxAmmoCapacity;
+        attachmentSlots = 5;
 
         reloading = false;
 

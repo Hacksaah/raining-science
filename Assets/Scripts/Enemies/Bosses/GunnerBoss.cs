@@ -34,7 +34,7 @@ public class GunnerBoss : EnemyActor
     private void Awake()
     {
         spinTurretTurnPosition = transform.GetChild(3);
-
+        explosiveParticles = transform.GetChild(4).GetComponent<ParticleSystem>();
         HealthOrb_GameObj = Instantiate(HealthOrb_GameObj);
         // ignore collision between this actor and the health orb
         Collider col = HealthOrb_GameObj.GetComponent<Collider>();
@@ -50,6 +50,7 @@ public class GunnerBoss : EnemyActor
     // Start is called before the first frame update
     void Start()
     {
+        BossUI.Instance.gameObject.SetActive(true);
         AttackTarget = GameObjectPoolManager.PlayerTarget;
         stateMachine.ChangeState(gunnerBoss_phase1.Instance);
     }
@@ -161,7 +162,8 @@ public class GunnerBoss : EnemyActor
     }
 
     public void EjectHealthOrb()
-    {        
+    {
+        StopAllCoroutines();
         HealthOrb_GameObj.transform.position = transform.position;
         HealthOrb_GameObj.transform.LookAt(transform.forward);
         HealthOrb_GameObj.SetActive(true);

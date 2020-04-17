@@ -52,6 +52,14 @@ public class DeliveryBot : EnemyActor
                 StartCoroutine(StopAndTurnToFaceDynamicTarget(AttackTarget, 2.5f));
             }
 
+            if (dam_Type == Damage_Type.CORROSIVE)
+            {
+                dotMultiplier++;
+                dotTicks = 7;
+                dotDamage = 5;
+                StartCoroutine(ApplyDoT());
+            }
+
             currHP -= damage;
             if (currHP <= 0)
             {

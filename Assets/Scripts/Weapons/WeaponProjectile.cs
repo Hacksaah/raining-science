@@ -8,7 +8,7 @@ public class WeaponProjectile : MonoBehaviour
     public int damage;
     public Damage_Type damage_type;
 
-    protected float timeToLive;
+    protected float timeToLive = 5f;
     protected Rigidbody rb;
 
     private void Awake()

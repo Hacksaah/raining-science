@@ -82,7 +82,7 @@ MonoBehaviour:
   EnemyPrefabs:
   - {fileID: 1734252470901273888, guid: 44f777f05e02fbe42bc2112fddf27e5e, type: 3}
   - {fileID: 234422367404991758, guid: 68ac7b9a927e56d49ae922845c36680d, type: 3}
-  spawnCount: 10
+  spawnCount: 7
 --- !u!1 &2041625760182638297
 GameObject:
   m_ObjectHideFlags: 0

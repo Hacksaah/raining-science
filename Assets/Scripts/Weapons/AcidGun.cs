@@ -9,7 +9,7 @@ public class AcidGun : Weapon
     {
         fireRate = 0.5f;
         reloadSpeed = 1f;
-        projectileSpeed = 10f;
+        projectileSpeed = 15f;
         critRate = 0.2f;
 
         damage = 5;

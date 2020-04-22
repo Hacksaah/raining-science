@@ -32,9 +32,11 @@ public abstract class Weapon : MonoBehaviour
 
     //Added
     protected int attachmentSlots;
+    [SerializeField]
     protected Sprite gunSprite;
 
     protected new string name;
+    protected string flavorText;
 
     //Attachment variables
     //Added
@@ -54,6 +56,7 @@ public abstract class Weapon : MonoBehaviour
     public Sprite GunSprite { get { return gunSprite; } set { gunSprite = value; } }
 
     public string Name { get { return name; } }
+    public string FlavorText { get { return flavorText; } }
 
 
     public bool DoubleShot { get { return doubleShot; } set { doubleShot = value; } }

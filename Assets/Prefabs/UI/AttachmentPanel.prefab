@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3885649406959995330}
   - component: {fileID: 4740969537752728933}
   m_Layer: 5
-  m_Name: TIncomingAttachmentPanel
+  m_Name: IncomingAttachmentPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -678,7 +678,7 @@ GameObject:
   - component: {fileID: 8473396272926637293}
   - component: {fileID: 7053299163234626516}
   m_Layer: 5
-  m_Name: FlavorPanel
+  m_Name: HoverFlavorPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1591,21 +1591,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  IncomingAttachmentName: {fileID: 0}
-  IncomingAttachmentIcon: {fileID: 0}
-  SpriteSheet: []
-  HoverAttachmentName: {fileID: 0}
-  HoverAttachmentStats: {fileID: 0}
-  HoverAttachmentFlavor: {fileID: 0}
-  GunName: {fileID: 0}
-  GunSprite: {fileID: 0}
-  GunFlavor: {fileID: 0}
-  canShoolSO: {fileID: 0}
+  - {fileID: 2155198936055161832}
+  - {fileID: 6387207611568778293}
+  - {fileID: 2420593059964654822}
+  - {fileID: 3971805562822306374}
+  - {fileID: 6875994984471426725}
+  IncomingAttachmentName: {fileID: 8335913047261669284}
+  IncomingAttachmentIcon: {fileID: 3540472504597454061}
+  IncomingAttachmentFlavor: {fileID: 7566670738937228635}
+  SpriteSheet:
+  - {fileID: 3088284539819664608, guid: cb38766bdc7ee644892e9964638395d1, type: 3}
+  - {fileID: -4563984368703754121, guid: cb38766bdc7ee644892e9964638395d1, type: 3}
+  - {fileID: 3967012670114216334, guid: cb38766bdc7ee644892e9964638395d1, type: 3}
+  - {fileID: -1441868727370122259, guid: cb38766bdc7ee644892e9964638395d1, type: 3}
+  - {fileID: 3967012670114216334, guid: cb38766bdc7ee644892e9964638395d1, type: 3}
+  HoverAttachmentName: {fileID: 8867841579365437370}
+  HoverAttachmentStats: {fileID: 511861343287746274}
+  HoverAttachmentFlavor: {fileID: 2828775699680641187}
+  GunName: {fileID: 3249199248376487394}
+  GunSprite: {fileID: 5064882198104251314}
+  GunFlavor: {fileID: 7461617065714453443}
+  canShootSO: {fileID: 11400000, guid: c8282a224df97af44bffc16843161ae9, type: 2}
 --- !u!114 &4141266939386265779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1633,7 +1639,7 @@ GameObject:
   - component: {fileID: 423320031891967305}
   - component: {fileID: 6798791477543449944}
   m_Layer: 5
-  m_Name: TDataPanel
+  m_Name: DataPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1709,7 +1715,7 @@ GameObject:
   - component: {fileID: 5834391690126786506}
   - component: {fileID: 8867841579365437370}
   m_Layer: 5
-  m_Name: NameText
+  m_Name: HoverNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2148,7 +2154,7 @@ GameObject:
   - component: {fileID: 7921297371626129260}
   - component: {fileID: 6114247545656924063}
   m_Layer: 5
-  m_Name: NamePanel
+  m_Name: HoverNamePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2222,7 +2228,7 @@ GameObject:
   - component: {fileID: 5503168255298988623}
   - component: {fileID: 2828775699680641187}
   m_Layer: 5
-  m_Name: FlavorText
+  m_Name: HoverFlavorText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2500,7 +2506,7 @@ GameObject:
   - component: {fileID: 4546000390959544911}
   - component: {fileID: 511861343287746274}
   m_Layer: 5
-  m_Name: StatText
+  m_Name: HoverStatText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2577,7 +2583,7 @@ GameObject:
   - component: {fileID: 4536831626679827304}
   - component: {fileID: 5453131390444981256}
   m_Layer: 5
-  m_Name: TCurrentAttachmentsPanel
+  m_Name: CurrentAttachmentsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2655,7 +2661,7 @@ GameObject:
   - component: {fileID: 5952097078163101494}
   - component: {fileID: 7897260597244234192}
   m_Layer: 5
-  m_Name: TGunPanel
+  m_Name: GunPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2731,7 +2737,7 @@ GameObject:
   - component: {fileID: 6409464033807629656}
   - component: {fileID: 5046742323696796458}
   m_Layer: 5
-  m_Name: StatPanel
+  m_Name: HoverStatPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

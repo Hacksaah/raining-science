@@ -7,16 +7,20 @@ public class AttachmentPanel : MonoBehaviour
 {
     public AttachmentButton[] attachmentButtons;
 
+    //New attachment items
     public Text IncomingAttachmentName;
     public Image IncomingAttachmentIcon;
+    public Text IncomingAttachmentFlavor;
 
     //Spritesheet with attachments
     public Sprite[] SpriteSheet;
 
+    //Hover display items
     public Text HoverAttachmentName;
     public Text HoverAttachmentStats;
     public Text HoverAttachmentFlavor;
 
+    //Current gun items
     public Text GunName;
     public Image GunSprite;
     public Text GunFlavor;
@@ -25,7 +29,7 @@ public class AttachmentPanel : MonoBehaviour
     private Attachment newAttachment;
 
     [SerializeField]
-    private VarBool canShoolSO;
+    private VarBool canShootSO;
 
     private void Start()
     {
@@ -43,7 +47,7 @@ public class AttachmentPanel : MonoBehaviour
             attBut.GetComponent<Image>().sprite = null;
         }
 
-        canShoolSO.value = false;
+        canShootSO.value = false;
         weaponToChange = currentGun;
 
         //Set gun information
@@ -54,6 +58,7 @@ public class AttachmentPanel : MonoBehaviour
         newAttachment = attachmentToUse;
         IncomingAttachmentName.text = newAttachment.Name;
         IncomingAttachmentIcon.sprite = SpriteSheet[newAttachment.SpriteID];
+        IncomingAttachmentFlavor.text = newAttachment.FlavorText;
 
         //Edit button text fields and attachments to represent the current weapons attachments
         int count = 0;
@@ -134,7 +139,7 @@ public class AttachmentPanel : MonoBehaviour
 
     public void CloseMenu()
     {
-        canShoolSO.value = true;
+        canShootSO.value = true;
         gameObject.SetActive(false);
     }
 

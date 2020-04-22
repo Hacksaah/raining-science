@@ -18,7 +18,7 @@ public class AttachmentUI : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            gameObject.SetActive(false);
+            gameObject.GetComponent<AttachmentPanel>().CloseMenu();
     }
 
     public void ActivateUI(Attachment incomingAttachment)

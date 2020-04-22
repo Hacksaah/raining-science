@@ -1352,6 +1352,12 @@ PrefabInstance:
       propertyPath: HoverAttachmentFlavor
       value: 
       objectReference: {fileID: 691012433}
+    - target: {fileID: 4141266939386265778, guid: 173b14165c29beb40be7f26f768d6580,
+        type: 3}
+      propertyPath: canShootSO
+      value: 
+      objectReference: {fileID: 11400000, guid: c8282a224df97af44bffc16843161ae9,
+        type: 2}
     - target: {fileID: 4888744074518704559, guid: 173b14165c29beb40be7f26f768d6580,
         type: 3}
       propertyPath: m_AnchoredPosition.x

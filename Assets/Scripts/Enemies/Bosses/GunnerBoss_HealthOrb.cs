@@ -15,8 +15,11 @@ public class GunnerBoss_HealthOrb : EnemyActor
         Startup();
         ResetActor();
         bossMaxHP.value = stats.GetMaxHP();
-        bossCurrHP.value = currHP;
-        
+        bossCurrHP.value = currHP;      
+    }
+
+    private void Start()
+    {
         BossUI.Instance.gameObject.SetActive(true);
         BossUI.Instance.ReadyUI();
 
@@ -39,5 +42,7 @@ public class GunnerBoss_HealthOrb : EnemyActor
         base.TakeDamage(incomingDamage, force, dam_Type);
         bossCurrHP.value = currHP;
         BossUI.Instance.UpdateHealthBar();
+        if (currHP <= 0)
+            StopAllCoroutines();
     }
 }

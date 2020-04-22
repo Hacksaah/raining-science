@@ -77,7 +77,14 @@ public class AttachmentPanel : MonoBehaviour
             LinkedListNode<Attachment> newAttachmentNode = new LinkedListNode<Attachment>(newAttachment);
 
             //Add new attachment after last node
-            weaponToChange.attachments.AddAfter(lastNode, newAttachmentNode);
+            if (lastNode == null)
+            {
+                weaponToChange.AddAttachment(newAttachment);
+            }
+            else
+            {
+                weaponToChange.AddAttachment(newAttachment);
+            }
 
             //TODO - Destroy attachment in the world
             //newAttachment = null;

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TripleShotAttachment : Attachment
+public class BrokenMicroscope : Attachment
 {
-    public TripleShotAttachment()
+    float amount = 0.25f;
+
+    public BrokenMicroscope()
     {
-        name = "Triple Shot";
+        name = "Broken Microscope";
+        flavorText = "Increase accuracy by " + (amount * 100) + "%";
     }
 
     public override void AlterFire(Weapon weapon)
@@ -16,11 +19,11 @@ public class TripleShotAttachment : Attachment
 
     public override void AlterWeapon(Weapon weapon)
     {
-        weapon.DoubleShot = true;
+        weapon.Accuracy -= (weapon.baseStats.shootBloom * amount);
     }
 
     public override void ReverseAlter(Weapon weapon)
     {
-        throw new System.NotImplementedException();
+        weapon.Accuracy += (weapon.baseStats.shootBloom * amount);
     }
 }

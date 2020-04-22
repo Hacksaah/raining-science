@@ -6,16 +6,8 @@ public class LaserPistol : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        fireRate = 0.2f;
-        reloadSpeed = 1f;
-        projectileSpeed = 50f;
-        critRate = 0.2f;
-        shootBloom = 7;
-
-        damage = 5;
-        clipSize = 6;
+        AssignBaseStats();        
         ammoInClip = clipSize;
-        maxAmmoCapacity = -1;
         currentAmmoCapacity = maxAmmoCapacity;
         attachmentSlots = 3;
 

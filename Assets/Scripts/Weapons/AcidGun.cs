@@ -7,15 +7,8 @@ public class AcidGun : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        fireRate = 0.5f;
-        reloadSpeed = 1f;
-        projectileSpeed = 15f;
-        critRate = 0.2f;
-
-        damage = 5;
-        clipSize = 4;
+        AssignBaseStats();
         ammoInClip = clipSize;
-        maxAmmoCapacity = -1;
         currentAmmoCapacity = maxAmmoCapacity;
         attachmentSlots = 4;
 
@@ -48,7 +41,9 @@ public class AcidGun : Weapon
                 projectile.FireProjectile(projectileSpeed, damage, target, 1);
 
                 fireRateTimer = fireRate;
-            }
+            }            
         }
+        if (ammoInClip == 0 && !reloading && Input.GetButtonDown("Fire1"))
+            ReloadWeapon(stats);
     }
 }

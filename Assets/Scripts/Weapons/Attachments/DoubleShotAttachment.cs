@@ -18,4 +18,9 @@ public class DoubleShotAttachment : Attachment
     {
         
     }
+
+    public override void ReverseAlter(Weapon weapon)
+    {
+        throw new System.NotImplementedException();
+    }
 }

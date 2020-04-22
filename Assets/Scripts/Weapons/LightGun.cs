@@ -12,17 +12,8 @@ public class LightGun : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        fireRate = 0.1f;
-        reloadSpeed = 0.85f;
-        projectileSpeed = 60f;
-        critRate = 0.2f;
-        shootBloom = 7;
-
-        damage = 3;
-        clipSize = 80;
+        AssignBaseStats();
         ammoInClip = clipSize;
-        maxAmmoCapacity = -1;
-        currentAmmoCapacity = maxAmmoCapacity;
         attachmentSlots = 4;
 
         reloading = false;
@@ -81,6 +72,8 @@ public class LightGun : Weapon
             rampUpTimer = 0;
             currFireRate = fireRate * rampUpModifier;
             currShootBloom = shootBloom * rampUpModifier;
-        }        
+        }
+        if (ammoInClip == 0 && !reloading && Input.GetButtonDown("Fire1"))
+            ReloadWeapon(stats);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public abstract class Weapon : MonoBehaviour
 {
+    public WeaponStats baseStats;
     public Transform shootFromTransform;
 
     [SerializeField]
@@ -46,6 +47,7 @@ public abstract class Weapon : MonoBehaviour
     public float ProjectileSpeed { get { return projectileSpeed; } set { projectileSpeed = value; } }
     public float CritRate { get { return critRate; } set { critRate = value; } }
     public int Damage { get { return damage; } set { damage = value; } }
+    public float Accuracy { get { return shootBloom; } set { shootBloom = value; } }
 
     public int ClipSize { get { return clipSize; } set { clipSize = value; } }
     public int MaxAmmoCapacity { get { return maxAmmoCapacity; } set { maxAmmoCapacity = value; } }
@@ -55,6 +57,19 @@ public abstract class Weapon : MonoBehaviour
 
     public string Name { get { return name; } }
 
+
+    protected void AssignBaseStats()
+    {
+        fireRate = baseStats.fireRate;
+        reloadSpeed = baseStats.reloadSpeed;
+        projectileSpeed = baseStats.projectileSpeed;
+        critRate = baseStats.critRate;
+        shootBloom = baseStats.shootBloom;
+
+        damage = baseStats.damage;
+        clipSize = baseStats.clipSize;
+        maxAmmoCapacity = baseStats.maxAmmoCapacity;
+    }
 
     public bool DoubleShot { get { return doubleShot; } set { doubleShot = value; } }
 

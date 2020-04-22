@@ -17,6 +17,9 @@ public class Attachment_Trigger : Interactable
             case 0:
                 attachment = new IncreaseFireRate_Attachment();
                 break;
+            case 1:
+                attachment = new BrokenMicroscope();
+                break;
         }
         //ToDo the loot system should tell this attachment what to be
     }

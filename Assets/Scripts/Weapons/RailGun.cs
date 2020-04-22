@@ -7,21 +7,14 @@ public class RailGun : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        fireRate = 1.2f;
-        reloadSpeed = 0.85f;
-        projectileSpeed = 60f;
-        critRate = 0.2f;
-
-        damage = 40;
-        clipSize = 1;
+        AssignBaseStats();
         ammoInClip = clipSize;
-        maxAmmoCapacity = -1;
         currentAmmoCapacity = maxAmmoCapacity;
         attachmentSlots = 5;
 
         reloading = false;
 
-        name = "Rail Gun 2";
+        name = "Rail Gun";
         projectilePoolKey = "railGun";
     }
 
@@ -65,8 +58,11 @@ public class RailGun : Weapon
 
                 fireRateTimer = 0;
                 pointLight.intensity = 0;
-                ReloadWeapon(stats);
+                if(ammoInClip == 0)
+                    ReloadWeapon(stats);
             }
         }
+        if (Input.GetButtonDown("Fire1") && ammoInClip == 0 && !reloading)
+            ReloadWeapon(stats);
     }
 }

@@ -8,6 +8,7 @@ public class DoubleShotAttachment : Attachment
     {
         name = "Double Shot Attachment";
         attSpriteID = 0;
+        attID = 2;
     }
 
     public override void AlterWeapon(Weapon weapon)

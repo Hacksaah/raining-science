@@ -66,6 +66,13 @@ public class CharacterController : MonoBehaviour
         FaceMouse();
 
         HandleGun();
+
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            aPanel.gameObject.SetActive(true);
+            Attachment nullAtt = null;
+            aPanel.UpdatePanel(currentWeapon, nullAtt);
+        }
     }
 
     private void HandleMovement()

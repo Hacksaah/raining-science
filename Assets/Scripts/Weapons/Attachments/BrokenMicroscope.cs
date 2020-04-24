@@ -10,11 +10,8 @@ public class BrokenMicroscope : Attachment
     {
         name = "Broken Microscope";
         flavorText = "Increase accuracy by " + (amount * 100) + "%";
-    }
 
-    public override void AlterFire(Weapon weapon)
-    {
-        throw new System.NotImplementedException();
+        behaviorOrder = 200;
     }
 
     public override void AlterWeapon(Weapon weapon)

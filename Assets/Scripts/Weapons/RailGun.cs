@@ -16,9 +16,15 @@ public class RailGun : Weapon
 
         name = "Rail Gun";
         projectilePoolKey = "railGun";
+
+        baseProjectileBehavior = new RailGun_IProjectile();
+        projectileBehavior = baseProjectileBehavior;
+
+        baseWeaponBehavior = new RailGun_IWeapon();
+        weaponBehavior = baseWeaponBehavior;
     }
 
-    public override void Shoot(Vector3 target, PlayerStats stats)
+    public override void WeaponControls(Vector3 target, PlayerStats stats)
     {
         if (Input.GetButton("Fire1"))
         {
@@ -36,8 +42,6 @@ public class RailGun : Weapon
                 stats.AmmoInClip = ammoInClip;
                 updateUI.Raise();
 
-                RailGun_projectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<RailGun_projectile>();
-
                 int size;
                 if (fireRateTimer >= fireRate)
                 {
@@ -52,12 +56,11 @@ public class RailGun : Weapon
                     size = 2;
                 }
 
-                projectile.gameObject.transform.position = shootFromTransform.position;
-                target.y = shootFromTransform.position.y;
-                projectile.FireProjectile(projectileSpeed, damage, size, target);
-
                 fireRateTimer = 0;
                 pointLight.intensity = 0;
+                target.y = shootFromTransform.position.y;
+                weaponBehavior.FireWeapon(projectilePoolKey, shootFromTransform.position, target, damage, projectileSpeed, size, damageType, projectileBehavior);
+
                 if(ammoInClip == 0)
                     ReloadWeapon(stats);
             }

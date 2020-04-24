@@ -10,11 +10,9 @@ public class IncreaseFireRate_Attachment : Attachment
     {
         name = "Titanium laced coil";
         flavorText = "Increases fire rate by " + (amount * 100) + "%";
-    }
 
-    public override void AlterFire(Weapon weapon)
-    {
-        throw new System.NotImplementedException();
+        projectileOverride = shootOverride = false;
+        behaviorOrder = 200;
     }
 
     public override void AlterWeapon(Weapon weapon)

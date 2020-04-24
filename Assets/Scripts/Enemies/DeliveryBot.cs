@@ -17,6 +17,7 @@ public class DeliveryBot : EnemyActor
     DeliveryBot()
     {
         stateMachine = new StateMachine<DeliveryBot>(this);
+        size = 1.5f;
     }
 
     private void Awake()

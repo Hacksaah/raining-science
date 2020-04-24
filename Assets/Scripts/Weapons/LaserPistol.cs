@@ -6,7 +6,7 @@ public class LaserPistol : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        AssignBaseStats();        
+        AssignBaseStats();
         ammoInClip = clipSize;
         currentAmmoCapacity = maxAmmoCapacity;
         attachmentSlots = 3;
@@ -15,6 +15,13 @@ public class LaserPistol : Weapon
 
         name = "Laser Pistol";
         projectilePoolKey = "laser";
+        damageType = Damage_Type.PROJECTILE;
+
+        baseProjectileBehavior = new LaserPistol_IProjectile();
+        projectileBehavior = baseProjectileBehavior;
+
+        baseWeaponBehavior = new LaserPistol_IWeapon();
+        weaponBehavior = baseWeaponBehavior;
     }
 
     private void Update()
@@ -22,9 +29,9 @@ public class LaserPistol : Weapon
         fireRateTimer = UpdateTimer(fireRateTimer);
     }
 
-    public override void Shoot(Vector3 target, PlayerStats stats)
+    public override void WeaponControls(Vector3 target, PlayerStats stats)
     {
-        if(Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
             if (fireRateTimer == 0 && !reloading && ammoInClip > 0)
             {
@@ -32,13 +39,9 @@ public class LaserPistol : Weapon
                 stats.AmmoInClip = ammoInClip;
                 updateUI.Raise();
 
-                Laser_projectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<Laser_projectile>();
-
-                projectile.gameObject.transform.position = shootFromTransform.position;
-                target.y = shootFromTransform.position.y;
-                projectile.FireProjectile(projectileSpeed, damage, shootBloom, target);
-
                 fireRateTimer = fireRate;
+                target.y = shootFromTransform.position.y;
+                weaponBehavior.FireWeapon(projectilePoolKey, shootFromTransform.position, target, damage, projectileSpeed, shootBloom, damageType, projectileBehavior);
             }
         }
         else if (Input.GetButtonUp("Fire1"))

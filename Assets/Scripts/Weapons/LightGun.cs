@@ -33,7 +33,7 @@ public class LightGun : Weapon
         fireRateTimer = UpdateTimer(fireRateTimer);        
     }
 
-    public override void Shoot(Vector3 target, PlayerStats stats)
+    public override void WeaponControls(Vector3 target, PlayerStats stats)
     {
         target.y = transform.position.y;
         transform.LookAt(target);

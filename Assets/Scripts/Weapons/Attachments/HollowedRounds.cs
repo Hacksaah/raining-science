@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PiercingRounds : Attachment
+public class HollowedRounds : Attachment
 {
-    public PiercingRounds()
+    public HollowedRounds()
     {
-        name = "Diamond Drill Bits";
-        flavorText = "Capable of piercing through any metal";
+        name = "Hollowing Rounds";
+        flavorText = "Sends shrapnel out the back of enemies";
 
-        projectileOverride = true;
-        shootOverride = false;
-        behaviorOrder = 100;
+        projectileOverride = shootOverride = false;
+        behaviorOrder = 199;
     }
+
 
     public override void AlterWeapon(Weapon weapon)
     {
@@ -21,6 +21,6 @@ public class PiercingRounds : Attachment
 
     public override void ReverseAlter(Weapon weapon)
     {
-        
+        throw new System.NotImplementedException();
     }
 }

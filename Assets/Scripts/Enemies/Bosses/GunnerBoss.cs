@@ -30,6 +30,7 @@ public class GunnerBoss : EnemyActor
     GunnerBoss()
     {
         stateMachine = new StateMachine<GunnerBoss>(this);
+        size = 3f;
     }
 
     private void Awake()

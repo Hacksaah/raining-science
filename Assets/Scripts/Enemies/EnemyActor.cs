@@ -13,13 +13,14 @@ public class EnemyActor : MonoBehaviour
     public Vector3 currTarget;
 
     public bool isAlive;
+    public float size;
 
     // Pathfinding variables    
     public Vector3[] movePath;
     public int moveTargetIndex;
 
     // Physic Components
-    public Rigidbody rb;    
+    public Rigidbody rb;
 
     //TEST variables
     public Transform AttackTarget; // being used for pathfinding and attack target

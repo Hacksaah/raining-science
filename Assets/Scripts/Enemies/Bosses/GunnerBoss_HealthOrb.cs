@@ -12,6 +12,7 @@ public class GunnerBoss_HealthOrb : EnemyActor
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        size = 3f;
         Startup();
         ResetActor();
         bossMaxHP.value = stats.GetMaxHP();

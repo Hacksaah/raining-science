@@ -16,6 +16,7 @@ public class MobileGunner : EnemyActor
     MobileGunner()
     {
         stateMachine = new StateMachine<MobileGunner>(this);
+        size = 1.5f;
     }
 
     void Awake()

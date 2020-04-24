@@ -20,6 +20,10 @@ public class Attachment_Trigger : Interactable
             case 1:
                 attachment = new BrokenMicroscope();
                 break;
+            case 2:
+                attachment = new HollowedRounds();
+                break;
+            
         }
         //ToDo the loot system should tell this attachment what to be
     }

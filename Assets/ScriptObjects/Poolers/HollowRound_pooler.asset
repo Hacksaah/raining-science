@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd027d61299221749a5a52e405b0e72a, type: 3}
+  m_Name: HollowRound_pooler
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7623247455120123015, guid: e663ce8088538934099aa86b9697d684, type: 3}
+  key: hollow
+  amount: 64
+  maxAmountAllowed: -1
+  expandPool: 1

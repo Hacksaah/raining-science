@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightGun_projectile : MonoBehaviour
+public class LightGun_projectile : WeaponProjectile
 {
-    private LineRenderer lineRend;
+    public LayerMask DynamicLayer;
+    public LineRenderer lineRend;
     //private int damage;
 
     private void Awake()
@@ -12,7 +13,7 @@ public class LightGun_projectile : MonoBehaviour
         lineRend = GetComponent<LineRenderer>();
     }
 
-    public void FireProjectile(Vector3 start, int damage, float shootBloom, Vector3 target)
+    public void FireProjectile(Vector3 start, Vector3 target)
     {
         lineRend.SetPosition(0, start);
         Vector3 dir = Vector3.Normalize(target - start);
@@ -22,20 +23,21 @@ public class LightGun_projectile : MonoBehaviour
         else if(dir.z < 0)
             angleOffset = 360;
 
-        float angle = (Mathf.Atan(dir.z / dir.x) * Mathf.Rad2Deg + shootBloom + angleOffset) * Mathf.Deg2Rad;
+        float bloom = Random.Range(-shootBloom, shootBloom);
+        float angle = (Mathf.Atan(dir.z / dir.x) * Mathf.Rad2Deg + bloom + angleOffset) * Mathf.Deg2Rad;
         dir.x = Mathf.Cos(angle);
         dir.z = Mathf.Sin(angle);
 
         Ray ray = new Ray(start, dir);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 75))
+        if(Physics.Raycast(ray, out hit, 75, DynamicLayer))
         {
             if(hit.collider.gameObject.tag == "Enemy")
             {
-                hit.collider.gameObject.GetComponent<EnemyActor>().TakeDamage(damage, dir, Damage_Type.PROJECTILE);
+                lineRend.SetPosition(1, hit.point);
+                EnemyActor enemy = hit.collider.gameObject.GetComponent<EnemyActor>();                
+                projectileBehavior.Deal_Damage(gameObject, enemy, damage, dir, damage_Type);                
             }
-            
-            lineRend.SetPosition(1, hit.point);
         }
         else
         {

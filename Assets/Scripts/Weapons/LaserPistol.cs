@@ -14,6 +14,7 @@ public class LaserPistol : Weapon
         reloading = false;
 
         name = "Laser Pistol";
+        flavorText = "Fires lasors in a quick and efficient manner";
         projectilePoolKey = "laser";
         damageType = Damage_Type.PROJECTILE;
 

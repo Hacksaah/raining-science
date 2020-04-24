@@ -57,6 +57,36 @@ public class Attachment_Trigger : Interactable
 
     public override void Interact()
     {
-        AttachmentUI.Instance.ActivateUI(attachment);
+        AttachmentUI.Instance.ActivateUI(attachment, this);
     }
+
+    public void UpdateAttachment(int ID)
+    {
+        attachmentID = ID;
+        switch (attachmentID)
+        {
+            case 0:
+                attachment = new IncreaseFireRate_Attachment();
+                break;
+            case 1:
+                attachment = new BrokenMicroscope();
+                break;
+            case 2:
+                attachment = new HollowedRounds();
+                break;
+            case 3:
+                attachment = new AtomDivider();
+                break;
+            case 4:
+                attachment = new Mini3DPrinter();
+                break;
+            case 5:
+                attachment = new PiercingRounds();
+                break;
+            case 6:
+                attachment = new LeakingBattery();
+                break;
+        }
+    }
+
 }

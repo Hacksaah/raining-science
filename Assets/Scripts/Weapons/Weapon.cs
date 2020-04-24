@@ -33,9 +33,11 @@ public abstract class Weapon : MonoBehaviour
     protected bool reloading;
     
     protected int attachmentSlots;
+    [SerializeField]
     protected Sprite gunSprite;
 
     protected new string name;
+    protected string flavorText;
 
     protected IProjectile baseProjectileBehavior;
     protected IProjectile projectileBehavior;
@@ -66,6 +68,7 @@ public abstract class Weapon : MonoBehaviour
     public IWeapon WeaponBehavior { get { return weaponBehavior; } set { weaponBehavior = value; } }
 
     public string Name { get { return name; } }
+    public string FlavorText { get { return flavorText; } }
 
     private void OnDisable()
     {

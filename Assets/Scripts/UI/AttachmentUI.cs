@@ -9,6 +9,8 @@ public class AttachmentUI : MonoBehaviour
     public GameEvent getCurrentWeapon_event;
     public Weapon CurrentlyHeldWeapon;
 
+    public Attachment_Trigger incomingAttachmentTrigger;
+
     private void Awake()
     {
         Instance = this;
@@ -18,13 +20,26 @@ public class AttachmentUI : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            gameObject.SetActive(false);
+            gameObject.GetComponent<AttachmentPanel>().CloseMenu();
     }
 
-    public void ActivateUI(Attachment incomingAttachment)
+    public void ActivateUI(Attachment incomingAttachment, Attachment_Trigger att_Trigger)
     {
         gameObject.SetActive(true);
         getCurrentWeapon_event.Raise();
+        incomingAttachmentTrigger = att_Trigger;
         gameObject.GetComponent<AttachmentPanel>().UpdatePanel(CurrentlyHeldWeapon, incomingAttachment);
+    }
+
+    //Destroy trigger without new gameobject
+    public void DestroyTrigger()
+    {
+        Destroy(incomingAttachmentTrigger.ParentGameObject);
+    }
+
+    //Reset trigger with new attachment
+    public void SetTriggerID(int ID)
+    {
+        incomingAttachmentTrigger.UpdateAttachment(ID);
     }
 }

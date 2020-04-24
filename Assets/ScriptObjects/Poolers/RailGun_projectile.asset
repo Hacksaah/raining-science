@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8746464177808224085, guid: 3156a95845911124e9fb96f5af76b078, type: 3}
   key: railGun
-  amount: 5
-  maxAmountAllowed: 10
+  amount: 10
+  maxAmountAllowed: -1
   expandPool: 1

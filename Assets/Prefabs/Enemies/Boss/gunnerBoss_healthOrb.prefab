@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8394327858174438681}
   - component: {fileID: 8394327858174438662}
   - component: {fileID: 8394327858174438663}
-  m_Layer: 13
+  m_Layer: 11
   m_Name: gunnerBoss_healthOrb
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -128,6 +128,7 @@ MonoBehaviour:
   roomKey: 0
   currTarget: {x: 0, y: 0, z: 0}
   isAlive: 0
+  size: 0
   movePath: []
   moveTargetIndex: 0
   rb: {fileID: 0}

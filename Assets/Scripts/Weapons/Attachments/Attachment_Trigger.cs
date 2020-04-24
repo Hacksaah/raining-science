@@ -7,10 +7,13 @@ public class Attachment_Trigger : Interactable
     public GameObject ParentGameObject;
     public Attachment attachment;
 
-    public int attachmentID = 0;
+    public int attachmentID =-1;
 
     private void Awake()
     {
+        if (attachmentID < 0)
+            attachmentID = Random.Range(0, 7);
+
         switch (attachmentID)
         {
             case 0:

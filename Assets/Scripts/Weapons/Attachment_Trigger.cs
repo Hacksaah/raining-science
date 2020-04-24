@@ -17,6 +17,9 @@ public class Attachment_Trigger : Interactable
             case 0:
                 attachment = new IncreaseFireRate_Attachment();
                 break;
+            case 1:
+                attachment = new TripleShotAttachment();
+                break;
         }
         //ToDo the loot system should tell this attachment what to be
     }
@@ -40,6 +43,21 @@ public class Attachment_Trigger : Interactable
 
     public override void Interact()
     {
-        AttachmentUI.Instance.ActivateUI(attachment);
+        AttachmentUI.Instance.ActivateUI(attachment, this);
     }
+
+    public void UpdateAttachment(int ID)
+    {
+        attachmentID = ID;
+        switch (attachmentID)
+        {
+            case 0:
+                attachment = new IncreaseFireRate_Attachment();
+                break;
+            case 1:
+                attachment = new TripleShotAttachment();
+                break;
+        }
+    }
+
 }

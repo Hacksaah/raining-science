@@ -30,22 +30,24 @@ public class CharacterController : MonoBehaviour
 
     //Current weapon in hand
     [SerializeField]
-    private Weapon currentWeapon;    
+    private Weapon currentWeapon;
+
+    //Stops player from shooting if false
+    [SerializeField]
+    private VarBool canShoot;
 
     private RaycastHit mousePos;
+
+    [SerializeField]
+    private AttachmentPanel aPanel;
 
     private void Awake()
     {
         //Set base variables
         rb = GetComponent<Rigidbody>();        
         lastMoveDir = Vector3.zero;
-        SpawnPlayer();        
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {        
-        
+        SpawnPlayer();
+        canShoot.value = true;
     }
 
     // Update is called once per frame
@@ -64,6 +66,13 @@ public class CharacterController : MonoBehaviour
         FaceMouse();
 
         HandleGun();
+
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            aPanel.gameObject.SetActive(true);
+            Attachment nullAtt = null;
+            aPanel.UpdatePanel(currentWeapon, nullAtt);
+        }
     }
 
     private void HandleMovement()
@@ -134,9 +143,12 @@ public class CharacterController : MonoBehaviour
     private void HandleGun()
     {
         //Shoot
-        currentWeapon.Shoot(mousePos.point, stats);
+        if(canShoot.value)
+        {
+            currentWeapon.Shoot(mousePos.point, stats);
+        }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             currentWeapon.ReloadWeapon(stats);
         }
@@ -157,6 +169,7 @@ public class CharacterController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
+            aPanel.ChangeWeapon(currentWeapon);
         }
         //Scroll down through weapons list
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
@@ -174,6 +187,7 @@ public class CharacterController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
+            aPanel.ChangeWeapon(currentWeapon);
         }
     }
 

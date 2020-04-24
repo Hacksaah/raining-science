@@ -5,42 +5,87 @@ using UnityEngine.UI;
 
 public class AttachmentPanel : MonoBehaviour
 {
-    public Image currentGunImage;
-
     public AttachmentButton[] attachmentButtons;
 
-    public Text UnequippedAttachment;
-    public Text Title;
+    [SerializeField]
+    private GameObject AttachmentTriggerPrefab;
+
+    public GameObject p;
+
+    //New attachment items
+    public Text IncomingAttachmentName;
+    public Image IncomingAttachmentIcon;
+    public Text IncomingAttachmentFlavor;
+
+    //Spritesheet with attachments
+    public Sprite[] SpriteSheet;
+
+    //Hover display items
+    public Text HoverAttachmentName;
+    public Text HoverAttachmentStats;
+    public Text HoverAttachmentFlavor;
+
+    //Current gun items
+    public Text GunName;
+    public Image GunSprite;
+    public Text GunFlavor;
 
     private Weapon weaponToChange;
     private Attachment newAttachment;
 
+    [SerializeField]
+    private VarBool canShootSO;
+
     private void Start()
     {
-        ////Testing new attachment -- to be removed
-        //TripleShotAttachment TS = new TripleShotAttachment();
-        //UnequippedAttachment.text = TS.Name;
-        //newAttachment = TS;
+
     }
 
     //Sets up relevant fields in the attachment panel
     //Sets up the buttons with attachments, text fields with names, and images with sprites
     public void UpdatePanel(Weapon currentGun, Attachment attachmentToUse)
     {
-        weaponToChange = currentGun;
-        Title.text = "Max Attachments: " + weaponToChange.AttachmentSlots;
-        newAttachment = attachmentToUse;
-        UnequippedAttachment.text = attachmentToUse.Name;
+        //Reset buttons
+        foreach(AttachmentButton attBut in attachmentButtons)
+        {
+            attBut.Attachment = null;
+            attBut.GetComponent<Image>().sprite = null;
+        }
 
-        //Change Gun sprite
-        //insert currentGun sprite
-        //currentGunImage.sprite = currentGun.GunSprite;
+        //Check if attachment is null
+        if(attachmentToUse == null)
+        {
+            newAttachment = null;
+            IncomingAttachmentName.text = "No new Attachment";
+            IncomingAttachmentIcon.gameObject.SetActive(false);
+            IncomingAttachmentIcon.sprite = null;
+            IncomingAttachmentFlavor.text = "" ;
+        }
+        else
+        {
+            newAttachment = attachmentToUse;
+            IncomingAttachmentName.text = newAttachment.Name;
+            IncomingAttachmentIcon.gameObject.SetActive(true);
+            IncomingAttachmentIcon.sprite = SpriteSheet[newAttachment.SpriteID];
+            IncomingAttachmentFlavor.text = newAttachment.FlavorText;
+        }
+
+        canShootSO.value = false;
+        weaponToChange = currentGun;
+
+        //Set gun information
+        GunName.text = currentGun.Name;
+        GunSprite.sprite = currentGun.GunSprite;
+        GunFlavor.text = currentGun.FlavorText;
+
+        
 
         //Edit button text fields and attachments to represent the current weapons attachments
         int count = 0;
         foreach(Attachment att in weaponToChange.attachments)
         {
             attachmentButtons[count].GetComponentInChildren<Text>().text = att.Name;
+            attachmentButtons[count].GetComponentInChildren<Image>().sprite = SpriteSheet[att.SpriteID];
             attachmentButtons[count].Attachment = att;
             attachmentButtons[count].Available = true;
             count++;
@@ -50,7 +95,7 @@ public class AttachmentPanel : MonoBehaviour
         //Loop through the remaining buttons to edit their fields as available or not
         for (int i = count; i <= 4; i++)
         {
-            if (count < weaponToChange.AttachmentSlots)
+            if (i < weaponToChange.AttachmentSlots)
             {
                 attachmentButtons[i].GetComponentInChildren<Text>().text = "Available";
                 attachmentButtons[i].Available = true;
@@ -66,70 +111,151 @@ public class AttachmentPanel : MonoBehaviour
     //When an attachment is pressed, swap the unequipped one and the clicked one
     public void ExchangeAttachments(AttachmentButton button)
     {
+        int buttonIndexToMoveTo = 0;
+
+        //Various tests to make sure attachments are good to go
+        if(newAttachment == null)
+        {
+            return;
+        }
         if(!button.Available) //If the selected button is unavailable
         {
             Debug.Log("Not an available slot");
             return;
         }
-        else if(button.Attachment == null) //If the selected button is available and null
+        else if(weaponToChange.AttachmentSlots <= weaponToChange.attachments.Count) //Just in case attachments become full somehow
         {
-            LinkedListNode<Attachment> lastNode = weaponToChange.attachments.Last;
-            LinkedListNode<Attachment> newAttachmentNode = new LinkedListNode<Attachment>(newAttachment);
-
-            //Add new attachment after last node
-            weaponToChange.attachments.AddAfter(lastNode, newAttachmentNode);
-
-            //TODO - Destroy attachment in the world
-            //newAttachment = null;
-
-            CloseMenu();
+            Debug.Log("Attachments full");
+            return;
         }
-        else //If the selected button is available and has an attachment
+        else if(weaponToChange.attachments.Contains(newAttachment)) //If attachment already exists
         {
-            LinkedListNode<Attachment> current = weaponToChange.attachments.First;
-            LinkedListNode<Attachment> newAttachmentNode = new LinkedListNode<Attachment>(newAttachment);
-            //Get to the attachment specified
-            while (current != null && current.Value != button.Attachment)
+            Debug.Log("Attachment already exists");
+            return;
+        }
+        else if(weaponToChange.attachments.First == null || button.Attachment == null & button.Available) //If the selected button is available and null 
+        {
+            //Add first attachment or add to an empty button
+            weaponToChange.AddAttachment(newAttachment);
+
+            //Destroy the trigger
+            gameObject.GetComponent<AttachmentUI>().DestroyTrigger();
+            buttonIndexToMoveTo = weaponToChange.attachments.Count - 1;
+
+            IncomingAttachmentName.text = "No new Attachment";
+            IncomingAttachmentIcon.gameObject.SetActive(false);
+            IncomingAttachmentFlavor.text = "";
+            newAttachment = null;
+        }
+        else //If there is at least one attachment
+        {
+            //Get the correct index to move to for the swap
+            int count = 0;
+            foreach (Attachment att in weaponToChange.attachments)
             {
-                current = current.Next;
+                if(att != button.Attachment)
+                {
+                    count++;
+                }
+                else
+                {
+                    break;
+                }
             }
+            buttonIndexToMoveTo = count;
 
-            //Add new attachment after current
-            weaponToChange.attachments.AddAfter(current, newAttachmentNode);
+            //Add the attachment
+            weaponToChange.AddAttachment(newAttachment);
+            //Change the trigger to hold the dropped attachment
+            
+            gameObject.GetComponent<AttachmentUI>().SetTriggerID(button.Attachment.AttachmentID);
+            newAttachment = gameObject.GetComponent<AttachmentUI>().incomingAttachmentTrigger.attachment;
 
-            //Place old attachment in new slot TODO: Change attachment world object to hold new attachment -- when menu is closed, send the newAttachment to the object?
-            UnequippedAttachment.text = current.Value.Name;
-            newAttachment = current.Value;
-
-            //Remove old attachment
-            weaponToChange.attachments.Remove(current);
+            //Remove the old attachment
+            weaponToChange.attachments.Remove(button.Attachment);
         }
+        //Move attachment and update panel
+        StartCoroutine(MoveIcon(buttonIndexToMoveTo, 0.5f));
         UpdatePanel(weaponToChange, newAttachment);
+    }
+
+    public void DropAttachment(AttachmentButton button)
+    {
+        //If button doesnt have an attachment, do nothing
+        if(button.Attachment == null)
+        {
+            return;
+        }
+        
+        //Make new attachment
+        GameObject newAttachmentPrefab = Instantiate(AttachmentTriggerPrefab, p.transform.position, Quaternion.identity, null);
+
+        //Change the triggers ID
+        newAttachmentPrefab.GetComponentInChildren<Attachment_Trigger>().attachmentID = button.Attachment.AttachmentID;
+
+        //Remove attachment
+        weaponToChange.attachments.Remove(button.Attachment);
+
+        CloseMenu();
+    }
+
+    IEnumerator MoveIcon(int buttonIndex, float totalTime)
+    {
+        float t = 0;
+        Vector3 originalPosition = IncomingAttachmentIcon.transform.position;
+        //Lerp over time
+        while (t < 1)
+        {
+            t += Time.deltaTime / totalTime;
+            IncomingAttachmentIcon.transform.position = Vector3.Lerp(originalPosition, attachmentButtons[buttonIndex].transform.position, t);
+            yield return null;
+        }
+        IncomingAttachmentIcon.transform.position = originalPosition;
     }
 
     public void CloseMenu()
     {
+        newAttachment = null;
+        canShootSO.value = true;
         gameObject.SetActive(false);
     }
 
     public void ChangeWeapon(Weapon newWeapon)
     {
-        weaponToChange = newWeapon;
-        UpdatePanel(weaponToChange, newAttachment);
+        UpdatePanel(newWeapon, newAttachment);
     }
 
-    public void Update()
+
+    public void UpdateDataPanel(AttachmentButton button)
     {
-        /*
-        //TODO: Change weapon based on scroll
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if(button.Attachment != null)
         {
-            //ChangeWeapon();
+            HoverAttachmentName.text = button.Attachment.Name;
+            HoverAttachmentStats.text = "";
+            HoverAttachmentFlavor.text = button.Attachment.FlavorText;
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+    }
+
+    public void UpdateDataPanelIncoming()
+    {
+        if (newAttachment == null)
         {
-            //ChangeWeapon();
+            HoverAttachmentName.text = "No new Attachment";
+            HoverAttachmentStats.text = "";
+            HoverAttachmentFlavor.text = "";
         }
-        */
+        else
+        {
+            HoverAttachmentName.text = newAttachment.Name;
+            HoverAttachmentStats.text = "";
+            HoverAttachmentFlavor.text = newAttachment.FlavorText;
+        }
+    }
+
+    public void ClearDataPanel()
+    {
+        HoverAttachmentName.text = "Name";
+        HoverAttachmentStats.text = "Stat Changes";
+        HoverAttachmentFlavor.text = "Flavor Text";
     }
 }

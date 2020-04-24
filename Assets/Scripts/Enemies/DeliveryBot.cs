@@ -22,10 +22,13 @@ public class DeliveryBot : EnemyActor
 
     private void Awake()
     {
+        explosiveParticles = GetComponent<ParticleSystem>();        
+    }
+
+    private void Start()
+    {
         Startup();
-        explosiveParticles = GetComponent<ParticleSystem>();
         SpawnActor(transform.position, Vector3.zero);
-        gameObject.SetActive(false);
     }
 
     private void OnEnable()

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 234422366604823268}
   - component: {fileID: 234422366604823270}
   - component: {fileID: 234422366604823269}
-  - component: {fileID: 1935725454740707335}
   m_Layer: 11
   m_Name: programmerArt
   m_TagString: Enemy
@@ -81,21 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1935725454740707335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234422366604823267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f490828f1a5379a4687c554203628511, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyActor: {fileID: 234422367404991794}
-  isSelected: 0
-  seeViewDistance: 0
 --- !u!1 &234422367009252491
 GameObject:
   m_ObjectHideFlags: 0
@@ -5059,6 +5043,7 @@ MonoBehaviour:
   roomKey: 0
   currTarget: {x: 0, y: 0, z: 0}
   isAlive: 0
+  size: 1.5
   movePath: []
   moveTargetIndex: 0
   rb: {fileID: 0}

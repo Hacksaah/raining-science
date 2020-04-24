@@ -172,7 +172,7 @@ public class AttachmentPanel : MonoBehaviour
             newAttachment = gameObject.GetComponent<AttachmentUI>().incomingAttachmentTrigger.attachment;
 
             //Remove the old attachment
-            weaponToChange.attachments.Remove(button.Attachment);
+            weaponToChange.RemoveAttachment(button.Attachment);
         }
         //Move attachment and update panel
         StartCoroutine(MoveIcon(buttonIndexToMoveTo, 0.5f));
@@ -191,10 +191,10 @@ public class AttachmentPanel : MonoBehaviour
         GameObject newAttachmentPrefab = Instantiate(AttachmentTriggerPrefab, p.transform.position, Quaternion.identity, null);
 
         //Change the triggers ID
-        newAttachmentPrefab.GetComponentInChildren<Attachment_Trigger>().attachmentID = button.Attachment.AttachmentID;
+        newAttachmentPrefab.GetComponentInChildren<Attachment_Trigger>().DropAttachment(p.transform.forward, button.Attachment.AttachmentID);
 
         //Remove attachment
-        weaponToChange.attachments.Remove(button.Attachment);
+        weaponToChange.RemoveAttachment(button.Attachment);
 
         CloseMenu();
     }

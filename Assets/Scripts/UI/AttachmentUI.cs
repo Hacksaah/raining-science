@@ -34,6 +34,7 @@ public class AttachmentUI : MonoBehaviour
     //Destroy trigger without new gameobject
     public void DestroyTrigger()
     {
+        InteractManager.Instance.RemoveItemFromQueue(incomingAttachmentTrigger);
         Destroy(incomingAttachmentTrigger.ParentGameObject);
     }
 

@@ -9,7 +9,7 @@ public class AcidGun_projectile : WeaponProjectile
     private void OnEnable()
     {
         split = 0;
-        timeToLive = 5f;
+        timeToLive = 3f;
         transform.localScale = Vector3.one / 1.5f;
     }
 

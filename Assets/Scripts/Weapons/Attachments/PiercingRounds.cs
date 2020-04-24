@@ -9,6 +9,7 @@ public class PiercingRounds : Attachment
         name = "Diamond Drill Bits";
         flavorText = "Capable of piercing through any metal";
 
+        attID = 5;
         projectileOverride = true;
         shootOverride = false;
         behaviorOrder = 100;

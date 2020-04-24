@@ -73,6 +73,10 @@ public class CharacterController : MonoBehaviour
             Attachment nullAtt = null;
             aPanel.UpdatePanel(currentWeapon, nullAtt);
         }
+        else if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            aPanel.CloseMenu();
+        }
     }
 
     private void HandleMovement()
@@ -169,7 +173,8 @@ public class CharacterController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
-            aPanel.ChangeWeapon(currentWeapon);
+            if(aPanel.gameObject.activeSelf)
+                aPanel.ChangeWeapon(currentWeapon);
         }
         //Scroll down through weapons list
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
@@ -187,7 +192,8 @@ public class CharacterController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
-            aPanel.ChangeWeapon(currentWeapon);
+            if(aPanel.gameObject.activeSelf)
+                aPanel.ChangeWeapon(currentWeapon);
         }
     }
 

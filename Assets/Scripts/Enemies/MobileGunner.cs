@@ -20,9 +20,13 @@ public class MobileGunner : EnemyActor
     }
 
     void Awake()
-    {        
-        Startup();
+    {
         weapon = GetComponent<EnemyWeapon>();
+    }
+
+    private void Start()
+    {
+        Startup();
     }
 
     private void FixedUpdate()

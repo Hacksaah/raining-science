@@ -11,6 +11,7 @@ public class Mini3DPrinter : Attachment
         name = "Pint-sized 3D printer";
         flavorText = "Increases your magazine size by " + (amount * 100) + "%";
 
+        attID = 4;
         shootOverride = projectileOverride = false;
         behaviorOrder = 200;
     }

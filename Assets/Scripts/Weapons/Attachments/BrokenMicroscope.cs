@@ -11,6 +11,8 @@ public class BrokenMicroscope : Attachment
         name = "Broken Microscope";
         flavorText = "Increase accuracy by " + (amount * 100) + "%";
 
+        attID = 1;
+        projectileOverride = shootOverride = false;
         behaviorOrder = 200;
     }
 

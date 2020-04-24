@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8327197965604920433, guid: be9024d924932e5428413d7bb260aca1, type: 3}
   key: acidPool
-  amount: 45
+  amount: 20
   maxAmountAllowed: -1
   expandPool: 1

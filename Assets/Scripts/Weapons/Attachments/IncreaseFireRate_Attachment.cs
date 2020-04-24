@@ -11,6 +11,7 @@ public class IncreaseFireRate_Attachment : Attachment
         name = "Titanium laced coil";
         flavorText = "Increases fire rate by " + (amount * 100) + "%";
 
+        attID = 0;
         projectileOverride = shootOverride = false;
         behaviorOrder = 200;
     }

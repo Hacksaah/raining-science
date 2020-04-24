@@ -29,7 +29,7 @@ public class WeaponProjectile : MonoBehaviour
 
     private void OnEnable()
     {
-        timeToLive = 5f;
+        timeToLive = 3f;
     }
 
     private void OnDisable()

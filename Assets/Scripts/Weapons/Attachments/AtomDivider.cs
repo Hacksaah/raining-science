@@ -9,12 +9,13 @@ public class AtomDivider : Attachment
 
     public AtomDivider()
     {
+        attID = 3;
         shootOverride = false;
         projectileOverride = false;
         behaviorOrder = 0;
 
         name = "Atom Divider";
-        flavorText = "Turns your weapon into a shotgun + decreases firerate by " + (amount * 100) + "%";
+        flavorText = "Turns your weapon into a shotgun";
     }
 
     public override void AlterWeapon(Weapon weapon)

@@ -60,6 +60,36 @@ public class Attachment_Trigger : Interactable
         AttachmentUI.Instance.ActivateUI(attachment, this);
     }
 
+    public void DropAttachment(Vector3 dir, int ID)
+    {
+        switch (ID)
+        {
+            case 0:
+                attachment = new IncreaseFireRate_Attachment();
+                break;
+            case 1:
+                attachment = new BrokenMicroscope();
+                break;
+            case 2:
+                attachment = new HollowedRounds();
+                break;
+            case 3:
+                attachment = new AtomDivider();
+                break;
+            case 4:
+                attachment = new Mini3DPrinter();
+                break;
+            case 5:
+                attachment = new PiercingRounds();
+                break;
+            case 6:
+                attachment = new LeakingBattery();
+                break;
+        }
+        dir.y = 0.4f;
+        ParentGameObject.GetComponent<Rigidbody>().AddForce(dir * 6, ForceMode.Impulse);
+    }
+
     public void UpdateAttachment(int ID)
     {
         attachmentID = ID;
@@ -88,5 +118,4 @@ public class Attachment_Trigger : Interactable
                 break;
         }
     }
-
 }

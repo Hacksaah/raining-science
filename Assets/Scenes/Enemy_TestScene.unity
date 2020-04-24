@@ -926,6 +926,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MobileGunner_prefab (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1734252470901273888, guid: 44f777f05e02fbe42bc2112fddf27e5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1734252470901274074, guid: 44f777f05e02fbe42bc2112fddf27e5e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1033,7 +1038,7 @@ Rigidbody:
   m_GameObject: {fileID: 378218007}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 8
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1082,8 +1087,10 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 5ab021d26b0c908499edf3468df6924b, type: 2}
   playerUIReady: {fileID: 11400000, guid: bd95b2c135442fd47bce2422f15ada7a, type: 2}
   takeDamage: {fileID: 11400000, guid: 86d17406062defd42ad6340bc3476034, type: 2}
-  isGrounded: {fileID: 1979152474}
-  lastMoveDir: {x: 0, y: 0, z: 0}
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  moveInput: {x: 0, y: 0, z: 0}
   maxDashTime: 0.15
   weaponsList:
   - {fileID: 1465856230}
@@ -1100,7 +1107,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378218007}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c336d2a209b98b441ba074120c9a26d5, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -1165,6 +1172,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MobileGunner_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734252470901273888, guid: 44f777f05e02fbe42bc2112fddf27e5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1734252470901274074, guid: 44f777f05e02fbe42bc2112fddf27e5e,
         type: 3}
@@ -1308,6 +1320,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MobileGunner_prefab (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734252470901273888, guid: 44f777f05e02fbe42bc2112fddf27e5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1734252470901274074, guid: 44f777f05e02fbe42bc2112fddf27e5e,
         type: 3}
@@ -1559,12 +1576,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 6146187418057660016, guid: 886fc4fe9b691054abf141fcee62ab9c,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 032063c0644566c438ac4e9a3d5f20db,
-        type: 2}
     - target: {fileID: 6489281125468845044, guid: 886fc4fe9b691054abf141fcee62ab9c,
         type: 3}
       propertyPath: m_Enabled
@@ -1642,6 +1653,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MobileGunner_prefab (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734252470901273888, guid: 44f777f05e02fbe42bc2112fddf27e5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1734252470901274074, guid: 44f777f05e02fbe42bc2112fddf27e5e,
         type: 3}
@@ -2047,6 +2063,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MobileGunner_prefab (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734252470901273888, guid: 44f777f05e02fbe42bc2112fddf27e5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1734252470901274074, guid: 44f777f05e02fbe42bc2112fddf27e5e,
         type: 3}
@@ -2814,10 +2835,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1979152475}
-  - component: {fileID: 1979152477}
-  - component: {fileID: 1979152476}
   m_Layer: 11
-  m_Name: isGrounded_trigger
+  m_Name: isGrounded
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2831,38 +2850,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979152474}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.515, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 378218008}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1979152476
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979152474}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.82, y: 0.06, z: 0.82}
-  m_Center: {x: 0, y: -0.47, z: 0}
---- !u!114 &1979152477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979152474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dbec36cab44b764794560f899f7d980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 378218009}
 --- !u!1001 &2112193378
 PrefabInstance:
   m_ObjectHideFlags: 0

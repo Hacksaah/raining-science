@@ -22,6 +22,7 @@ public class BossUI : MonoBehaviour
     {
         slider.maxValue = bossMaxHP.value;
         slider.value = bossCurrHP.value;
+        gameObject.SetActive(true);
     }
 
     public void UpdateHealthBar()

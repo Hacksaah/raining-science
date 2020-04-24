@@ -145,7 +145,7 @@ public class CharacterController : MonoBehaviour
         //Shoot
         if(canShoot.value)
         {
-            currentWeapon.Shoot(mousePos.point, stats);
+            currentWeapon.WeaponControls(mousePos.point, stats);
         }
 
         if (Input.GetKeyDown(KeyCode.R))

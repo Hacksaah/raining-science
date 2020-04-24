@@ -22,6 +22,7 @@ public class GunnerBoss : EnemyActor
     public bool pathNotDone = false;
     [HideInInspector]
     public bool spinAttack = false;
+    private bool retreivingOrb = false;
 
     private Transform spinTurretTurnPosition;
     private Vector3 spinTurretOffest;
@@ -29,6 +30,7 @@ public class GunnerBoss : EnemyActor
     GunnerBoss()
     {
         stateMachine = new StateMachine<GunnerBoss>(this);
+        size = 3f;
     }
 
     private void Awake()
@@ -49,8 +51,8 @@ public class GunnerBoss : EnemyActor
 
     // Start is called before the first frame update
     void Start()
-    {
-        BossUI.Instance.gameObject.SetActive(true);
+    {        
+        BossUI.Instance.ReadyUI();
         AttackTarget = GameObjectPoolManager.PlayerTarget;
         stateMachine.ChangeState(gunnerBoss_phase1.Instance);
     }
@@ -71,7 +73,8 @@ public class GunnerBoss : EnemyActor
         if (dam_Type == Damage_Type.EXPLOSIVE)
         {
             rb.isKinematic = true;
-            stateMachine.ChangeState(gunnerBoss_intermission.Instance);
+            if(!retreivingOrb)
+                stateMachine.ChangeState(gunnerBoss_intermission.Instance);
         }
     }
 
@@ -172,12 +175,15 @@ public class GunnerBoss : EnemyActor
     public IEnumerator RetreiveHealthOrb()
     {
         stateMachine.HaltState();
+        retreivingOrb = true;
 
         //Retreive path to orb
         currTarget = HealthOrb_GameObj.transform.position;
         RequestPath();
-        while(moveTargetIndex < 0)
+        while (moveTargetIndex < 0)
+        {
             yield return null;
+        }
         currTarget.y = transform.position.y;
         int lenght = movePath.Length;
         float moveSpeed = stats.GetMoveSpeed();
@@ -235,6 +241,7 @@ public class GunnerBoss : EnemyActor
         }
         else
         {
+            retreivingOrb = false;
             stateMachine.ChangeState(gunnerBoss_phase1.Instance);
         }
     }

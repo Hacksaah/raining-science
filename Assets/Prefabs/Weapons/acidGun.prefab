@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31016d856334a2742b8662cd893bd190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseStats: {fileID: 11400000, guid: 5f7a28e0db025244e9ea0240505f4485, type: 2}
   shootFromTransform: {fileID: 4651755908916963616}
   projectilePoolKey: 
   updateUI: {fileID: 11400000, guid: 941f7b58015ec6a44a0fafb81734058c, type: 2}

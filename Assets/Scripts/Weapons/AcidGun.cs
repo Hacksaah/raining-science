@@ -7,15 +7,8 @@ public class AcidGun : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        fireRate = 0.5f;
-        reloadSpeed = 1f;
-        projectileSpeed = 15f;
-        critRate = 0.2f;
-
-        damage = 5;
-        clipSize = 4;
+        AssignBaseStats();
         ammoInClip = clipSize;
-        maxAmmoCapacity = -1;
         currentAmmoCapacity = maxAmmoCapacity;
         attachmentSlots = 4;
 
@@ -23,6 +16,12 @@ public class AcidGun : Weapon
 
         name = "Acid Cannon";
         projectilePoolKey = "acidGun";
+
+        baseWeaponBehavior = new AcidGun_IWeapon();
+        weaponBehavior = baseWeaponBehavior;
+
+        baseProjectileBehavior = new AcidGun_IProjectile();
+        projectileBehavior = baseProjectileBehavior;
     }
 
     // Update is called once per frame
@@ -31,7 +30,7 @@ public class AcidGun : Weapon
         fireRateTimer = UpdateTimer(fireRateTimer);
     }
 
-    public override void Shoot(Vector3 target, PlayerStats stats)
+    public override void WeaponControls(Vector3 target, PlayerStats stats)
     {
         if (Input.GetButton("Fire1"))
         {
@@ -41,14 +40,12 @@ public class AcidGun : Weapon
                 stats.AmmoInClip = ammoInClip;
                 updateUI.Raise();
 
-                AcidGun_projectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<AcidGun_projectile>();
-
-                projectile.gameObject.transform.position = shootFromTransform.position;
-                target.y = shootFromTransform.position.y;
-                projectile.FireProjectile(projectileSpeed, damage, target, 1);
-
                 fireRateTimer = fireRate;
-            }
+                target.y = shootFromTransform.position.y;
+                weaponBehavior.FireWeapon(projectilePoolKey, shootFromTransform.position, target, damage, projectileSpeed, shootBloom, damageType, projectileBehavior);               
+            }            
         }
+        if (ammoInClip == 0 && !reloading && Input.GetButtonDown("Fire1"))
+            ReloadWeapon(stats);
     }
 }

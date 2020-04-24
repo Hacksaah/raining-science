@@ -7,25 +7,24 @@ public class RailGun : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        fireRate = 1.2f;
-        reloadSpeed = 0.85f;
-        projectileSpeed = 60f;
-        critRate = 0.2f;
-
-        damage = 40;
-        clipSize = 1;
+        AssignBaseStats();
         ammoInClip = clipSize;
-        maxAmmoCapacity = -1;
         currentAmmoCapacity = maxAmmoCapacity;
         attachmentSlots = 5;
 
         reloading = false;
 
-        name = "Rail Gun 2";
+        name = "Rail Gun";
         projectilePoolKey = "railGun";
+
+        baseProjectileBehavior = new RailGun_IProjectile();
+        projectileBehavior = baseProjectileBehavior;
+
+        baseWeaponBehavior = new RailGun_IWeapon();
+        weaponBehavior = baseWeaponBehavior;
     }
 
-    public override void Shoot(Vector3 target, PlayerStats stats)
+    public override void WeaponControls(Vector3 target, PlayerStats stats)
     {
         if (Input.GetButton("Fire1"))
         {
@@ -43,8 +42,6 @@ public class RailGun : Weapon
                 stats.AmmoInClip = ammoInClip;
                 updateUI.Raise();
 
-                RailGun_projectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<RailGun_projectile>();
-
                 int size;
                 if (fireRateTimer >= fireRate)
                 {
@@ -59,14 +56,16 @@ public class RailGun : Weapon
                     size = 2;
                 }
 
-                projectile.gameObject.transform.position = shootFromTransform.position;
-                target.y = shootFromTransform.position.y;
-                projectile.FireProjectile(projectileSpeed, damage, size, target);
-
                 fireRateTimer = 0;
                 pointLight.intensity = 0;
-                ReloadWeapon(stats);
+                target.y = shootFromTransform.position.y;
+                weaponBehavior.FireWeapon(projectilePoolKey, shootFromTransform.position, target, damage, projectileSpeed, size, damageType, projectileBehavior);
+
+                if(ammoInClip == 0)
+                    ReloadWeapon(stats);
             }
         }
+        if (Input.GetButtonDown("Fire1") && ammoInClip == 0 && !reloading)
+            ReloadWeapon(stats);
     }
 }

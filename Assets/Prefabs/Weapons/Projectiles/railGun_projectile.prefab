@@ -105,8 +105,8 @@ GameObject:
   - component: {fileID: 5067193469853160162}
   - component: {fileID: 3059720005455931751}
   - component: {fileID: 5230197078820561797}
-  - component: {fileID: 1266038095827722210}
   - component: {fileID: 2700778939000118715}
+  - component: {fileID: 4890878032392813631}
   m_Layer: 12
   m_Name: railGun_projectile
   m_TagString: Untagged
@@ -205,20 +205,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1266038095827722210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8746464177808224085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 633d75a1602babe47beb191004215474, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  damage: 0
 --- !u!114 &2700778939000118715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,3 +218,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 
+--- !u!114 &4890878032392813631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746464177808224085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd638e40ec91acb4594ed4484edb1a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  shootBloom: 0
+  damage_Type: 0
+  damage: 0

@@ -25,6 +25,12 @@ public class LightGun : Weapon
         rampUpModifier = 5;
         currFireRate = fireRate * rampUpModifier;
         currShootBloom = shootBloom * rampUpModifier;
+
+        baseWeaponBehavior = new LightGun_IWeapon();
+        weaponBehavior = baseWeaponBehavior;
+
+        baseProjectileBehavior = new LightGun_IProjectile();
+        projectileBehavior = baseProjectileBehavior;
     }
 
     // Update is called once per frame
@@ -62,8 +68,7 @@ public class LightGun : Weapon
 
                 fireRateTimer = currFireRate;
 
-                LightGun_projectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<LightGun_projectile>();                                
-                projectile.FireProjectile(shootFromTransform.position, damage, Random.Range(-currShootBloom, currShootBloom), target);
+                weaponBehavior.FireWeapon(projectilePoolKey, shootFromTransform.position, target, damage, 0, shootBloom, damageType, projectileBehavior);
             }
         }
         if (Input.GetButtonUp("Fire1"))

@@ -34,7 +34,8 @@ public class WeaponProjectile : MonoBehaviour
 
     private void OnDisable()
     {
-        rb.velocity = Vector3.zero;
+        if(rb != null)
+            rb.velocity = Vector3.zero;
     }
 
     public void AssignData(IProjectile incBehavior, int damage, float speed, float shootBloom, Damage_Type damage_Type, bool resetProj=true)

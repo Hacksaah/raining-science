@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightGun_IProjectile : MonoBehaviour
+public class LightGun_IProjectile : IProjectile
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Deal_Damage(GameObject projectile, EnemyActor enemy, int damage, Vector3 velocity, Damage_Type damage_Type)
     {
-        
+        enemy.TakeDamage(damage, velocity, damage_Type);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public void ResetValues() { }
 }

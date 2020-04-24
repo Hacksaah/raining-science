@@ -33,12 +33,14 @@ public class AttachmentPanel : MonoBehaviour
     private Weapon weaponToChange;
     private Attachment newAttachment;
 
+    private Vector3 originalPosition;
+
     [SerializeField]
     private VarBool canShootSO;
 
-    private void Start()
+    private void Awake()
     {
-
+        originalPosition = IncomingAttachmentIcon.transform.position;
     }
 
     //Sets up relevant fields in the attachment panel
@@ -195,26 +197,26 @@ public class AttachmentPanel : MonoBehaviour
 
         //Remove attachment
         weaponToChange.RemoveAttachment(button.Attachment);
-
-        CloseMenu();
+        UpdatePanel(weaponToChange, newAttachment);
     }
 
     IEnumerator MoveIcon(int buttonIndex, float totalTime)
     {
         float t = 0;
-        Vector3 originalPosition = IncomingAttachmentIcon.transform.position;
+        originalPosition = IncomingAttachmentIcon.transform.position;
         //Lerp over time
         while (t < 1)
         {
             t += Time.deltaTime / totalTime;
             IncomingAttachmentIcon.transform.position = Vector3.Lerp(originalPosition, attachmentButtons[buttonIndex].transform.position, t);
             yield return null;
-        }
-        IncomingAttachmentIcon.transform.position = originalPosition;
+        }        
+        CloseMenu();
     }
 
     public void CloseMenu()
     {
+        IncomingAttachmentIcon.transform.position = originalPosition;
         newAttachment = null;
         canShootSO.value = true;
         gameObject.SetActive(false);
@@ -224,7 +226,6 @@ public class AttachmentPanel : MonoBehaviour
     {
         UpdatePanel(newWeapon, newAttachment);
     }
-
 
     public void UpdateDataPanel(AttachmentButton button)
     {

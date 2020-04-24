@@ -19,6 +19,7 @@ public class LightGun : Weapon
         reloading = false;
 
         name = "Light Gun";
+        flavorText = "Shoots beams of light. It needs a little time to warm up";
         projectilePoolKey = "lightGun";
 
         rampUpTime = 4f / 5;

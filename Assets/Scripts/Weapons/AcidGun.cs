@@ -15,6 +15,7 @@ public class AcidGun : Weapon
         reloading = false;
 
         name = "Acid Cannon";
+        flavorText = "It makes a f@(%!# mess";
         projectilePoolKey = "acidGun";
 
         baseWeaponBehavior = new AcidGun_IWeapon();

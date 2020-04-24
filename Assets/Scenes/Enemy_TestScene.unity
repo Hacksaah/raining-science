@@ -1459,6 +1459,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 378218008}
     m_Modifications:
+    - target: {fileID: 4651755907293831608, guid: 7e839362fd841d64285a41ebc2847a33,
+        type: 3}
+      propertyPath: gunSprite
+      value: 
+      objectReference: {fileID: 7735505976364863236, guid: cb38766bdc7ee644892e9964638395d1,
+        type: 3}
     - target: {fileID: 4651755907293831614, guid: 7e839362fd841d64285a41ebc2847a33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1974,6 +1980,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 378218008}
     m_Modifications:
+    - target: {fileID: 5180037969589997210, guid: ea9c481957d4d9b429f796a74e4cc157,
+        type: 3}
+      propertyPath: gunSprite
+      value: 
+      objectReference: {fileID: 1173576629346760290, guid: cb38766bdc7ee644892e9964638395d1,
+        type: 3}
     - target: {fileID: 7941482557816473875, guid: ea9c481957d4d9b429f796a74e4cc157,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2334,7 +2346,7 @@ PrefabInstance:
     - target: {fileID: 4038255911557145320, guid: 64825a875123bf947862aeea2a5b1c29,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2
+      value: -2.000061
       objectReference: {fileID: 0}
     - target: {fileID: 4038255911557145320, guid: 64825a875123bf947862aeea2a5b1c29,
         type: 3}
@@ -2814,6 +2826,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 378218008}
     m_Modifications:
+    - target: {fileID: 3698409536695697743, guid: b30e5934eb9025a4e994fca10464b86d,
+        type: 3}
+      propertyPath: gunSprite
+      value: 
+      objectReference: {fileID: 8195740675761002153, guid: cb38766bdc7ee644892e9964638395d1,
+        type: 3}
     - target: {fileID: 9157678550685881506, guid: b30e5934eb9025a4e994fca10464b86d,
         type: 3}
       propertyPath: m_LocalPosition.x

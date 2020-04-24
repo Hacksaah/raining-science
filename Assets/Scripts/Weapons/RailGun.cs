@@ -15,6 +15,7 @@ public class RailGun : Weapon
         reloading = false;
 
         name = "Rail Gun";
+        flavorText = "The longer the charge, the greater the output";
         projectilePoolKey = "railGun";
 
         baseProjectileBehavior = new RailGun_IProjectile();

@@ -10,7 +10,10 @@ public class LaserPistol_IWeapon : IWeapon
 
         projectile.transform.position = start;
         projectile.AssignData(projBehavior, damage, projectileSpeed, shootBloom, damageType);
-        
-        projectile.FireProjectile(target);
+        projectile.transform.LookAt(target);
+        if (shootBloom > 0)
+            projectile.transform.Rotate(Vector3.up, Random.Range(-shootBloom, shootBloom));
+
+        projectile.FireProjectile();
     }
 }

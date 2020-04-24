@@ -10,7 +10,7 @@ public class HollowedRounds : Attachment
         flavorText = "Sends shrapnel out the back of enemies";
 
         projectileOverride = shootOverride = false;
-        behaviorOrder = 199;
+        behaviorOrder = 198;
     }
 
 

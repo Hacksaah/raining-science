@@ -20,3 +20,4 @@ MonoBehaviour:
   damage: 5
   clipSize: 4
   maxAmmoCapacity: -1
+  damageType: 2

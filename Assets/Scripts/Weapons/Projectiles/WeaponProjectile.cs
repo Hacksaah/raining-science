@@ -25,7 +25,7 @@ public class WeaponProjectile : MonoBehaviour
             timeToLive -= Time.deltaTime;
         else
             gameObject.SetActive(false);
-    }    
+    }
 
     private void OnEnable()
     {
@@ -49,11 +49,8 @@ public class WeaponProjectile : MonoBehaviour
         this.damage_Type = damage_Type;        
     }
 
-    public void FireProjectile(Vector3 target)
+    public void FireProjectile()
     {
-        transform.LookAt(target);
-        if (shootBloom > 0)
-            transform.Rotate(Vector3.up, Random.Range(-shootBloom, shootBloom));
         rb.AddForce(transform.forward * speed, ForceMode.Impulse);
     }
 

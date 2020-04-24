@@ -22,8 +22,14 @@ public class HollowRound_Decorator : Projectile_Decorator
         projectile2.AssignData(_projectile, halfDamage, 40, 15, damage_Type);
 
         Vector3 target = projectile.transform.position + projectile.transform.forward * 10;
-        projectile1.FireProjectile(target);
-        projectile2.FireProjectile(target);
+        projectile1.transform.LookAt(target);
+        projectile1.transform.Rotate(Vector3.up, Random.Range(-15, 15));
+
+        projectile2.transform.LookAt(target);
+        projectile2.transform.Rotate(Vector3.up, Random.Range(-15, 15));
+
+        projectile1.FireProjectile();
+        projectile2.FireProjectile();
 
         base.Deal_Damage(projectile, enemy, damage, velocity, damage_Type);
     }

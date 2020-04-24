@@ -11,8 +11,12 @@ public class AcidGun_IWeapon : IWeapon
         projectile.split = 1;
         projectile.gameObject.transform.position = start;
         projectile.transform.localScale = Vector3.one;
+        projectile.transform.LookAt(target);
+
+        if (shootBloom > 0)
+            projectile.transform.Rotate(Vector3.up, Random.Range(-shootBloom, shootBloom));
 
         projectile.AssignData(projBehavior, damage, projectileSpeed, shootBloom, damageType);        
-        projectile.FireProjectile(target);
+        projectile.FireProjectile();
     }
 }

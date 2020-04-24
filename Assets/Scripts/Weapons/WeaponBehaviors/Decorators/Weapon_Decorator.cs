@@ -6,7 +6,7 @@ public class Weapon_Decorator : IWeapon
 {
     private IWeapon _weapon;
 
-    Weapon_Decorator(IWeapon weapon)
+    public Weapon_Decorator(IWeapon weapon)
     {
         _weapon = weapon;
     }

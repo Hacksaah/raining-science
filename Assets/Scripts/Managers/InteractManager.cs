@@ -5,9 +5,9 @@ using UnityEngine;
 public class InteractManager : MonoBehaviour
 {
     public static InteractManager Instance;
+    private Transform player;
 
-    private Queue<Interactable> queue = new Queue<Interactable>();
-    private List<int> oldId = new List<int>();
+    private LinkedList<Interactable> queue = new LinkedList<Interactable>();
     private Interactable currentItem = null;
 
     private int uniqueId = -1;
@@ -20,31 +20,46 @@ public class InteractManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObjectPoolManager.PlayerTarget;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currentItem == null && queue.Count > 0)
-            currentItem = queue.Dequeue();
-        else if(currentItem != null && Input.GetKeyDown(KeyCode.E))
+        int count = queue.Count;
+        if (count > 1)
         {
-            Debug.Log("Interacting");
-            currentItem.Interact(); 
+            float dist = Mathf.Infinity;
+            foreach (Interactable item in queue)
+            {
+                float newDist = Vector3.Distance(item.transform.position, player.position);
+                if (newDist < dist)
+                {
+                    dist = newDist;
+                    currentItem = item;
+                }
+            }
+        }
+        else if (count > 0)
+            currentItem = queue.First.Value;
+
+        if(currentItem != null && Input.GetKeyDown(KeyCode.E))
+        {
+            //Debug.Log("Interacting");
+            currentItem.Interact();
         }
     }
 
-    public int AddItemToQueue(Interactable item)
+    public void AddItemToQueue(Interactable item)
     {
         gameObject.SetActive(true);
-        queue.Enqueue(item);
-        uniqueId++;
-        return uniqueId;
+        queue.AddLast(item);
     }
 
-    public void RemoveItemFromQueue(int id)
+    public void RemoveItemFromQueue(Interactable item)
     {
-        oldId.Add(id);
+        queue.Remove(item);
+        if (queue.Count == 0)
+            currentItem = null;
     }
 }

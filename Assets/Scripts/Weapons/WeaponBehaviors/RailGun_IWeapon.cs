@@ -9,6 +9,7 @@ public class RailGun_IWeapon : IWeapon
         //this weapon doesn't have a shootBloom. So we use that variable to determine the size of the projectile
         WeaponProjectile projectile = GameObjectPoolManager.RequestItemFromPool(projectileKey).GetComponent<WeaponProjectile>();
         projectile.gameObject.transform.position = start;
+        projectile.transform.LookAt(target);
 
         if (shootBloom < 3)
         {
@@ -16,8 +17,8 @@ public class RailGun_IWeapon : IWeapon
             damage = (int)shootBloom * damage / 3;
             projectile.transform.localScale = Vector3.one * shootBloom / 3;
         }
-
+        
         projectile.AssignData(projBehavior, damage, projectileSpeed, 0, damageType);
-        projectile.FireProjectile(target);
+        projectile.FireProjectile();
     }
 }

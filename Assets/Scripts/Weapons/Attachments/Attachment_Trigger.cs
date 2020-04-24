@@ -8,7 +8,6 @@ public class Attachment_Trigger : Interactable
     public Attachment attachment;
 
     public int attachmentID = 0;
-    private int interactId;
 
     private void Awake()
     {
@@ -23,7 +22,18 @@ public class Attachment_Trigger : Interactable
             case 2:
                 attachment = new HollowedRounds();
                 break;
-            
+            case 3:
+                attachment = new AtomDivider();
+                break;
+            case 4:
+                attachment = new Mini3DPrinter();
+                break;
+            case 5:
+                attachment = new PiercingRounds();
+                break;
+            case 6:
+                attachment = new LeakingBattery();
+                break;
         }
         //ToDo the loot system should tell this attachment what to be
     }
@@ -33,7 +43,7 @@ public class Attachment_Trigger : Interactable
         if(other.gameObject.tag == "Player")
         {
             // notify interact manager
-            interactId = InteractManager.Instance.AddItemToQueue(this);
+            InteractManager.Instance.AddItemToQueue(this);
         }
     }
 
@@ -41,7 +51,7 @@ public class Attachment_Trigger : Interactable
     {
         if(other.gameObject.tag == "Player")
         {
-            InteractManager.Instance.RemoveItemFromQueue(interactId);
+            InteractManager.Instance.RemoveItemFromQueue(this);
         }
     }
 

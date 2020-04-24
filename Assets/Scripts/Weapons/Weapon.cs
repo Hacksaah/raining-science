@@ -55,6 +55,7 @@ public abstract class Weapon : MonoBehaviour
     public float CritRate { get { return critRate; } set { critRate = value; } }
     public int Damage { get { return damage; } set { damage = value; } }
     public float Accuracy { get { return shootBloom; } set { shootBloom = value; } }
+    public Damage_Type DamageType { get { return damageType; } set { damageType = value; } }
 
     public int ClipSize { get { return clipSize; } set { clipSize = value; } }
     public int MaxAmmoCapacity { get { return maxAmmoCapacity; } set { maxAmmoCapacity = value; } }
@@ -84,6 +85,7 @@ public abstract class Weapon : MonoBehaviour
         damage = baseStats.damage;
         clipSize = baseStats.clipSize;
         maxAmmoCapacity = baseStats.maxAmmoCapacity;
+        damageType = baseStats.damageType;
     }
 
     public void AddAttachment(Attachment newAttachment)
@@ -132,6 +134,7 @@ public abstract class Weapon : MonoBehaviour
         // otherwise we're altering the shoot mechanic of the weapon
         else
         {
+            //Debug.Log("Determining Position");
             LinkedListNode<Attachment> weaponNode = attachments.First;
 
             while (weaponNode != null && newAttachment.behaviorOrder > weaponNode.Value.behaviorOrder)
@@ -140,11 +143,13 @@ public abstract class Weapon : MonoBehaviour
             // edge case, found end of list
             if(weaponNode == null)
             {
+                //Debug.Log("Found end of list, adding to end");
                 attachments.AddLast(newAttachment);
                 UpdateWeaponBehavior();
             }
             else
             {
+                //Debug.Log("Found spot, adding before " + weaponNode.Value.Name);
                 attachments.AddBefore(weaponNode, newAttachment);
                 UpdateWeaponBehavior();
             }
@@ -205,9 +210,9 @@ public abstract class Weapon : MonoBehaviour
 
             // create the proper behavior
             weaponBehavior = baseWeaponBehavior;
-            while (weaponNode.Value.behaviorOrder < 100)
+            while (weaponNode != null && weaponNode.Value.behaviorOrder < 100)
             {
-                // if this attachment overrides
+                // for every attachment that overrides the base shoot...
                 if (weaponNode.Value.shootOverride)
                 {
                     weaponBehavior = null;

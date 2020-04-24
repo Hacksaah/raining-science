@@ -16,7 +16,12 @@ public class PiercingRounds : Attachment
 
     public override void AlterWeapon(Weapon weapon)
     {
-        weapon.ProjectileBehavior = new HollowRound_Decorator(weapon.ProjectileBehavior);
+        if(weapon.ProjectileBehavior != null)
+            weapon.ProjectileBehavior = new PiercingRounds_Decorator(weapon.ProjectileBehavior);
+        else
+        {
+            weapon.ProjectileBehavior = new PiercingRound_IProjectile();
+        }
     }
 
     public override void ReverseAlter(Weapon weapon)

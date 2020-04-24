@@ -14,4 +14,6 @@ public class WeaponStats : ScriptableObject
     public int damage;
     public int clipSize;
     public int maxAmmoCapacity;
+
+    public Damage_Type damageType;
 }

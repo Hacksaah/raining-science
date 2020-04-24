@@ -12,6 +12,7 @@ public class Mini3DPrinter : Attachment
         flavorText = "Increases your magazine size by " + (amount * 100) + "%";
 
         attID = 4;
+        attSpriteID = attID;
         shootOverride = projectileOverride = false;
         behaviorOrder = 200;
     }

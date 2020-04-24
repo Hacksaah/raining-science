@@ -7,6 +7,7 @@ public class LeakingBattery : Attachment
     public LeakingBattery()
     {
         attID = 6;
+        attSpriteID = attID;
         projectileOverride = shootOverride = false;
         behaviorOrder = 199;
 

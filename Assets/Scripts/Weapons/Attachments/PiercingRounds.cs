@@ -10,6 +10,7 @@ public class PiercingRounds : Attachment
         flavorText = "Capable of piercing through any metal";
 
         attID = 5;
+        attSpriteID = attID;
         projectileOverride = true;
         shootOverride = false;
         behaviorOrder = 100;

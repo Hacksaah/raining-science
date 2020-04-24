@@ -12,6 +12,7 @@ public class IncreaseFireRate_Attachment : Attachment
         flavorText = "Increases fire rate by " + (amount * 100) + "%";
 
         attID = 0;
+        attSpriteID = attID;
         projectileOverride = shootOverride = false;
         behaviorOrder = 200;
     }

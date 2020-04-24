@@ -10,6 +10,7 @@ public class AtomDivider : Attachment
     public AtomDivider()
     {
         attID = 3;
+        attSpriteID = attID;
         shootOverride = false;
         projectileOverride = false;
         behaviorOrder = 0;

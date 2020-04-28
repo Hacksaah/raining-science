@@ -14,7 +14,7 @@ public class LevelGen : MonoBehaviour
     private int roomsSpawned = 0;
     private LinkedList<Vector3> positions = new LinkedList<Vector3>();
 
-    private void Awake()
+    private void Start()
     {
         if (maxConnectingRooms > 4)
             maxConnectingRooms = 4;
@@ -60,16 +60,16 @@ public class LevelGen : MonoBehaviour
                 switch (x)
                 {
                     case 0:
-                        face = currentRoom.transform.position + currentRoom.transform.up * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
+                        face = currentRoom.transform.position + currentRoom.transform.forward * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
                         break;
                     case 1:
-                        face = currentRoom.transform.position - currentRoom.transform.up * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
+                        face = currentRoom.transform.position - currentRoom.transform.forward * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
                         break;
                     case 2:
-                        face = currentRoom.transform.position - currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
+                        face = currentRoom.transform.position - currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.x;
                         break;
                     case 3:
-                        face = currentRoom.transform.position + currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
+                        face = currentRoom.transform.position + currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.x;
                         break;
                         
                 }
@@ -86,8 +86,11 @@ public class LevelGen : MonoBehaviour
                 if (roomsSpawned < numberOfRooms && !positions.Contains(face))
                 {
                     positions.AddLast(face);
-                    GameObject newRoom = GameObject.Instantiate(room, face, Quaternion.Euler(Vector3.left * 90));
-                    //newRoom.transform.position = face;
+                    GameObject newRoom = GameObject.Instantiate(room, face, Quaternion.Euler(Vector3.left));
+                    newRoom.transform.position = face;
+                    newRoom.transform.rotation = room.transform.rotation;
+                    newRoom.GetComponent<MeshFilter>().mesh = room.GetComponent<MeshFilter>().mesh;
+                    newRoom.GetComponent<MeshCollider>().sharedMesh = room.GetComponent<MeshCollider>().sharedMesh;
                     rooms.Enqueue(newRoom);
                     roomsSpawned++;
                 }
@@ -99,10 +102,10 @@ public class LevelGen : MonoBehaviour
     {
         int numOfConnRooms = 0;
 
-        Vector3 frontFace = currentRoom.transform.position + currentRoom.transform.up * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
-        Vector3 backFace = currentRoom.transform.position - currentRoom.transform.up * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
-        Vector3 rightFace = currentRoom.transform.position + currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
-        Vector3 leftFace = currentRoom.transform.position - currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
+        Vector3 frontFace = currentRoom.transform.position + currentRoom.transform.forward * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
+        Vector3 backFace = currentRoom.transform.position - currentRoom.transform.forward * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
+        Vector3 rightFace = currentRoom.transform.position + currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.x;
+        Vector3 leftFace = currentRoom.transform.position - currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.x;
 
         if (positions.Contains(frontFace))
             numOfConnRooms++;

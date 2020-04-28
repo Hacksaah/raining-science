@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 1533298732231634760, guid: ab16fb4542933c047b19c83a321f7319, type: 3}
   key: lightGun
-  amount: 10
+  amount: 35
   maxAmountAllowed: -1
   expandPool: 1

@@ -17,14 +17,18 @@ public class DeliveryBot : EnemyActor
     DeliveryBot()
     {
         stateMachine = new StateMachine<DeliveryBot>(this);
+        size = 1.5f;
     }
 
     private void Awake()
     {
+        explosiveParticles = GetComponent<ParticleSystem>();        
+    }
+
+    private void Start()
+    {
         Startup();
-        explosiveParticles = GetComponent<ParticleSystem>();
         SpawnActor(transform.position, Vector3.zero);
-        gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -50,6 +54,14 @@ public class DeliveryBot : EnemyActor
             {
                 stateMachine.ChangeState(deliveryBot_alerted.Instance);
                 StartCoroutine(StopAndTurnToFaceDynamicTarget(AttackTarget, 2.5f));
+            }
+
+            if (dam_Type == Damage_Type.CORROSIVE)
+            {
+                dotMultiplier++;
+                dotTicks = 7;
+                dotDamage = 5;
+                StartCoroutine(ApplyDoT());
             }
 
             currHP -= damage;

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentGameObject: {fileID: 506189500519609654}
-  attachmentID: 0
+  attachmentID: -1
 --- !u!135 &506189500115149122
 SphereCollider:
   m_ObjectHideFlags: 0

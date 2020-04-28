@@ -5,5 +5,6 @@ using UnityEngine;
 public enum Damage_Type
 {
     PROJECTILE = 0,
-    EXPLOSIVE = 1
+    EXPLOSIVE = 1,
+    CORROSIVE = 2
 };

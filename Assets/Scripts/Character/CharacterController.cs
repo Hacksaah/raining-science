@@ -10,14 +10,16 @@ public class CharacterController : MonoBehaviour
     public GameEvent playerUIReady;
     public GameEvent takeDamage;
 
-    public GameObject isGrounded;
+    
+    public LayerMask GroundLayer;
+    private Transform groundChecker;
 
     //Player rigidbody
     private Rigidbody rb;
 
     //Direction last moved in 
     [SerializeField]
-    private Vector3 lastMoveDir;
+    private Vector3 moveInput;
 
     //Dash Variables
     public float maxDashTime;
@@ -30,22 +32,34 @@ public class CharacterController : MonoBehaviour
 
     //Current weapon in hand
     [SerializeField]
-    private Weapon currentWeapon;    
+    private Weapon currentWeapon;
+
+    //Stops player from shooting if false
+    [SerializeField]
+    private VarBool canShoot;
 
     private RaycastHit mousePos;
+
+    [SerializeField]
+    private AttachmentPanel aPanel;
 
     private void Awake()
     {
         //Set base variables
         rb = GetComponent<Rigidbody>();        
-        lastMoveDir = Vector3.zero;
-        SpawnPlayer();        
+        moveInput = Vector3.zero;        
+        SpawnPlayer();
+        canShoot.value = true;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {        
-        
+    private void Start()
+    {
+        groundChecker = transform.GetChild(0);
+    }
+
+    private void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + moveInput * stats.MoveSpeed * Time.fixedDeltaTime);
     }
 
     // Update is called once per frame
@@ -54,53 +68,33 @@ public class CharacterController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out mousePos);
 
-        if (!rb.isKinematic)
-            isGrounded.SetActive(true);
-
-        HandleMovement();
+        CheckMovementInput();
 
         HandleDash();
 
         FaceMouse();
 
         HandleGun();
+
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            aPanel.gameObject.SetActive(true);
+            Attachment nullAtt = null;
+            aPanel.UpdatePanel(currentWeapon, nullAtt);
+        }
+        else if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            aPanel.CloseMenu();
+        }
     }
 
-    private void HandleMovement()
+    private void CheckMovementInput()
     {
-        //Basic movement
-        float moveX = 0f;
-        float moveY = 0;
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            moveY = 1f;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            moveY = -1f;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            moveX = -1f;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            moveX = 1f;
-        }
-
-        //If not dashing, update direction
-        if(!dashing)
-        {
-            lastMoveDir = new Vector3(moveX, 0, moveY).normalized;
-        }
-
-        //Execute movement
-        if(rb.isKinematic)
-            transform.position += (lastMoveDir * stats.MoveSpeed * Time.deltaTime);
-        else
-            rb.AddForce(lastMoveDir * stats.MoveSpeed * Time.deltaTime);
-
+        moveInput = Vector3.zero;
+        moveInput.x = Input.GetAxisRaw("Horizontal");
+        moveInput.z = Input.GetAxisRaw("Vertical");
+        if (moveInput != Vector3.zero)
+            moveInput = moveInput.normalized;
     }
 
     private void FaceMouse()
@@ -112,31 +106,28 @@ public class CharacterController : MonoBehaviour
 
     private void HandleDash()
     {
-        //Dash if RMB clicked and dash not in progress
-        if(Input.GetMouseButtonDown(1) && !dashing)
+        if (Input.GetMouseButtonDown(1))
         {
-            dashTime = maxDashTime;
-            dashing = true;
-        }
-        //Move the player for the dash
-        if (dashTime > 0)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + lastMoveDir, stats.DashSpeed);
-            dashTime -= Time.deltaTime;
-        }
-        else if(dashing)
-        {
-            dashTime = 0;
-            dashing = false;
-        }
+            // if we're grounded
+            if (Physics.CheckSphere(groundChecker.position, 0.2f, GroundLayer))
+            {
+                Vector3 dashVelocity = Vector3.Scale(moveInput, stats.DashSpeed * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
+                rb.AddForce(dashVelocity, ForceMode.VelocityChange);
+            }
+            else
+                Debug.Log("Not grounded");
+        }       
     }
 
     private void HandleGun()
     {
         //Shoot
-        currentWeapon.Shoot(mousePos.point, stats);
+        if(canShoot.value)
+        {
+            currentWeapon.WeaponControls(mousePos.point, stats);
+        }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             currentWeapon.ReloadWeapon(stats);
         }
@@ -157,6 +148,8 @@ public class CharacterController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
+            if(aPanel.gameObject.activeSelf)
+                aPanel.ChangeWeapon(currentWeapon);
         }
         //Scroll down through weapons list
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
@@ -174,6 +167,8 @@ public class CharacterController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
+            if(aPanel.gameObject.activeSelf)
+                aPanel.ChangeWeapon(currentWeapon);
         }
     }
 

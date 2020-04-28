@@ -155,3 +155,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c03dd7c9d8b60e49bfeffdb75da2d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  shootBloom: 0
+  damage_Type: 0
+  damage: 0
+  DynamicLayer:
+    serializedVersion: 2
+    m_Bits: 2048

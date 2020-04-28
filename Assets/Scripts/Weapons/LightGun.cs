@@ -12,28 +12,26 @@ public class LightGun : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        fireRate = 0.1f;
-        reloadSpeed = 0.85f;
-        projectileSpeed = 60f;
-        critRate = 0.2f;
-        shootBloom = 7;
-
-        damage = 3;
-        clipSize = 80;
+        AssignBaseStats();
         ammoInClip = clipSize;
-        maxAmmoCapacity = -1;
-        currentAmmoCapacity = maxAmmoCapacity;
         attachmentSlots = 4;
 
         reloading = false;
 
         name = "Light Gun";
+        flavorText = "Shoots beams of light. It needs a little time to warm up";
         projectilePoolKey = "lightGun";
 
         rampUpTime = 4f / 5;
         rampUpModifier = 5;
         currFireRate = fireRate * rampUpModifier;
         currShootBloom = shootBloom * rampUpModifier;
+
+        baseWeaponBehavior = new LightGun_IWeapon();
+        weaponBehavior = baseWeaponBehavior;
+
+        baseProjectileBehavior = new LightGun_IProjectile();
+        projectileBehavior = baseProjectileBehavior;
     }
 
     // Update is called once per frame
@@ -42,7 +40,7 @@ public class LightGun : Weapon
         fireRateTimer = UpdateTimer(fireRateTimer);        
     }
 
-    public override void Shoot(Vector3 target, PlayerStats stats)
+    public override void WeaponControls(Vector3 target, PlayerStats stats)
     {
         target.y = transform.position.y;
         transform.LookAt(target);
@@ -71,8 +69,7 @@ public class LightGun : Weapon
 
                 fireRateTimer = currFireRate;
 
-                LightGun_projectile projectile = GameObjectPoolManager.RequestItemFromPool(projectilePoolKey).GetComponent<LightGun_projectile>();                                
-                projectile.FireProjectile(shootFromTransform.position, damage, Random.Range(-currShootBloom, currShootBloom), target);
+                weaponBehavior.FireWeapon(projectilePoolKey, shootFromTransform.position, target, damage, 0, shootBloom, damageType, projectileBehavior);
             }
         }
         if (Input.GetButtonUp("Fire1"))
@@ -81,6 +78,8 @@ public class LightGun : Weapon
             rampUpTimer = 0;
             currFireRate = fireRate * rampUpModifier;
             currShootBloom = shootBloom * rampUpModifier;
-        }        
+        }
+        if (ammoInClip == 0 && !reloading && Input.GetButtonDown("Fire1"))
+            ReloadWeapon(stats);
     }
 }

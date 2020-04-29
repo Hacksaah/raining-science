@@ -12,10 +12,8 @@ public class AttachmentPanel : MonoBehaviour
 
     public GameObject p;
 
-    //New attachment items
-    public Text IncomingAttachmentName;
+    //New attachment icon
     public Image IncomingAttachmentIcon;
-    public Text IncomingAttachmentFlavor;
 
     //Spritesheet with attachments
     public Sprite[] SpriteSheet;
@@ -55,23 +53,19 @@ public class AttachmentPanel : MonoBehaviour
         }
 
         //Check if attachment is null
-        if(attachmentToUse == null)
+        if (attachmentToUse == null)
         {
             newAttachment = null;
-            IncomingAttachmentName.text = "No new Attachment";
             IncomingAttachmentIcon.gameObject.SetActive(false);
             IncomingAttachmentIcon.sprite = null;
-            IncomingAttachmentFlavor.text = "" ;
         }
         else
         {
             newAttachment = attachmentToUse;
-            IncomingAttachmentName.text = newAttachment.Name;
             IncomingAttachmentIcon.gameObject.SetActive(true);
             IncomingAttachmentIcon.sprite = SpriteSheet[newAttachment.SpriteID];
-            IncomingAttachmentFlavor.text = newAttachment.FlavorText;
         }
-
+        
         canShootSO.value = false;
         weaponToChange = currentGun;
 
@@ -86,7 +80,6 @@ public class AttachmentPanel : MonoBehaviour
         int count = 0;
         foreach(Attachment att in weaponToChange.attachments)
         {
-            attachmentButtons[count].GetComponentInChildren<Text>().text = att.Name;
             attachmentButtons[count].GetComponentInChildren<Image>().sprite = SpriteSheet[att.SpriteID];
             attachmentButtons[count].Attachment = att;
             attachmentButtons[count].Available = true;
@@ -99,12 +92,10 @@ public class AttachmentPanel : MonoBehaviour
         {
             if (i < weaponToChange.AttachmentSlots)
             {
-                attachmentButtons[i].GetComponentInChildren<Text>().text = "Available";
                 attachmentButtons[i].Available = true;
             }
             else
             {
-                attachmentButtons[i].GetComponentInChildren<Text>().text = "Not Available";
                 attachmentButtons[i].Available = false;
             }
         }
@@ -125,11 +116,12 @@ public class AttachmentPanel : MonoBehaviour
             Debug.Log("Not an available slot");
             return;
         }
+        /*
         else if(weaponToChange.AttachmentSlots <= weaponToChange.attachments.Count) //Just in case attachments become full somehow
         {
             Debug.Log("Attachments full");
             return;
-        }
+        }*/
         else if(weaponToChange.attachments.Contains(newAttachment)) //If attachment already exists
         {
             Debug.Log("Attachment already exists");
@@ -139,14 +131,11 @@ public class AttachmentPanel : MonoBehaviour
         {
             //Add first attachment or add to an empty button
             weaponToChange.AddAttachment(newAttachment);
-
             //Destroy the trigger
             gameObject.GetComponent<AttachmentUI>().DestroyTrigger();
             buttonIndexToMoveTo = weaponToChange.attachments.Count - 1;
 
-            IncomingAttachmentName.text = "No new Attachment";
             IncomingAttachmentIcon.gameObject.SetActive(false);
-            IncomingAttachmentFlavor.text = "";
             newAttachment = null;
         }
         else //If there is at least one attachment

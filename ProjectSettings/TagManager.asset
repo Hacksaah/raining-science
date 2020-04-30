@@ -8,6 +8,7 @@ TagManager:
   - GenRoom
   - BossRoom
   - SpawnRoom
+  - Door
   layers:
   - Default
   - TransparentFX

@@ -107,7 +107,6 @@ public class LevelGen : MonoBehaviour
                     newRoom.transform.position = face;
                     newRoom.transform.rotation = room.transform.rotation;
                     newRoom.GetComponent<MeshFilter>().mesh = room.GetComponent<MeshFilter>().mesh;
-                    newRoom.GetComponent<MeshCollider>().sharedMesh = room.GetComponent<MeshCollider>().sharedMesh;
                     rooms.Enqueue(newRoom);
                     roomsSpawned++;
                 }

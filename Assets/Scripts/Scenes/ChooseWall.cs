@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class ChooseWall : MonoBehaviour
 {
-    public GameObject wall;
+    public GameObjectSet walls;
+    
     void Awake()
     {
-        MeshRenderer[] wallMeshes = wall.GetComponentsInChildren<MeshRenderer>();
-        MeshCollider[] wallColliders = wall.GetComponentsInChildren<MeshCollider>();
-        for(int i = 0; i<wallMeshes.Length; i++)
+        print("Child count: "+gameObject.transform.childCount);
+        if(gameObject.transform.childCount == 1)
         {
-            wallMeshes[i].enabled = false;
-            wallColliders[i].enabled = false;
+            GameObject.Destroy(gameObject.transform.GetChild(0).gameObject);
         }
-        int index = (int)UnityEngine.Random.Range(0, wallMeshes.Length);
-        wallMeshes[index].enabled = true;
-        wallColliders[index].enabled = true;
+
+        int index = (int)UnityEngine.Random.Range(0, walls.items.Count);
+        GameObject wall = GameObject.Instantiate((GameObject)walls.items.ToArray().GetValue(index));
+        wall.transform.parent = gameObject.transform;
+        wall.transform.localPosition = new Vector3(0f, 0f, 0f);
+        wall.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        wall.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     // Update is called once per frame

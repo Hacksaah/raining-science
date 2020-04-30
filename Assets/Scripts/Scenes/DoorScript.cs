@@ -22,7 +22,7 @@ public class DoorScript : MonoBehaviour
     private void OnCollisionEnter(Collision col)
     {
         print("collision");
-        if (!isOpened && !touchingDoor)
+        if (!isOpened && !touchingDoor && col.gameObject.tag == "Player")
         {
             animation.Play("open");
             isOpened = true;

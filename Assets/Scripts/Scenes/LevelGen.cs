@@ -100,7 +100,7 @@ public class LevelGen : MonoBehaviour
                         for(int z = 0; z<door.transform.childCount; z++)
                         {
                             doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                            doorScript.doorTouching(true);
+                            doorScript.Lock(true);
                         }
                         break;
                     case 1:
@@ -108,7 +108,7 @@ public class LevelGen : MonoBehaviour
                         for (int z = 0; z < door.transform.childCount; z++)
                         {
                             doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                            doorScript.doorTouching(true);
+                            doorScript.Lock(true);
                         }
                         break;
                     case 2:
@@ -116,7 +116,7 @@ public class LevelGen : MonoBehaviour
                         for (int z = 0; z < door.transform.childCount; z++)
                         {
                             doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                            doorScript.doorTouching(true);
+                            doorScript.Lock(true);
                         }
                         break;
                     case 3:
@@ -124,7 +124,7 @@ public class LevelGen : MonoBehaviour
                         for (int z = 0; z < door.transform.childCount; z++)
                         {
                             doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                            doorScript.doorTouching(true);
+                            doorScript.Lock(true);
                         }
                         break;
                 }
@@ -140,7 +140,7 @@ public class LevelGen : MonoBehaviour
                             for (int z = 0; z < door.transform.childCount; z++)
                             {
                                 doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                                doorScript.doorTouching(true);
+                                doorScript.Lock(true);
                             }
                             break;
                         case 1:
@@ -148,7 +148,7 @@ public class LevelGen : MonoBehaviour
                             for (int z = 0; z < door.transform.childCount; z++)
                             {
                                 doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                                doorScript.doorTouching(true);
+                                doorScript.Lock(true);
                             }
                             break;
                         case 2:
@@ -156,7 +156,7 @@ public class LevelGen : MonoBehaviour
                             for (int z = 0; z < door.transform.childCount; z++)
                             {
                                 doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                                doorScript.doorTouching(true);
+                                doorScript.Lock(true);
                             }
                             break;
                         case 3:
@@ -164,7 +164,7 @@ public class LevelGen : MonoBehaviour
                             for (int z = 0; z < door.transform.childCount; z++)
                             {
                                 doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                                doorScript.doorTouching(true);
+                                doorScript.Lock(true);
                             }
                             break;
                     }

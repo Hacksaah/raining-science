@@ -6,7 +6,7 @@ public class DoorScript : MonoBehaviour
 {
     private new Animation animation;
     private bool isOpened = false;
-    private bool touchingDoor = false;
+    private bool locked = false;
     
     void Start()
     {
@@ -15,15 +15,20 @@ public class DoorScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if (!isOpened && touchingDoor && col.gameObject.tag == "Player")
+        if (!isOpened && locked && col.gameObject.tag == "Player")
         {
             animation.Play("open");
             isOpened = true;
         }
     }
 
-    public void doorTouching(bool touch)
+    public void Lock(bool touch)
     {
-        touchingDoor = touch;
+        locked = touch;
+    }
+
+    public bool isLocked()
+    {
+        return locked;
     }
 }

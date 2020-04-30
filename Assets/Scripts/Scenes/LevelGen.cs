@@ -20,6 +20,8 @@ public class LevelGen : MonoBehaviour
 
     private void Start()
     {
+        CombineMesh meshScript = (CombineMesh)room.GetComponent(typeof(CombineMesh));
+        meshScript.combine();
         if (maxConnectingRooms > 4)
             maxConnectingRooms = 4;
         else if (maxConnectingRooms < 2)

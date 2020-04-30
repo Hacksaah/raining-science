@@ -1491,7 +1491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   room: {fileID: 882107495}
   branchPercent: 50
-  numberOfRooms: 5
+  numberOfRooms: 25
   maxConnectingRooms: 3
   bossRoomSpawnChance: 5
 --- !u!4 &639047700
@@ -2207,15 +2207,15 @@ Transform:
   - {fileID: 868600764}
   - {fileID: 664572407}
   - {fileID: 1821096567}
-  - {fileID: 1756018053}
-  - {fileID: 1600052441}
-  - {fileID: 1123294778}
-  - {fileID: 1135079284}
   - {fileID: 921261165}
   - {fileID: 1377866701}
   - {fileID: 1361960672}
   - {fileID: 2130278328}
   - {fileID: 1303948698}
+  - {fileID: 1756018053}
+  - {fileID: 1600052441}
+  - {fileID: 1123294778}
+  - {fileID: 1135079284}
   - {fileID: 498741399}
   - {fileID: 565209225}
   - {fileID: 877267000}
@@ -2684,7 +2684,7 @@ Transform:
   - {fileID: 1746794540}
   - {fileID: 180930821}
   m_Father: {fileID: 882107496}
-  m_RootOrder: 12
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &921261166
 MonoBehaviour:
@@ -4141,7 +4141,7 @@ Transform:
   - {fileID: 787085785}
   - {fileID: 349104735}
   m_Father: {fileID: 882107496}
-  m_RootOrder: 16
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1303948699
 MonoBehaviour:
@@ -4349,7 +4349,7 @@ Transform:
   - {fileID: 885930529}
   - {fileID: 753892093}
   m_Father: {fileID: 882107496}
-  m_RootOrder: 14
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &1361960673
 MonoBehaviour:
@@ -4511,7 +4511,7 @@ Transform:
   - {fileID: 1038521059}
   - {fileID: 307908575}
   m_Father: {fileID: 882107496}
-  m_RootOrder: 13
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1377866702
 MonoBehaviour:
@@ -6427,7 +6427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51cd7c87e25289f49943e028d8b597ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wall: {fileID: 0}
+  wall: {fileID: 1821096565}
 --- !u!4 &1821096567
 Transform:
   m_ObjectHideFlags: 0
@@ -6639,7 +6639,7 @@ MonoBehaviour:
   unwalkableLayer:
     serializedVersion: 2
     m_Bits: 512
-  gridWorldSize: {x: 89.7, y: 95.9}
+  gridWorldSize: {x: 90, y: 90}
   nodeRadius: 2
   roomKey: 0
 --- !u!114 &1896344855
@@ -6657,7 +6657,7 @@ MonoBehaviour:
   EnemyPrefabs:
   - {fileID: 234422367404991758, guid: 68ac7b9a927e56d49ae922845c36680d, type: 3}
   - {fileID: 1734252470901273888, guid: 44f777f05e02fbe42bc2112fddf27e5e, type: 3}
-  spawnCount: 0
+  spawnCount: 7
 --- !u!114 &1896344856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6774,12 +6774,12 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: ad0a6f4c7dc84e548a701a9a53b3ed0b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: ad0a6f4c7dc84e548a701a9a53b3ed0b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: ad0a6f4c7dc84e548a701a9a53b3ed0b,
         type: 3}
@@ -6794,7 +6794,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: ad0a6f4c7dc84e548a701a9a53b3ed0b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: ad0a6f4c7dc84e548a701a9a53b3ed0b,
         type: 3}
@@ -7397,7 +7397,7 @@ Transform:
   - {fileID: 2100151411}
   - {fileID: 2008974356}
   m_Father: {fileID: 882107496}
-  m_RootOrder: 15
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &2130278329
 MonoBehaviour:

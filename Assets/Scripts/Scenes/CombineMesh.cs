@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class CombineMesh : MonoBehaviour
 {
-    void Awake()
+    public void combine()
     {
         MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
         MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();

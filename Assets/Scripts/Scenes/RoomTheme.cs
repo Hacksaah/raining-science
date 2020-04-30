@@ -5,4 +5,9 @@ using UnityEngine;
 public class RoomTheme : MonoBehaviour
 {
     public GameObject[] roomItems;
+
+    private void Start()
+    {
+
+    }
 }

@@ -9,11 +9,14 @@ public class LevelGen : MonoBehaviour
     public int branchPercent;
     public int numberOfRooms;
     public int maxConnectingRooms;
+    public int bossRoomSpawnChance = 5;
 
     private Queue<GameObject> rooms = new Queue<GameObject>();
     private int roomsSpawned = 0;
     private LinkedList<Vector3> positions = new LinkedList<Vector3>();
     private Dictionary<Vector3, GameObject> roomMap = new Dictionary<Vector3, GameObject>();
+    private Boolean bossRoomSpawned = false;
+
 
     private void Start()
     {
@@ -41,6 +44,8 @@ public class LevelGen : MonoBehaviour
             currentRoom = rooms.Dequeue();
             while (rooms.Count == 0 && roomsSpawned < numberOfRooms)
             {
+                if (roomsSpawned - 1 == numberOfRooms && !bossRoomSpawned)
+                    bossRoomSpawnChance = 100;
                 spawnRooms(currentRoom);
             }
             if (checkConnectedRooms(currentRoom, 1, 1))
@@ -90,6 +95,13 @@ public class LevelGen : MonoBehaviour
                 {
                     positions.AddLast(face);
                     GameObject newRoom = GameObject.Instantiate(room, face, Quaternion.Euler(Vector3.left));
+                    if (!bossRoomSpawned && random(bossRoomSpawnChance))
+                    {
+                        newRoom.tag = "BossRoom";
+                        bossRoomSpawned = true;
+                    }
+                    else
+                        newRoom.tag = "GenRoom";
                     if(!roomMap.ContainsKey(face))
                         roomMap.Add(face, newRoom);
                     newRoom.transform.position = face;

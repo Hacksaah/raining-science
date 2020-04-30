@@ -9,24 +9,27 @@ public class SpawnItems : MonoBehaviour
     public int percentChanceToSpawn = 50;
     public int numItemsToSpawn = 1;
 
+    private int itemsToSpawn;
     // Start is called before the first frame update
     void Start()
     {
-        while (numItemsToSpawn > 0)
+        itemsToSpawn = numItemsToSpawn;
+        spawn();
+    }
+
+    public void spawn()
+    {
+        while (itemsToSpawn > 0)
         {
-            numItemsToSpawn--;
             if (random(percentChanceToSpawn))
             {
-                GameObject item = GameObject.Instantiate((GameObject)items.items.ToArray().GetValue((int)UnityEngine.Random.Range(0, items.items.Count)));
+                int index = (int)UnityEngine.Random.Range(0, items.items.Count);
+                GameObject item = GameObject.Instantiate((GameObject)items.items.ToArray().GetValue(index));
                 item.transform.position = gameObject.transform.position;
                 //SpawnItems itemScript = item.GetComponent<SpawnItems>();
             }
+            itemsToSpawn--;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     Boolean random(int percent)

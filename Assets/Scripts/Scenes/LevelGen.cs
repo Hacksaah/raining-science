@@ -13,6 +13,7 @@ public class LevelGen : MonoBehaviour
     private Queue<GameObject> rooms = new Queue<GameObject>();
     private int roomsSpawned = 0;
     private LinkedList<Vector3> positions = new LinkedList<Vector3>();
+    private Dictionary<Vector3, GameObject> roomMap = new Dictionary<Vector3, GameObject>();
 
     private void Start()
     {
@@ -42,7 +43,7 @@ public class LevelGen : MonoBehaviour
             {
                 spawnRooms(currentRoom);
             }
-            if (checkConnectedRooms(currentRoom))
+            if (checkConnectedRooms(currentRoom, 1, 1))
                 continue;
             
             spawnRooms(currentRoom);
@@ -77,8 +78,10 @@ public class LevelGen : MonoBehaviour
                 face.x = Mathf.RoundToInt(face.x);
                 face.z = Mathf.RoundToInt(face.z);
 
-                if (checkConnectedRooms(currentRoom))
+                if (checkConnectedRooms(currentRoom, 1, 1))
                 {
+                    if(!roomMap.ContainsKey(face))
+                        roomMap.Add(face, currentRoom);
                     positions.AddLast(face);
                     continue;
                 }
@@ -87,6 +90,8 @@ public class LevelGen : MonoBehaviour
                 {
                     positions.AddLast(face);
                     GameObject newRoom = GameObject.Instantiate(room, face, Quaternion.Euler(Vector3.left));
+                    if(!roomMap.ContainsKey(face))
+                        roomMap.Add(face, newRoom);
                     newRoom.transform.position = face;
                     newRoom.transform.rotation = room.transform.rotation;
                     newRoom.GetComponent<MeshFilter>().mesh = room.GetComponent<MeshFilter>().mesh;
@@ -98,14 +103,36 @@ public class LevelGen : MonoBehaviour
         }
     }
 
-    Boolean checkConnectedRooms(GameObject currentRoom)
+    Boolean checkConnectedRooms(GameObject currentRoom, int startDegree, int endDegree)
     {
+        Boolean tooManyRooms = false;
+
         int numOfConnRooms = 0;
 
         Vector3 frontFace = currentRoom.transform.position + currentRoom.transform.forward * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
         Vector3 backFace = currentRoom.transform.position - currentRoom.transform.forward * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
         Vector3 rightFace = currentRoom.transform.position + currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.x;
         Vector3 leftFace = currentRoom.transform.position - currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.x;
+
+        if (startDegree < endDegree)
+        {
+            if(roomMap.ContainsKey(frontFace))
+                tooManyRooms = checkConnectedRooms(roomMap[frontFace], startDegree+1, endDegree);
+            if (tooManyRooms)
+                return tooManyRooms;
+            if (roomMap.ContainsKey(backFace))
+                tooManyRooms = checkConnectedRooms(roomMap[backFace], startDegree+1, endDegree);
+            if (tooManyRooms)
+                return tooManyRooms;
+            if (roomMap.ContainsKey(rightFace))
+                tooManyRooms = checkConnectedRooms(roomMap[rightFace], startDegree+1, endDegree);
+            if (tooManyRooms)
+                return tooManyRooms;
+            if (roomMap.ContainsKey(leftFace))
+                tooManyRooms = checkConnectedRooms(roomMap[leftFace], startDegree+1, endDegree);
+            if (tooManyRooms)
+                return tooManyRooms;
+        }
 
         if (positions.Contains(frontFace))
             numOfConnRooms++;
@@ -117,9 +144,9 @@ public class LevelGen : MonoBehaviour
             numOfConnRooms++;
 
         if (numOfConnRooms >= maxConnectingRooms)
-            return true;
-        else
-            return false;
+            tooManyRooms = true;
+
+        return tooManyRooms;
     }
 
     Boolean random(int percent)

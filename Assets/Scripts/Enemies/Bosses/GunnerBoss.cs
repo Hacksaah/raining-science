@@ -289,7 +289,7 @@ public class GunnerBoss : EnemyActor
                 if (col.gameObject.tag == "Player")
                 {
 
-                    col.gameObject.GetComponent<CharacterController>().TakeDamage(40);
+                    col.gameObject.GetComponent<PlayerController>().TakeDamage(40);
                 }
                 else if (col.gameObject.tag == "Enemy")
                 {

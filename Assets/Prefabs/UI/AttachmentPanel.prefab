@@ -1461,7 +1461,7 @@ MonoBehaviour:
   - {fileID: 6875994984471426725}
   AttachmentTriggerPrefab: {fileID: 506189500519609654, guid: dbe9af97267fbdd4787071742aa72392,
     type: 3}
-  p: {fileID: 0}
+  player: {fileID: 0}
   IncomingAttachmentIcon: {fileID: 3540472504597454061}
   SpriteSheet:
   - {fileID: 3088284539819664608, guid: cb38766bdc7ee644892e9964638395d1, type: 3}

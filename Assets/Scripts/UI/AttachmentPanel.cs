@@ -10,7 +10,7 @@ public class AttachmentPanel : MonoBehaviour
     [SerializeField]
     private GameObject AttachmentTriggerPrefab;
 
-    public GameObject p;
+    public GameObject player;
 
     //New attachment icon
     public Image IncomingAttachmentIcon;
@@ -179,10 +179,10 @@ public class AttachmentPanel : MonoBehaviour
         }
         
         //Make new attachment
-        GameObject newAttachmentPrefab = Instantiate(AttachmentTriggerPrefab, p.transform.position, Quaternion.identity, null);
+        GameObject newAttachmentPrefab = Instantiate(AttachmentTriggerPrefab, player.transform.position, Quaternion.identity, null);
 
         //Change the triggers ID
-        newAttachmentPrefab.GetComponentInChildren<Attachment_Trigger>().DropAttachment(p.transform.forward, button.Attachment.AttachmentID);
+        newAttachmentPrefab.GetComponentInChildren<Attachment_Trigger>().DropAttachment(player.transform.forward, button.Attachment.AttachmentID);
 
         //Remove attachment
         weaponToChange.RemoveAttachment(button.Attachment);

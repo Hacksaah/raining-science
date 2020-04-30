@@ -61,11 +61,6 @@ public class PlayerController : MonoBehaviour
         groundChecker = transform.GetChild(0);
     }
 
-    private void FixedUpdate()
-    {
-        //rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
-    }
-
     // Update is called once per frame
     void Update()
     {

@@ -13,23 +13,17 @@ public class DoorScript : MonoBehaviour
         animation = GetComponentInParent<Animation>();
     }
 
-    
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter(Collision col)
     {
-        print("collision");
-        if (!isOpened && !touchingDoor && col.gameObject.tag == "Player")
+        if (!isOpened && touchingDoor && col.gameObject.tag == "Player")
         {
             animation.Play("open");
             isOpened = true;
         }
     }
-    private void OnTriggerEnter(Collider other)
+
+    public void doorTouching(bool touch)
     {
-        print("Triggered");
+        touchingDoor = touch;
     }
 }

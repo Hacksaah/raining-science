@@ -774,7 +774,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 4ef07721bbebb614d818785d2ab33f44,
         type: 3}
       propertyPath: m_Name
-      value: door
+      value: SouthDoor
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 4ef07721bbebb614d818785d2ab33f44,
         type: 3}
@@ -1814,7 +1814,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 4ef07721bbebb614d818785d2ab33f44,
         type: 3}
       propertyPath: m_Name
-      value: door (2)
+      value: WestDoor
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 4ef07721bbebb614d818785d2ab33f44,
         type: 3}
@@ -2030,7 +2030,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 4ef07721bbebb614d818785d2ab33f44,
         type: 3}
       propertyPath: m_Name
-      value: door (3)
+      value: EastDoor
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 4ef07721bbebb614d818785d2ab33f44,
         type: 3}
@@ -3564,7 +3564,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 4ef07721bbebb614d818785d2ab33f44,
         type: 3}
       propertyPath: m_Name
-      value: door (1)
+      value: NorthDoor
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 4ef07721bbebb614d818785d2ab33f44,
         type: 3}

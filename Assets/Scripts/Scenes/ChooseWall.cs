@@ -8,7 +8,6 @@ public class ChooseWall : MonoBehaviour
     
     void Awake()
     {
-        print("Child count: "+gameObject.transform.childCount);
         if(gameObject.transform.childCount == 1)
         {
             GameObject.Destroy(gameObject.transform.GetChild(0).gameObject);
@@ -20,11 +19,5 @@ public class ChooseWall : MonoBehaviour
         wall.transform.localPosition = new Vector3(0f, 0f, 0f);
         wall.transform.localRotation = Quaternion.Euler(0, 0, 0);
         wall.transform.localScale = new Vector3(1f, 1f, 1f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

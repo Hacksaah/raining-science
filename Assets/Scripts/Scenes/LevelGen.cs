@@ -49,10 +49,7 @@ public class LevelGen : MonoBehaviour
                 if (roomsSpawned - 1 == numberOfRooms && !bossRoomSpawned)
                     bossRoomSpawnChance = 100;
                 spawnRooms(currentRoom);
-            }
-            if (checkConnectedRooms(currentRoom, 1, 1))
-                continue;
-            
+            }            
             spawnRooms(currentRoom);
         }
     }
@@ -93,10 +90,84 @@ public class LevelGen : MonoBehaviour
                     continue;
                 }
 
+                DoorScript doorScript;
+                GameObject door;
+
+                switch (x)
+                {
+                    case 0:
+                        door = currentRoom.transform.Find("NorthDoor").gameObject;
+                        for(int z = 0; z<door.transform.childCount; z++)
+                        {
+                            doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                            doorScript.doorTouching(true);
+                        }
+                        break;
+                    case 1:
+                        door = currentRoom.transform.Find("SouthDoor").gameObject;
+                        for (int z = 0; z < door.transform.childCount; z++)
+                        {
+                            doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                            doorScript.doorTouching(true);
+                        }
+                        break;
+                    case 2:
+                        door = currentRoom.transform.Find("WestDoor").gameObject;
+                        for (int z = 0; z < door.transform.childCount; z++)
+                        {
+                            doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                            doorScript.doorTouching(true);
+                        }
+                        break;
+                    case 3:
+                        door = currentRoom.transform.Find("EastDoor").gameObject;
+                        for (int z = 0; z < door.transform.childCount; z++)
+                        {
+                            doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                            doorScript.doorTouching(true);
+                        }
+                        break;
+                }
+
                 if (roomsSpawned < numberOfRooms && !positions.Contains(face))
                 {
                     positions.AddLast(face);
                     GameObject newRoom = GameObject.Instantiate(room, face, Quaternion.Euler(Vector3.left));
+                    switch (x)
+                    {
+                        case 0:
+                            door = newRoom.transform.Find("SouthDoor").gameObject;
+                            for (int z = 0; z < door.transform.childCount; z++)
+                            {
+                                doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                                doorScript.doorTouching(true);
+                            }
+                            break;
+                        case 1:
+                            door = newRoom.transform.Find("NorthDoor").gameObject;
+                            for (int z = 0; z < door.transform.childCount; z++)
+                            {
+                                doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                                doorScript.doorTouching(true);
+                            }
+                            break;
+                        case 2:
+                            door = newRoom.transform.Find("EastDoor").gameObject;
+                            for (int z = 0; z < door.transform.childCount; z++)
+                            {
+                                doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                                doorScript.doorTouching(true);
+                            }
+                            break;
+                        case 3:
+                            door = newRoom.transform.Find("WestDoor").gameObject;
+                            for (int z = 0; z < door.transform.childCount; z++)
+                            {
+                                doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                                doorScript.doorTouching(true);
+                            }
+                            break;
+                    }
                     if (!bossRoomSpawned && random(bossRoomSpawnChance))
                     {
                         newRoom.tag = "BossRoom";

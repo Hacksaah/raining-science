@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
         // opens the attachment UI whenever the player holds down TAB
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            TakeDamage(100);
             aPanel.gameObject.SetActive(true);
             Attachment nullAtt = null;
             aPanel.UpdatePanel(currentWeapon, nullAtt);
@@ -205,7 +206,7 @@ public class PlayerController : MonoBehaviour
         takeDamage.Raise();
         if (stats.CurrHP <= 0)
         {
-            // ToDo player death
+            GameOverUI.Instance.ActivateUI();
         }
     }
 

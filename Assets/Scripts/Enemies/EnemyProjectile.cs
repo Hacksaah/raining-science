@@ -39,7 +39,7 @@ public class EnemyProjectile : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
             return;
         if (other.gameObject.tag == "Player")
-            other.gameObject.GetComponent<CharacterController>().TakeDamage(damage);
+            other.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
         gameObject.SetActive(false);
     }
 

@@ -1,29 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CharacterController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public PlayerStats stats;
 
     public GameEvent playerUIReady;
     public GameEvent takeDamage;
 
-    
     public LayerMask GroundLayer;
     private Transform groundChecker;
 
-    //Player rigidbody
-    private Rigidbody rb;
-
-    //Direction last moved in 
-    [SerializeField]
+    //Player movement
+    private CharacterController controller;
+    private bool isGrounded;
     private Vector3 moveInput;
+    private float moveSpeed;
+    private Vector3 velocity = Vector3.zero;
+
+    //Character controller extension
+    private float pushPower = 12f;    
 
     //Dash Variables
     public float maxDashTime;
-    private float dashTime;
+    private float dashDistance;
     private bool dashing;
 
     //Weapon list
@@ -46,8 +47,8 @@ public class CharacterController : MonoBehaviour
     private void Awake()
     {
         //Set base variables
-        rb = GetComponent<Rigidbody>();        
-        moveInput = Vector3.zero;        
+        controller = GetComponent<CharacterController>();
+        moveInput = Vector3.zero;
         SpawnPlayer();
         canShoot.value = true;
     }
@@ -55,11 +56,6 @@ public class CharacterController : MonoBehaviour
     private void Start()
     {
         groundChecker = transform.GetChild(0);
-    }
-
-    private void FixedUpdate()
-    {
-        rb.MovePosition(rb.position + moveInput * stats.MoveSpeed * Time.fixedDeltaTime);
     }
 
     // Update is called once per frame
@@ -70,13 +66,17 @@ public class CharacterController : MonoBehaviour
 
         CheckMovementInput();
 
+        HandleMovement();
+
         HandleDash();
 
         FaceMouse();
 
         HandleGun();
 
-        if(Input.GetKeyDown(KeyCode.Tab))
+
+        // opens the attachment UI whenever the player holds down TAB
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             aPanel.gameObject.SetActive(true);
             Attachment nullAtt = null;
@@ -88,6 +88,19 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+
+        if (body == null || body.isKinematic)
+            return;
+
+        //Calculate push direction from move direction
+        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+
+        body.velocity = pushDir * pushPower;
+    }
+
     private void CheckMovementInput()
     {
         moveInput = Vector3.zero;
@@ -95,6 +108,17 @@ public class CharacterController : MonoBehaviour
         moveInput.z = Input.GetAxisRaw("Vertical");
         if (moveInput != Vector3.zero)
             moveInput = moveInput.normalized;
+    }
+
+    private void HandleMovement()
+    {
+        isGrounded = Physics.CheckSphere(groundChecker.position, 0.2f, GroundLayer);
+        if (isGrounded && velocity.y < 0)
+            velocity.y = -2f;
+        else
+            velocity.y += -9.8f * Time.deltaTime;
+        controller.Move(moveInput * moveSpeed * Time.deltaTime);
+        controller.Move(velocity * Time.deltaTime);
     }
 
     private void FaceMouse()
@@ -106,23 +130,26 @@ public class CharacterController : MonoBehaviour
 
     private void HandleDash()
     {
+        float drag = 8f;
         if (Input.GetMouseButtonDown(1))
         {
             // if we're grounded
-            if (Physics.CheckSphere(groundChecker.position, 0.2f, GroundLayer))
-            {
-                Vector3 dashVelocity = Vector3.Scale(moveInput, stats.DashSpeed * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
-                rb.AddForce(dashVelocity, ForceMode.VelocityChange);
+            if (isGrounded)
+            {                
+                velocity += Vector3.Scale(moveInput, dashDistance * new Vector3((Mathf.Log(1f/(Time.deltaTime * drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * drag + 1)) / -Time.deltaTime)));
+                pushPower = 25f;
             }
-            else
-                Debug.Log("Not grounded");
-        }       
+        }
+        velocity.x /= 1 + drag * Time.deltaTime;
+        velocity.z /= 1 + drag * Time.deltaTime;
+        if (velocity.x == 0 && velocity.z == 0)
+            pushPower = 12f;
     }
 
     private void HandleGun()
     {
         //Shoot
-        if(canShoot.value)
+        if (canShoot.value)
         {
             currentWeapon.WeaponControls(mousePos.point, stats);
         }
@@ -148,7 +175,7 @@ public class CharacterController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
-            if(aPanel.gameObject.activeSelf)
+            if (aPanel.gameObject.activeSelf)
                 aPanel.ChangeWeapon(currentWeapon);
         }
         //Scroll down through weapons list
@@ -167,7 +194,7 @@ public class CharacterController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
-            if(aPanel.gameObject.activeSelf)
+            if (aPanel.gameObject.activeSelf)
                 aPanel.ChangeWeapon(currentWeapon);
         }
     }
@@ -176,7 +203,7 @@ public class CharacterController : MonoBehaviour
     {
         stats.CurrHP = stats.CurrHP - damage;
         takeDamage.Raise();
-        if(stats.CurrHP <= 0)
+        if (stats.CurrHP <= 0)
         {
             // ToDo player death
         }
@@ -184,8 +211,10 @@ public class CharacterController : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        dashTime = maxDashTime;
+        dashDistance = stats.DashSpeed;
         stats.CurrHP = stats.MaxHP;
+
+        moveSpeed = stats.MoveSpeed;
 
         currentWeapon = weaponsList[0];
         foreach (Weapon weapon in weaponsList)

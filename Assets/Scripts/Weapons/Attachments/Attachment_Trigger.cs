@@ -11,9 +11,13 @@ public class Attachment_Trigger : Interactable
 
     private void Awake()
     {
+        if (!ParentGameObject)
+            ParentGameObject = transform.parent.gameObject;
+
         if (attachmentID < 0)
             attachmentID = Random.Range(0, 7);
 
+        // Determines which attachment this trigger uses
         switch (attachmentID)
         {
             case 0:
@@ -41,17 +45,24 @@ public class Attachment_Trigger : Interactable
         //ToDo the loot system should tell this attachment what to be
     }
 
+    private void OnDestroy()
+    {
+        InteractManager.Instance.RemoveItemFromQueue(this);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
+        //Adds this interactable to the interact manager when a player enters the trigger box
         if(other.gameObject.tag == "Player")
         {
             // notify interact manager
             InteractManager.Instance.AddItemToQueue(this);
         }
     }
-
+   
     private void OnTriggerExit(Collider other)
     {
+        //Removes this interactable from the interact manager when player leaves the trigger box
         if(other.gameObject.tag == "Player")
         {
             InteractManager.Instance.RemoveItemFromQueue(this);

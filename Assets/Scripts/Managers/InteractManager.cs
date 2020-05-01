@@ -9,8 +9,7 @@ public class InteractManager : MonoBehaviour
 
     private LinkedList<Interactable> queue = new LinkedList<Interactable>();
     private Interactable currentItem = null;
-
-    private int uniqueId = -1;
+    
 
     private void Awake()
     {

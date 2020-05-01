@@ -35,7 +35,7 @@ public class AttachmentUI : MonoBehaviour
     public void DestroyTrigger()
     {
         InteractManager.Instance.RemoveItemFromQueue(incomingAttachmentTrigger);
-        incomingAttachmentTrigger.ParentGameObject.SetActive(false);
+        Destroy(incomingAttachmentTrigger.ParentGameObject);
     }
 
     //Reset trigger with new attachment

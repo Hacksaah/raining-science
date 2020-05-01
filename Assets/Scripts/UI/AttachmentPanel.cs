@@ -127,7 +127,7 @@ public class AttachmentPanel : MonoBehaviour
             Debug.Log("Attachment already exists");
             return;
         }
-        else if(weaponToChange.attachments.First == null || button.Attachment == null & button.Available) //If the selected button is available and null 
+        else if(button.Attachment == null & button.Available) //If the selected button is available and null 
         {
             //Add first attachment or add to an empty button
             weaponToChange.AddAttachment(newAttachment);
@@ -203,6 +203,7 @@ public class AttachmentPanel : MonoBehaviour
         CloseMenu();
     }
 
+    // Resets values, deactivates UI
     public void CloseMenu()
     {
         IncomingAttachmentIcon.transform.position = originalPosition;
@@ -244,8 +245,8 @@ public class AttachmentPanel : MonoBehaviour
 
     public void ClearDataPanel()
     {
-        HoverAttachmentName.text = "Name";
-        HoverAttachmentStats.text = "Stat Changes";
-        HoverAttachmentFlavor.text = "Flavor Text";
+        HoverAttachmentName.text = "Attachment?";
+        HoverAttachmentStats.text = "Stat Changes?";
+        HoverAttachmentFlavor.text = "";
     }
 }

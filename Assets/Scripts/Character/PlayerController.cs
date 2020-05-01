@@ -15,15 +15,12 @@ public class PlayerController : MonoBehaviour
     //Player movement
     private CharacterController controller;
     private bool isGrounded;
+    private Vector3 moveInput;
     private float moveSpeed;
     private Vector3 velocity = Vector3.zero;
 
     //Character controller extension
-    private float pushPower = 12f;
-
-    //Direction last moved in 
-    [SerializeField]
-    private Vector3 moveInput;
+    private float pushPower = 12f;    
 
     //Dash Variables
     public float maxDashTime;
@@ -78,7 +75,7 @@ public class PlayerController : MonoBehaviour
         HandleGun();
 
 
-
+        // opens the attachment UI whenever the player holds down TAB
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             aPanel.gameObject.SetActive(true);

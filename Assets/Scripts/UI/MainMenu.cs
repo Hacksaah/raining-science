@@ -5,6 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    //Insert the name of the scene to go to here.
+    [SerializeField]
+    private string PlayScene;
+
+    [SerializeField]
+    private GameObject SettingsPanel;
+
+    [SerializeField]
+    private GameObject HowToPlayPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,21 +28,30 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("GameOverUI_Test");
+        //Play the game.
+        SceneManager.LoadScene(PlayScene);
     }
 
     public void OpenSettings()
     {
-        //Open Settings
+        SettingsPanel.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     public void OpenHowToPlay()
     {
-        //Open How to play
+        HowToPlayPanel.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     public void QuitToDesktop()
     {
         Application.Quit();
+    }
+
+    public void BackToMenu(GameObject panelToClose)
+    {
+        panelToClose.SetActive(false);
+        gameObject.SetActive(true);
     }
 }

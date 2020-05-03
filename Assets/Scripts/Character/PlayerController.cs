@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private AttachmentPanel aPanel;
 
+    [SerializeField]
+    private GameObject settingPanel;
+
     private void Awake()
     {
         //Set base variables
@@ -86,6 +89,15 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Tab))
         {
             aPanel.CloseMenu();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Escape) && !settingPanel.activeInHierarchy)
+        {
+            settingPanel.SetActive(true);
+        }
+        else if(Input.GetKeyUp(KeyCode.Escape) && settingPanel.activeInHierarchy)
+        {
+            settingPanel.SetActive(false);
         }
     }
 

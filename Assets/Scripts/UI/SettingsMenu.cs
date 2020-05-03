@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -8,7 +9,12 @@ public class SettingsMenu : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    public void QuitGame()
+    public void QuitToMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
+    public void QuitToDesktop()
     {
         Application.Quit();
     }

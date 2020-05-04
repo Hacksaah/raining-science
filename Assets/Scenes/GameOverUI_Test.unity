@@ -1306,6 +1306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aMixer: {fileID: 24100000, guid: 0328f4aa8da2b6846884cca9334b9b26, type: 2}
+  musicVolSO: {fileID: 11400000, guid: d644948c1de703841bca9e80d09f60e4, type: 2}
 --- !u!1001 &610409673
 PrefabInstance:
   m_ObjectHideFlags: 0

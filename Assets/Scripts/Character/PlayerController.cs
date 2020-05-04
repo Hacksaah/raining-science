@@ -67,6 +67,12 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out mousePos);
 
+        if(stats.CurrHP <= 0)
+        {
+            aPanel.gameObject.SetActive(false);
+            settingPanel.SetActive(false);
+            return;
+        }
         CheckMovementInput();
 
         HandleMovement();
@@ -90,7 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             aPanel.CloseMenu();
         }
-
+        //Open/close settings panel
         if (Input.GetKeyUp(KeyCode.Escape) && !settingPanel.activeInHierarchy)
         {
             settingPanel.SetActive(true);

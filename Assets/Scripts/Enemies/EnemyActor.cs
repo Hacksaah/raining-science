@@ -37,7 +37,6 @@ public class EnemyActor : MonoBehaviour
         originalColor = objRend.material.GetColor(176);
         rb = GetComponent<Rigidbody>();
         moveTargetIndex = -1;
-        roomKey = -1;
         AttackTarget = GameObjectPoolManager.PlayerTarget;
     }
 
@@ -165,5 +164,7 @@ public class EnemyActor : MonoBehaviour
             yield return null;
         }
         rb.mass = 0;
+        yield return new WaitForSeconds(2.5f);
+        gameObject.SetActive(false);
     }
 }

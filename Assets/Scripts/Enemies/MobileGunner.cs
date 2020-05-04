@@ -27,6 +27,7 @@ public class MobileGunner : EnemyActor
     private void Start()
     {
         Startup();
+        timer_lineOfSight = Random.Range(1.7f, 3.0f);
     }
 
     private void FixedUpdate()
@@ -66,17 +67,17 @@ public class MobileGunner : EnemyActor
         {
             if(hit.transform == AttackTarget)
             {
-                timer_lineOfSight += Time.deltaTime;
-                if(timer_lineOfSight >= 1.7f)
+                timer_lineOfSight -= Time.deltaTime;
+                if(timer_lineOfSight <= 0f)
                 {
-                    timer_lineOfSight = 0.0f;
+                    timer_lineOfSight = Random.Range(1.7f, 3.0f);
                     stateMachine.ChangeState(mobileGunner_attack.Instance);
                 }
             }
             else
             {
                 if (timer_lineOfSight > 0)
-                    timer_lineOfSight -= Time.deltaTime;
+                    timer_lineOfSight += Time.deltaTime;
             }
         }
     }    

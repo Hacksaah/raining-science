@@ -53,16 +53,18 @@ public class mobileGunner_followPath : State<MobileGunner>
 
     public override void FixedUpdateState(MobileGunner owner)
     {
-        // Turn to face the current waypoint        
+              
         if (owner.moveTargetIndex > -1)
-        {            
+        {
+            // checks if close enough to next path node
             if (Vector3.Distance(owner.currTarget, owner.transform.position) < nodeRadius)
             {
                 owner.moveTargetIndex++;
+                // checks if reached last node in move path
                 if (owner.moveTargetIndex >= owner.movePath.Length)
                 {
+                    // requests a new path
                     owner.moveTargetIndex = -1;
-                    //ToDO Owner should poll for a decision
                     owner.currTarget = owner.AttackTarget.position;
                     owner.RequestPath();
                     return;

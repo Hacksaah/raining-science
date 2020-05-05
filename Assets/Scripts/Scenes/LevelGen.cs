@@ -14,6 +14,7 @@ public class LevelGen : MonoBehaviour
     private Queue<GameObject> rooms = new Queue<GameObject>();
     private int roomsSpawned = 0;
     private LinkedList<Vector3> positions = new LinkedList<Vector3>();
+    private LinkedList<Vector3> spawnedRooms = new LinkedList<Vector3>();
     private Dictionary<Vector3, GameObject> roomMap = new Dictionary<Vector3, GameObject>();
     private Boolean bossRoomSpawned = false;
 
@@ -37,9 +38,57 @@ public class LevelGen : MonoBehaviour
         genLevel();
     }
 
+    void unlockDoors()
+    {
+        foreach(Vector3 pos in spawnedRooms)
+        {
+            DoorScript doorScript;
+            GameObject door;
+            GameObject currentRoom = roomMap[pos];
+
+            if (roomMap.ContainsKey(new Vector3(pos.x, pos.y, pos.z+96)))
+            {
+                door = currentRoom.transform.Find("NorthDoor").gameObject;
+                for (int z = 0; z < door.transform.childCount; z++)
+                {
+                    doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                    doorScript.Lock(true);
+                }
+            }
+            if (roomMap.ContainsKey(new Vector3(pos.x, pos.y, pos.z - 96)))
+            {
+                door = currentRoom.transform.Find("SouthDoor").gameObject;
+                for (int z = 0; z < door.transform.childCount; z++)
+                {
+                    doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                    doorScript.Lock(true);
+                }
+            }
+            if (roomMap.ContainsKey(new Vector3(pos.x + 96, pos.y, pos.z)))
+            {
+                door = currentRoom.transform.Find("EastDoor").gameObject;
+                for (int z = 0; z < door.transform.childCount; z++)
+                {
+                    doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                    doorScript.Lock(true);
+                }
+            }
+            if (roomMap.ContainsKey(new Vector3(pos.x - 96, pos.y, pos.z)))
+            {
+                door = currentRoom.transform.Find("WestDoor").gameObject;
+                for (int z = 0; z < door.transform.childCount; z++)
+                {
+                    doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
+                    doorScript.Lock(true);
+                }
+            }
+        }
+    }
     void genLevel()
     {
         rooms.Enqueue(room);
+        spawnedRooms.AddLast(room.transform.position);
+        roomMap.Add(room.transform.position, room);
         GameObject currentRoom;
         while (roomsSpawned < numberOfRooms)
         {
@@ -52,6 +101,7 @@ public class LevelGen : MonoBehaviour
             }            
             spawnRooms(currentRoom);
         }
+        unlockDoors();
     }
 
     void spawnRooms(GameObject currentRoom)
@@ -90,84 +140,11 @@ public class LevelGen : MonoBehaviour
                     continue;
                 }
 
-                DoorScript doorScript;
-                GameObject door;
-
-                switch (x)
-                {
-                    case 0:
-                        door = currentRoom.transform.Find("NorthDoor").gameObject;
-                        for(int z = 0; z<door.transform.childCount; z++)
-                        {
-                            doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                            doorScript.Lock(true);
-                        }
-                        break;
-                    case 1:
-                        door = currentRoom.transform.Find("SouthDoor").gameObject;
-                        for (int z = 0; z < door.transform.childCount; z++)
-                        {
-                            doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                            doorScript.Lock(true);
-                        }
-                        break;
-                    case 2:
-                        door = currentRoom.transform.Find("WestDoor").gameObject;
-                        for (int z = 0; z < door.transform.childCount; z++)
-                        {
-                            doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                            doorScript.Lock(true);
-                        }
-                        break;
-                    case 3:
-                        door = currentRoom.transform.Find("EastDoor").gameObject;
-                        for (int z = 0; z < door.transform.childCount; z++)
-                        {
-                            doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                            doorScript.Lock(true);
-                        }
-                        break;
-                }
-
                 if (roomsSpawned < numberOfRooms && !positions.Contains(face))
                 {
                     positions.AddLast(face);
                     GameObject newRoom = GameObject.Instantiate(room, face, Quaternion.Euler(Vector3.left));
-                    switch (x)
-                    {
-                        case 0:
-                            door = newRoom.transform.Find("SouthDoor").gameObject;
-                            for (int z = 0; z < door.transform.childCount; z++)
-                            {
-                                doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                                doorScript.Lock(true);
-                            }
-                            break;
-                        case 1:
-                            door = newRoom.transform.Find("NorthDoor").gameObject;
-                            for (int z = 0; z < door.transform.childCount; z++)
-                            {
-                                doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                                doorScript.Lock(true);
-                            }
-                            break;
-                        case 2:
-                            door = newRoom.transform.Find("EastDoor").gameObject;
-                            for (int z = 0; z < door.transform.childCount; z++)
-                            {
-                                doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                                doorScript.Lock(true);
-                            }
-                            break;
-                        case 3:
-                            door = newRoom.transform.Find("WestDoor").gameObject;
-                            for (int z = 0; z < door.transform.childCount; z++)
-                            {
-                                doorScript = (DoorScript)door.transform.GetChild(z).gameObject.GetComponent(typeof(DoorScript));
-                                doorScript.Lock(true);
-                            }
-                            break;
-                    }
+
                     if (!bossRoomSpawned && random(bossRoomSpawnChance))
                     {
                         newRoom.tag = "BossRoom";
@@ -175,8 +152,11 @@ public class LevelGen : MonoBehaviour
                     }
                     else
                         newRoom.tag = "GenRoom";
-                    if(!roomMap.ContainsKey(face))
+                    if (!roomMap.ContainsKey(face))
+                    {
                         roomMap.Add(face, newRoom);
+                        spawnedRooms.AddLast(face);
+                    }
                     newRoom.transform.position = face;
                     newRoom.transform.rotation = room.transform.rotation;
                     newRoom.GetComponent<MeshFilter>().mesh = room.GetComponent<MeshFilter>().mesh;

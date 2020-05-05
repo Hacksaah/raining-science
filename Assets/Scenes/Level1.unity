@@ -1009,6 +1009,7 @@ MonoBehaviour:
   items: {fileID: 11400000, guid: 2941db0e6bd8268408305cdea31776fc, type: 2}
   percentChanceToSpawn: 50
   numItemsToSpawn: 1
+  collide: 0
 --- !u!1 &795674718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,6 +1231,7 @@ MonoBehaviour:
   items: {fileID: 11400000, guid: 2941db0e6bd8268408305cdea31776fc, type: 2}
   percentChanceToSpawn: 50
   numItemsToSpawn: 1
+  collide: 0
 --- !u!1 &877266999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,6 +1331,7 @@ Transform:
   - {fileID: 2095125702}
   - {fileID: 1768200612}
   - {fileID: 2120620760}
+  - {fileID: 1906712082}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2839,6 +2842,7 @@ MonoBehaviour:
   items: {fileID: 11400000, guid: 2941db0e6bd8268408305cdea31776fc, type: 2}
   percentChanceToSpawn: 50
   numItemsToSpawn: 1
+  collide: 0
 --- !u!1 &1361960671
 GameObject:
   m_ObjectHideFlags: 0
@@ -4338,6 +4342,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showIfSelected: 1
   roomGrid: {fileID: 1896344854}
+--- !u!1 &1906712081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1906712082}
+  - component: {fileID: 1906712083}
+  m_Layer: 9
+  m_Name: RoomObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1906712082
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906712081}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 42, y: 2, z: 42}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 882107496}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &1906712083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906712081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba4efa1ca3018614483ca767f264ba26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: {fileID: 11400000, guid: ddc246636647a8445a6fd5d2a70bd586, type: 2}
+  percentChanceToSpawn: 75
+  numItemsToSpawn: 1
+  collide: 1
 --- !u!1 &1965887715
 GameObject:
   m_ObjectHideFlags: 0
@@ -4384,6 +4435,7 @@ MonoBehaviour:
   items: {fileID: 11400000, guid: 2941db0e6bd8268408305cdea31776fc, type: 2}
   percentChanceToSpawn: 50
   numItemsToSpawn: 1
+  collide: 0
 --- !u!1001 &1994557313
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class SpawnItems : MonoBehaviour
     public GameObjectSet items;
     public int percentChanceToSpawn = 50;
     public int numItemsToSpawn = 1;
+    public Boolean collide = false;
 
     private int itemsToSpawn;
     // Start is called before the first frame update
@@ -26,7 +27,14 @@ public class SpawnItems : MonoBehaviour
                 int index = (int)UnityEngine.Random.Range(0, items.items.Count);
                 GameObject item = GameObject.Instantiate((GameObject)items.items.ToArray().GetValue(index));
                 item.transform.position = gameObject.transform.position;
+                item.transform.localScale = gameObject.transform.localScale;
+                item.transform.localRotation = gameObject.transform.localRotation;
                 //SpawnItems itemScript = item.GetComponent<SpawnItems>();
+                if (collide)
+                {
+                    item.AddComponent<MeshCollider>();
+                    item.layer = LayerMask.NameToLayer("StaticEnvironment");
+                }
             }
             itemsToSpawn--;
         }

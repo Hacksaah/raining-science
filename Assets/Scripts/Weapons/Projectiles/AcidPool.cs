@@ -29,7 +29,7 @@ public class AcidPool : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            StartCoroutine(ApplyDoT(other.gameObject.GetComponent<EnemyActor>()));
+            other.gameObject.GetComponent<EnemyActor>().TakeDamage(1, Vector3.zero, Damage_Type.CORROSIVE);
         }
     }
 

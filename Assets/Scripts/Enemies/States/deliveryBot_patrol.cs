@@ -47,11 +47,16 @@ public class deliveryBot_patrol : State<DeliveryBot>
     public override void UpdateState(DeliveryBot owner)
     {
         owner.transform.position = Vector3.MoveTowards(owner.transform.position, owner.transform.position + owner.transform.forward, moveSpeed * Time.deltaTime);
-        
+
+        // check if the delivery bot is about to collide with a static or dynamic object in the game world
         Physics.Raycast(owner.rayOrigin.position, owner.transform.forward, out hit, 1.5f);
         if (hit.collider)
         {
-            owner.StartCoroutine(owner.StopAndRotate(90, 3.0f));
-        }
+            int layer = hit.collider.gameObject.layer;
+            if (layer == 9 || layer == 11)
+            {
+                owner.StartCoroutine(owner.StopAndRotate(90, 3.0f));
+            }
+        }        
     }
 }

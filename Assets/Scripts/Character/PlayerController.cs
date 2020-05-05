@@ -49,13 +49,13 @@ public class PlayerController : MonoBehaviour
         //Set base variables
         controller = GetComponent<CharacterController>();
         moveInput = Vector3.zero;
-        SpawnPlayer();
+        groundChecker = transform.GetChild(0);
         canShoot.value = true;
     }
 
     private void Start()
     {
-        groundChecker = transform.GetChild(0);
+        SpawnPlayer();        
     }
 
     // Update is called once per frame

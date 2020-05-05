@@ -26,7 +26,7 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnEnable()
     {
-        timeToLive = 5f;
+        timeToLive = 3.5f;
     }
 
     private void OnDisable()
@@ -36,11 +36,16 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
-            return;
         if (other.gameObject.tag == "Player")
+        {
             other.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
-        gameObject.SetActive(false);
+        }
+        // does nothing upon hitting an enemy
+        else if (other.gameObject.tag == "Enemy")
+            return;
+        // if this bullet hits a dynamic object (not an enemy) or a static object...
+        if(other.gameObject.layer == 11 || other.gameObject.layer == 9)
+            gameObject.SetActive(false);
     }
 
     public void FireProjectile(float _speed, int _damage, int shootBloom, Vector3 _target)

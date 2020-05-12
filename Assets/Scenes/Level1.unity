@@ -945,9 +945,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   room: {fileID: 882107495}
-  branchPercent: 50
+  branchPercent: 20
   numberOfRooms: 25
-  maxConnectingRooms: 3
+  maxConnectingRooms: 2
   bossRoomSpawnChance: 5
 --- !u!4 &639047700
 Transform:

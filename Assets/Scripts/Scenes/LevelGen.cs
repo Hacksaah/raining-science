@@ -83,36 +83,77 @@ public class LevelGen : MonoBehaviour
                 }
             }
         }
+        print("Doors unlocked");
     }
     void genLevel()
     {
         rooms.Enqueue(room);
         spawnedRooms.AddLast(room.transform.position);
+        positions.AddLast(room.transform.position);
         roomMap.Add(room.transform.position, room);
         GameObject currentRoom;
+        int iterationThreshold = 0;
+        Boolean nextThreshold = false;
+        int maxThreshold = 0;
         while (roomsSpawned < numberOfRooms)
         {
             currentRoom = rooms.Dequeue();
-            while (rooms.Count == 0 && roomsSpawned < numberOfRooms)
+            if (roomsSpawned - 1 == numberOfRooms && !bossRoomSpawned)
+                bossRoomSpawnChance = 100;
+            while (rooms.Count == 0 && !spawnRooms(currentRoom))
             {
-                if (roomsSpawned - 1 == numberOfRooms && !bossRoomSpawned)
-                    bossRoomSpawnChance = 100;
-                spawnRooms(currentRoom);
+                iterationThreshold++;
+                if (maxThreshold == 3)
+                {
+                    print("Final Threshold hit with " + (roomsSpawned+1) + " number of rooms spawned out of " + (numberOfRooms+1));
+                    return;
+                }
+                if (iterationThreshold == 3 && !nextThreshold)
+                {
+                    print("Threshold 1 hit with " + (roomsSpawned + 1) + " number of rooms spawned out of " + (numberOfRooms + 1));
+                    print("Trying to spawn rooms from existing rooms");
+                    nextThreshold = true;
+                    iterationThreshold = 0;
+                    positions.Clear();
+                    foreach (Vector3 r in spawnedRooms)
+                    {
+                        positions.AddLast(r);
+                        rooms.Enqueue(roomMap[r]);
+                    }
+                }
+                else if (iterationThreshold == 3 && nextThreshold)
+                {
+                    print("Threshold 2 hit with " + (roomsSpawned + 1) + " number of rooms spawned out of " + (numberOfRooms + 1));
+                    print("Trying to spawn rooms from existing rooms");
+                    if (maxConnectingRooms < 4)
+                    {
+                        print("Increasing max connections from " + maxConnectingRooms + " to " + (maxConnectingRooms + 1));
+                        maxConnectingRooms++;
+                    }
+                    iterationThreshold = 0;
+                    nextThreshold = false;
+                    maxThreshold++;
+                    foreach (Vector3 r in spawnedRooms)
+                    {
+                        rooms.Enqueue(roomMap[r]);
+                    }
+                }
             }            
             spawnRooms(currentRoom);
         }
+        print("Spawned all " + (roomsSpawned + 1) + " out of " + (numberOfRooms + 1));
         unlockDoors();
     }
 
-    void spawnRooms(GameObject currentRoom)
+    Boolean spawnRooms(GameObject currentRoom)
     {
+        Boolean spawnedRoom = false;
         Vector3 face = new Vector3(0, 0, 0);
         for (int i = 0; i < 4; i++)
         {
-            int x = UnityEngine.Random.Range(0,4);
             if (random(branchPercent))
             {
-                switch (x)
+                switch (i)
                 {
                     case 0:
                         face = currentRoom.transform.position + currentRoom.transform.forward * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
@@ -132,17 +173,18 @@ public class LevelGen : MonoBehaviour
                 face.x = Mathf.RoundToInt(face.x);
                 face.z = Mathf.RoundToInt(face.z);
 
-                if (checkConnectedRooms(currentRoom, 1, 1))
+                if (checkConnectedRooms(currentRoom.transform.position, 1, 2, i))
                 {
-                    if(!roomMap.ContainsKey(face))
-                        roomMap.Add(face, currentRoom);
-                    positions.AddLast(face);
+                    if(!positions.Contains(face))
+                        positions.AddLast(face);
                     continue;
                 }
 
                 if (roomsSpawned < numberOfRooms && !positions.Contains(face))
                 {
-                    positions.AddLast(face);
+                    if(!positions.Contains(face))
+                        positions.AddLast(face);
+
                     GameObject newRoom = GameObject.Instantiate(room, face, Quaternion.Euler(Vector3.left));
 
                     if (!bossRoomSpawned && random(bossRoomSpawnChance))
@@ -152,63 +194,78 @@ public class LevelGen : MonoBehaviour
                     }
                     else
                         newRoom.tag = "GenRoom";
-                    if (!roomMap.ContainsKey(face))
-                    {
-                        roomMap.Add(face, newRoom);
+
+                    if (!spawnedRooms.Contains(face))
                         spawnedRooms.AddLast(face);
-                    }
+
+                    if (!roomMap.ContainsKey(face))
+                        roomMap.Add(face, newRoom);
+
                     newRoom.transform.position = face;
                     newRoom.transform.rotation = room.transform.rotation;
                     newRoom.GetComponent<MeshFilter>().mesh = room.GetComponent<MeshFilter>().mesh;
                     rooms.Enqueue(newRoom);
                     roomsSpawned++;
+                    spawnedRoom = true;
                 }
             }
         }
+        return spawnedRoom;
     }
 
-    Boolean checkConnectedRooms(GameObject currentRoom, int startDegree, int endDegree)
+    Boolean checkConnectedRooms(Vector3 currentRoom, int startDegree, int endDegree, int face)
     {
         Boolean tooManyRooms = false;
 
         int numOfConnRooms = 0;
 
-        Vector3 frontFace = currentRoom.transform.position + currentRoom.transform.forward * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
-        Vector3 backFace = currentRoom.transform.position - currentRoom.transform.forward * currentRoom.GetComponent<MeshRenderer>().bounds.size.z;
-        Vector3 rightFace = currentRoom.transform.position + currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.x;
-        Vector3 leftFace = currentRoom.transform.position - currentRoom.transform.right * currentRoom.GetComponent<MeshRenderer>().bounds.size.x;
+        Vector3 frontFace = new Vector3(currentRoom.x, currentRoom.y, currentRoom.z + 96);
+        Vector3 backFace = new Vector3(currentRoom.x, currentRoom.y, currentRoom.z - 96);
+        Vector3 rightFace = new Vector3(currentRoom.x + 96, currentRoom.y, currentRoom.z);
+        Vector3 leftFace = new Vector3(currentRoom.x - 96, currentRoom.y, currentRoom.z);
 
         if (startDegree < endDegree)
         {
-            if(roomMap.ContainsKey(frontFace))
-                tooManyRooms = checkConnectedRooms(roomMap[frontFace], startDegree+1, endDegree);
+            if((positions.Contains(frontFace) || spawnedRooms.Contains(frontFace)) && (face == 0 || face == -1))
+                tooManyRooms = checkConnectedRooms(frontFace, startDegree+1, endDegree, -1);
             if (tooManyRooms)
                 return tooManyRooms;
-            if (roomMap.ContainsKey(backFace))
-                tooManyRooms = checkConnectedRooms(roomMap[backFace], startDegree+1, endDegree);
+            if ((positions.Contains(backFace) || spawnedRooms.Contains(backFace)) && (face == 1 || face == -1))
+                tooManyRooms = checkConnectedRooms(backFace, startDegree+1, endDegree, -1);
             if (tooManyRooms)
                 return tooManyRooms;
-            if (roomMap.ContainsKey(rightFace))
-                tooManyRooms = checkConnectedRooms(roomMap[rightFace], startDegree+1, endDegree);
+            if ((positions.Contains(rightFace) || spawnedRooms.Contains(rightFace)) && (face == 3 || face == -1))
+                tooManyRooms = checkConnectedRooms(rightFace, startDegree+1, endDegree, -1);
             if (tooManyRooms)
                 return tooManyRooms;
-            if (roomMap.ContainsKey(leftFace))
-                tooManyRooms = checkConnectedRooms(roomMap[leftFace], startDegree+1, endDegree);
+            if ((positions.Contains(leftFace) || spawnedRooms.Contains(leftFace)) && (face == 2 || face == -1))
+                tooManyRooms = checkConnectedRooms(leftFace, startDegree+1, endDegree, -1);
             if (tooManyRooms)
                 return tooManyRooms;
         }
 
-        if (positions.Contains(frontFace))
+        if (positions.Contains(frontFace) || spawnedRooms.Contains(frontFace))
             numOfConnRooms++;
-        if (positions.Contains(backFace))
+        if (positions.Contains(backFace) || spawnedRooms.Contains(backFace))
             numOfConnRooms++;
-        if (positions.Contains(rightFace))
+        if (positions.Contains(rightFace) || spawnedRooms.Contains(rightFace))
             numOfConnRooms++;
-        if (positions.Contains(leftFace))
+        if (positions.Contains(leftFace) || spawnedRooms.Contains(leftFace))
             numOfConnRooms++;
+
+        /*print("");
+        print("Room being checked" + currentRoom);
+        print("Degree " + startDegree);
+        print("Face " + face);
+        print(frontFace);
+        print(backFace);
+        print(rightFace);
+        print(leftFace);*/
 
         if (numOfConnRooms >= maxConnectingRooms)
             tooManyRooms = true;
+
+        //print("Too many rooms: " + tooManyRooms);
 
         return tooManyRooms;
     }

@@ -20,7 +20,7 @@ public class Room_Grid : MonoBehaviour
     public int RoomKey { get { return roomKey; } }
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);

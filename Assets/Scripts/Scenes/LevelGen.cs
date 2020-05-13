@@ -141,6 +141,11 @@ public class LevelGen : MonoBehaviour
             }            
             spawnRooms(currentRoom);
         }
+        if (!bossRoomSpawned)
+        {
+            roomMap[spawnedRooms.Last.Value].tag="BossRoom";
+            bossRoomSpawned = true;
+        }
         print("Spawned all " + (roomsSpawned + 1) + " out of " + (numberOfRooms + 1));
         unlockDoors();
     }

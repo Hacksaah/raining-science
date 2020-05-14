@@ -37,7 +37,7 @@ public class EnemyActor : MonoBehaviour
         originalColor = objRend.material.GetColor(176);
         rb = GetComponent<Rigidbody>();
         moveTargetIndex = -1;
-        AttackTarget = GameObjectPoolManager.PlayerTarget;
+        AttackTarget = Level_Grid.Instance.PlayerTransform;
     }
 
     public void SpawnActor(Vector3 position, Vector3 target)
@@ -103,12 +103,14 @@ public class EnemyActor : MonoBehaviour
     {
         if (currTarget != null && roomKey > -1)
         {
+            Debug.Log("Requesting Path");
             PathRequestManager.RequestPath(new PathRequest(transform.position, currTarget, roomKey, OnPathFound));
         }
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
+        
         if (pathSuccessful)
         {
             //if (movePath.Length > 0)
@@ -118,8 +120,11 @@ public class EnemyActor : MonoBehaviour
             {
                 moveTargetIndex = 0;
                 currTarget = movePath[moveTargetIndex];
-            }            
+            }
+            Debug.Log("Path found :: " + gameObject.name);
+            return;
         }
+        Debug.Log("Path failed :: " + gameObject.name);
     }
 
     protected IEnumerator ApplyDoT()

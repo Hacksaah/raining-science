@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TopDownCamera : MonoBehaviour
-{
-    [SerializeField]
+{    
     private GameObject player;
 
     private Camera MainCam;
@@ -17,6 +16,11 @@ public class TopDownCamera : MonoBehaviour
     private void Awake()
     {
         MainCam = GetComponent<Camera>();
+    }
+
+    private void Start()
+    {
+        player = GameLevelManager.Instance.Player;
     }
 
     // LateUpdate is called after all other updates

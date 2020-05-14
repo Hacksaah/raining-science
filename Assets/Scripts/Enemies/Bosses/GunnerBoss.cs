@@ -45,15 +45,7 @@ public class GunnerBoss : EnemyActor
         Startup();
         ResetActor();
 
-        //Test stuff
-        roomKey = 0;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {        
         BossUI.Instance.ReadyUI();
-        AttackTarget = GameObjectPoolManager.PlayerTarget;
         stateMachine.ChangeState(gunnerBoss_phase1.Instance);
     }
 

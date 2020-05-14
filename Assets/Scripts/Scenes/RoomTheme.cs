@@ -19,15 +19,14 @@ public class RoomTheme : MonoBehaviour
     {
         if(!playerInRoom)
         {
+            playerInRoom = true;
             int rand = Random.Range(0, BossPrefabs.Count);
             EnemyActor boss = Instantiate(BossPrefabs[rand]).GetComponent<EnemyActor>();
             boss.gameObject.SetActive(false);
             boss.transform.parent = gameObject.transform;
             boss.roomKey = roomGrid.RoomKey;
-            boss.AttackTarget = roomGrid.PlayerTransform;
             boss.SpawnActor(roomGrid.AnOpenSpot(), boss.AttackTarget.position);
             boss.gameObject.SetActive(true);
-            playerInRoom = true;
         }
     }
 }

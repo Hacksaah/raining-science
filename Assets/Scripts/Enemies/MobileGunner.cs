@@ -27,7 +27,13 @@ public class MobileGunner : EnemyActor
     private void Start()
     {
         Startup();
+        Room_Grid room = Level_Grid.Instance.GetRoom(roomKey);
+        SpawnActor(room.AnOpenSpot(), room.AnOpenSpot());
+
         timer_lineOfSight = Random.Range(1.7f, 3.0f);
+
+        RequestPath();
+        stateMachine.ChangeState(mobileGunner_followPath.Instance);
     }
 
     private void FixedUpdate()
@@ -46,12 +52,6 @@ public class MobileGunner : EnemyActor
             StartCoroutine(TurnToRagdoll());
         }
         stateMachine.Update();        
-    }
-
-    private void OnEnable()
-    {
-        RequestPath();
-        stateMachine.ChangeState(mobileGunner_followPath.Instance);
     }
 
     private void OnDisable()

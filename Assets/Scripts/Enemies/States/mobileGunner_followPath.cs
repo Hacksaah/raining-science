@@ -65,7 +65,7 @@ public class mobileGunner_followPath : State<MobileGunner>
                 {
                     // requests a new path
                     owner.moveTargetIndex = -1;
-                    owner.currTarget = owner.AttackTarget.position;
+                    owner.currTarget = Level_Grid.Instance.GetRoom(owner.roomKey).AnOpenSpot();
                     owner.RequestPath();
                     return;
                 }

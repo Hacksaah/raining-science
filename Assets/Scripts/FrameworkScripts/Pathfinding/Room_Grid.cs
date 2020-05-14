@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Room_Grid : MonoBehaviour
 {
-    public Transform PlayerTransform;
-
     public LayerMask unwalkableLayer;
     public Vector2 gridWorldSize;
     public float nodeRadius;
@@ -20,12 +18,14 @@ public class Room_Grid : MonoBehaviour
     public int RoomKey { get { return roomKey; } }
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-        CreateGrid();
+        //CreateGrid();
+
+        StartCoroutine(SpawnGrid());
     }
 
     public int MaxSize
@@ -36,7 +36,7 @@ public class Room_Grid : MonoBehaviour
         }
     }
 
-    void CreateGrid()
+    public void CreateGrid()
     {
         grid = new PathNode[gridSizeX, gridSizeY];
         Vector3 worldBottomLeft = transform.position - Vector3.right * (gridWorldSize.x / 2) - Vector3.forward * (gridWorldSize.y / 2);
@@ -184,4 +184,11 @@ public class Room_Grid : MonoBehaviour
 
         return openSpot;
     }    
+
+    private IEnumerator SpawnGrid()
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        CreateGrid();
+    }
 }

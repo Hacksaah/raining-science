@@ -190,7 +190,9 @@ public class LevelGen : MonoBehaviour
                     if(!positions.Contains(face))
                         positions.AddLast(face);
 
-                    GameObject newRoom = GameObject.Instantiate(room, face, Quaternion.Euler(Vector3.left));
+                    //GameObject newRoom = GameObject.Instantiate(room, face, Quaternion.Euler(Vector3.left));
+                    GameObject newRoom = GameObject.Instantiate(room);
+                    newRoom.transform.position = face;
 
                     if (!bossRoomSpawned && random(bossRoomSpawnChance))
                     {

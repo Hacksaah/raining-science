@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Room_Grid : MonoBehaviour
 {
-    public Transform PlayerTransform;
-
     public LayerMask unwalkableLayer;
     public Vector2 gridWorldSize;
     public float nodeRadius;
@@ -19,13 +17,18 @@ public class Room_Grid : MonoBehaviour
     private int roomKey;
     public int RoomKey { get { return roomKey; } }
 
+    private bool crossXAxis = false;
+    private bool crossZAxis = false;
+
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-        CreateGrid();
+        //CreateGrid();
+
+        StartCoroutine(SpawnGrid());
     }
 
     public int MaxSize
@@ -36,10 +39,16 @@ public class Room_Grid : MonoBehaviour
         }
     }
 
-    void CreateGrid()
+    public void CreateGrid()
     {
         grid = new PathNode[gridSizeX, gridSizeY];
         Vector3 worldBottomLeft = transform.position - Vector3.right * (gridWorldSize.x / 2) - Vector3.forward * (gridWorldSize.y / 2);
+
+        // Add this room to the Level and retreive the dictionary key value
+        roomKey = Level_Grid.Instance.AddRoomToLevel(this);
+
+        bool negativeX = worldBottomLeft.x < 0;
+        bool negativeY = worldBottomLeft.z < 0;
 
         for (int x = 0; x < gridSizeX; x++)
         {
@@ -53,20 +62,38 @@ public class Room_Grid : MonoBehaviour
                 grid[x, y] = new PathNode(walkable, worldPoint, x, y, movementPenalty);
             }
         }
-        Debug.Log("Room pathfinding grid made");
-        // Add this room to the Level and retreive the dictionary key value
-        roomKey = Level_Grid.Instance.AddRoomToLevel(this);
+        
+        if (negativeX && grid[gridSizeX - 1, 0].worldPos.x > 0)
+            crossXAxis = true;
+        if (negativeY && grid[0, gridSizeY - 1].worldPos.z > 0)
+            crossZAxis = true;
+
+        //Debug.Log("Room pathfinding grid made");
     }
 
     public PathNode NodeFromWorldPoint(Vector3 _worldPos)
     {
-        float percentX = (_worldPos.x + gridWorldSize.x / 2) / gridWorldSize.x;
-        float percentY = (_worldPos.z + gridWorldSize.y / 2) / gridWorldSize.y;
-        percentX = Mathf.Clamp01(percentX);
-        percentY = Mathf.Clamp01(percentY);
+        float xOffset, zOffset;
+        xOffset = zOffset = 0;
+
+        Vector3 bottom = grid[0, 0].worldPos;
+
+        if (crossXAxis)
+            xOffset = Mathf.Abs(grid[0, 0].worldPos.x);
+        if(crossZAxis)
+            zOffset = Mathf.Abs(grid[0, 0].worldPos.z);
+
+        if (bottom.x >= gridWorldSize.x / 2 || bottom.x <= -gridWorldSize.x / 2)
+            xOffset -= bottom.x;
+        if (bottom.z >= gridWorldSize.y / 2 || bottom.z <= -gridWorldSize.y / 2)
+            zOffset -= bottom.z;
+
+        float percentX = (_worldPos.x + xOffset) / gridWorldSize.x;
+        float percentY = (_worldPos.z + zOffset) / gridWorldSize.y;
 
         int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+        
         return grid[x, y];
     }
 
@@ -183,5 +210,13 @@ public class Room_Grid : MonoBehaviour
         openSpot = grid[x, y].worldPos;
 
         return openSpot;
-    }    
+    }
+
+    private IEnumerator SpawnGrid()
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        CreateGrid();
+    }
+    
 }

@@ -20,8 +20,8 @@ public class EnemySpawner : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {        
-        SpawnEnemies();
+    {
+        StartCoroutine(SpawnEnemyDelay());
     }
 
     void SpawnEnemies()
@@ -34,10 +34,10 @@ public class EnemySpawner : MonoBehaviour
                 int rand = Random.Range(0, EnemyPrefabs.Count);
                 EnemyActor newEnemy = Instantiate(EnemyPrefabs[rand]).GetComponent<EnemyActor>();
                 newEnemy.gameObject.SetActive(false);
-                newEnemy.transform.parent = gameObject.transform.parent;
+                //newEnemy.transform.parent = gameObject.transform.parent;
                 newEnemy.roomKey = roomGrid.RoomKey;
-                newEnemy.AttackTarget = roomGrid.PlayerTransform;
-                newEnemy.SpawnActor(roomGrid.AnOpenSpot(), newEnemy.AttackTarget.position);
+                //newEnemy.AttackTarget = Level_Grid.Instance.PlayerTransform;
+                //newEnemy.SpawnActor(roomGrid.AnOpenSpot(), newEnemy.AttackTarget.position);
                 newEnemy.gameObject.SetActive(true);
             }
         }
@@ -45,5 +45,13 @@ public class EnemySpawner : MonoBehaviour
         {
             
         }
+    }
+
+    IEnumerator SpawnEnemyDelay()
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        SpawnEnemies();
     }
 }

@@ -125,7 +125,13 @@ public class AttachmentPanel : MonoBehaviour
     public void ExchangeAttachments(AttachmentButton button)
     {
         int buttonIndexToMoveTo = 0;
-
+        foreach (Attachment att in weaponToChange.attachments)
+        {
+            if(newAttachment.AttachmentID == att.AttachmentID)
+            {
+                Debug.Log("Attachment already exists");
+            }
+        }
         //Various tests to make sure attachments are good to go
         if(newAttachment == null)
         {
@@ -142,11 +148,6 @@ public class AttachmentPanel : MonoBehaviour
             Debug.Log("Attachments full");
             return;
         }*/
-        else if(weaponToChange.attachments.Contains(newAttachment)) //If attachment already exists
-        {
-            Debug.Log("Attachment already exists");
-            return;
-        }
         else if(button.Attachment == null & button.Available) //If the selected button is available and null 
         {
             //Add first attachment or add to an empty button

@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class InteractManager : MonoBehaviour
 {
-    public static InteractManager Instance;
-    private Transform player;
+    static InteractManager instance;
+    public static InteractManager Instance
+    {
+        get
+        {
+            if (instance == null)
+                new InteractManager();
+            return instance;
+        }
+    }
+
+    public Transform PlayerTransform { get; set; }
 
     private LinkedList<Interactable> queue = new LinkedList<Interactable>();
     private Interactable currentItem = null;
-    
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = GameObjectPoolManager.PlayerTarget;
-    }
+       
+    InteractManager() { instance = this; }    
 
     // Update is called once per frame
     void Update()
@@ -31,7 +31,7 @@ public class InteractManager : MonoBehaviour
             float dist = Mathf.Infinity;
             foreach (Interactable item in queue)
             {
-                float newDist = Vector3.Distance(item.transform.position, player.position);
+                float newDist = Vector3.Distance(item.transform.position, PlayerTransform.position);
                 if (newDist < dist)
                 {
                     dist = newDist;

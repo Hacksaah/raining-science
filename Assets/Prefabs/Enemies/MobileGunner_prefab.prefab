@@ -130,6 +130,8 @@ MonoBehaviour:
   currHP: 0
   roomKey: 0
   currTarget: {x: 0, y: 0, z: 0}
+  isAlive: 0
+  size: 1.5
   movePath: []
   moveTargetIndex: -1
   rb: {fileID: 0}
@@ -162,7 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f490828f1a5379a4687c554203628511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSelected: 1
+  enemyActor: {fileID: 0}
+  isSelected: 0
   seeViewDistance: 0
 --- !u!1 &5118770597697643892
 GameObject:

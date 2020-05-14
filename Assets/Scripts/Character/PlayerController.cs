@@ -41,9 +41,6 @@ public class PlayerController : MonoBehaviour
 
     private RaycastHit mousePos;
 
-    [SerializeField]
-    private AttachmentPanel aPanel;
-
     private void Awake()
     {
         //Set base variables
@@ -78,13 +75,11 @@ public class PlayerController : MonoBehaviour
         // opens the attachment UI whenever the player holds down TAB
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            aPanel.gameObject.SetActive(true);
-            Attachment nullAtt = null;
-            aPanel.UpdatePanel(currentWeapon, nullAtt);
+            AttachmentPanel.Instance.OpenPanel(currentWeapon, null);
         }
         else if (Input.GetKeyUp(KeyCode.Tab))
         {
-            aPanel.CloseMenu();
+            AttachmentPanel.Instance.CloseMenu();
         }
     }
 
@@ -175,8 +170,7 @@ public class PlayerController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
-            if (aPanel.gameObject.activeSelf)
-                aPanel.ChangeWeapon(currentWeapon);
+            AttachmentPanel.Instance.ChangeWeapon(currentWeapon);
         }
         //Scroll down through weapons list
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
@@ -194,8 +188,7 @@ public class PlayerController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
-            if (aPanel.gameObject.activeSelf)
-                aPanel.ChangeWeapon(currentWeapon);
+            AttachmentPanel.Instance.ChangeWeapon(currentWeapon);
         }
     }
 

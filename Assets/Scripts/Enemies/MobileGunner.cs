@@ -6,6 +6,8 @@ using UnityEditor;
 
 public class MobileGunner : EnemyActor
 {
+    public bool requestedPath = false;
+
     //Custom Components
     protected EnemyWeapon weapon;
     private float timer_lineOfSight = 0.0f;
@@ -27,7 +29,14 @@ public class MobileGunner : EnemyActor
     private void Start()
     {
         Startup();
+        Room_Grid room = Level_Grid.Instance.GetRoom(roomKey);
+        SpawnActor(room.AnOpenSpot(), room.AnOpenSpot());
+
         timer_lineOfSight = Random.Range(1.7f, 3.0f);
+
+        RequestPath();
+        requestedPath = true;
+        stateMachine.ChangeState(mobileGunner_followPath.Instance);
     }
 
     private void FixedUpdate()
@@ -46,12 +55,6 @@ public class MobileGunner : EnemyActor
             StartCoroutine(TurnToRagdoll());
         }
         stateMachine.Update();        
-    }
-
-    private void OnEnable()
-    {
-        RequestPath();
-        stateMachine.ChangeState(mobileGunner_followPath.Instance);
     }
 
     private void OnDisable()
@@ -119,5 +122,4 @@ public class MobileGunner : EnemyActor
         }
     }
 
-    
 }

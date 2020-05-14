@@ -11,21 +11,25 @@ public class Pathfinding : MonoBehaviour
 
     private void Awake()
     {
-        levelGrid = GetComponent<Level_Grid>();
+        levelGrid = Level_Grid.Instance;
     }
 
     public void FindPath(PathRequest request, Action<PathResult> callback)
     {
-        //Debug.Log("Looking for path");
+        //Debug.Log("Looking for path :: PATHFINDING");
 
         Vector3[] waypoints = new Vector3[0];
         bool pathSuccess = false;
 
         Room_Grid roomGrid = levelGrid.GetRoom(request.roomKey);
 
+        //Debug.Log("Room key :: " + roomGrid.RoomKey);
+
         PathNode startNode = roomGrid.NodeFromWorldPoint(request.pathStart);
         PathNode targetNode = roomGrid.NodeFromWorldPoint(request.pathEnd);
         
+        //Debug.Log("Startnode :: " + startNode.isWalkable + " ,  TargetNode :: " + targetNode.isWalkable);
+        //Debug.Log("Startnode world pos :: " + startNode.worldPos.ToString() + " , Targetnode world pos :: " + targetNode.worldPos.ToString());
 
         if(startNode.isWalkable && targetNode.isWalkable)
         {
@@ -42,9 +46,12 @@ public class Pathfinding : MonoBehaviour
                 //if reached the target node END HERE
                 if (currentNode == targetNode)
                 {
+                    //Debug.Log("DONE :: PATHFINDING");
                     pathSuccess = true;
                     break;
                 }
+
+                //Debug.Log("Seekin...");
 
                 //----------------Otherwise search neighbors-----------------------
                 foreach (PathNode neighbor in roomGrid.GetNeighbours(currentNode))
@@ -79,6 +86,7 @@ public class Pathfinding : MonoBehaviour
         if (pathSuccess)
         {
             waypoints = RetracePath(startNode, targetNode);
+            pathSuccess = waypoints.Length > 0;
             callback(new PathResult(waypoints, pathSuccess, request.callback));
         }
         

@@ -29,6 +29,7 @@ public class SpawnItems : MonoBehaviour
                 item.transform.position = gameObject.transform.position;
                 item.transform.localScale = gameObject.transform.localScale;
                 item.transform.localRotation = gameObject.transform.localRotation;
+                item.transform.parent = gameObject.transform;
                 //SpawnItems itemScript = item.GetComponent<SpawnItems>();
                 if (collide)
                 {

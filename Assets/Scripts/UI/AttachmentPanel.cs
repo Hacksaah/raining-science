@@ -16,6 +16,9 @@ public class AttachmentPanel : MonoBehaviour
     //Spritesheet with attachments
     public Sprite[] SpriteSheet;
 
+    //Sprite for locked attachments
+    public Sprite LockSprite;
+
     //Hover display items
     public Text HoverAttachmentName;
     public Text HoverAttachmentStats;
@@ -117,6 +120,7 @@ public class AttachmentPanel : MonoBehaviour
             else
             {
                 attachmentButtons[i].Available = false;
+                attachmentButtons[i].GetComponent<Image>().sprite = LockSprite;
             }
         }
     }

@@ -3,10 +3,22 @@
 public class RailGun : Weapon
 {
     public Light pointLight;
+    public AudioClip shotSound;
+    public AudioClip reloadSound;
 
+    private AudioSource shot;
+    private AudioSource re;
     // Start is called before the first frame update
     void Start()
     {
+        shot = gameObject.AddComponent<AudioSource>();
+        shot.loop = false;
+        shot.clip = shotSound;
+
+        re = gameObject.AddComponent<AudioSource>();
+        re.loop = false;
+        re.clip = reloadSound;
+
         AssignBaseStats();
         ammoInClip = clipSize;
         currentAmmoCapacity = maxAmmoCapacity;
@@ -31,6 +43,10 @@ public class RailGun : Weapon
         {
             if (!reloading && fireRateTimer < fireRate)
             {
+                shoot = shot;
+                reload = re;
+
+                shoot.Play();
                 fireRateTimer += Time.deltaTime;
                 pointLight.intensity += Time.deltaTime;
             }

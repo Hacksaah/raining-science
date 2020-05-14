@@ -4,9 +4,22 @@ using UnityEngine;
 
 public class AcidGun : Weapon
 {
+    public AudioClip shotSound;
+    public AudioClip reloadSound;
+
+    private AudioSource shot;
+    private AudioSource re;
     // Start is called before the first frame update
     void Start()
     {
+        shot = gameObject.AddComponent<AudioSource>();
+        shot.loop = false;
+        shot.clip = shotSound;
+
+        re = gameObject.AddComponent<AudioSource>();
+        re.loop = false;
+        re.clip = reloadSound;
+
         AssignBaseStats();
         ammoInClip = clipSize;
         currentAmmoCapacity = maxAmmoCapacity;
@@ -37,6 +50,10 @@ public class AcidGun : Weapon
         {
             if (fireRateTimer == 0 && !reloading && ammoInClip > 0)
             {
+                shoot = shot;
+                reload = re;
+
+                shoot.Play();
                 ammoInClip--;
                 stats.AmmoInClip = ammoInClip;
                 updateUI.Raise();

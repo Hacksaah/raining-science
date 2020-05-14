@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
             currentWeapon.WeaponControls(mousePos.point, stats);
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && !currentWeapon.reloading)
+        if (Input.GetKeyDown(KeyCode.R) && !currentWeapon.isReloading())
         {
             currentWeapon.ReloadWeapon(stats);
         }

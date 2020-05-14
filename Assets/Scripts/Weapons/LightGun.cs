@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class LightGun : Weapon
 {
+    public AudioClip shotSound;
+    public AudioClip reloadSound;
+
+    private AudioSource shot;
+    private AudioSource re;
     private float rampUpTime, rampUpTimer;
     private float currFireRate;
     private float currShootBloom;
@@ -12,6 +17,14 @@ public class LightGun : Weapon
     // Start is called before the first frame update
     void Start()
     {
+        shot = gameObject.AddComponent<AudioSource>();
+        shot.loop = false;
+        shot.clip = shotSound;
+
+        re = gameObject.AddComponent<AudioSource>();
+        re.loop = false;
+        re.clip = reloadSound;
+
         AssignBaseStats();
         ammoInClip = clipSize;
         attachmentSlots = 4;
@@ -46,6 +59,9 @@ public class LightGun : Weapon
         transform.LookAt(target);
         if (Input.GetButton("Fire1"))
         {
+            shoot = shot;
+            reload = re;
+
             // if we havent ramped up yet
             if (rampUpModifier > 1)
             {
@@ -61,8 +77,9 @@ public class LightGun : Weapon
             }
 
             if (!reloading && fireRateTimer == 0 && ammoInClip > 0)
-            {                
+            {
                 // shoot the shit
+                shoot.Play();
                 ammoInClip--;
                 stats.AmmoInClip = ammoInClip;
                 updateUI.Raise();

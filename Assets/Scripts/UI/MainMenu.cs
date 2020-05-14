@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     //Insert the name of the scene to go to here.
     [SerializeField]
-    private string PlayScene;
+    private string PlayScene = "Level1";
 
     [SerializeField]
     private GameObject SettingsPanel;
@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         //Play the game.
-        SceneManager.LoadScene(PlayScene);
+        SceneManager.LoadScene(2);
     }
 
     public void OpenSettings()

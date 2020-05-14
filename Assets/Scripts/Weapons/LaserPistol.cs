@@ -20,7 +20,6 @@ public class LaserPistol : Weapon
         re.loop = false;
         re.clip = reloadSound;
 
-
         AssignBaseStats();
         ammoInClip = clipSize;
         currentAmmoCapacity = maxAmmoCapacity;

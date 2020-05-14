@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public abstract class Weapon : MonoBehaviour
 {
     public WeaponStats baseStats;
-    public bool reloading;
     public Transform shootFromTransform;
 
     [SerializeField]
@@ -31,7 +30,8 @@ public abstract class Weapon : MonoBehaviour
     protected Damage_Type damageType;
     
     protected float fireRateTimer;
-    
+    protected bool reloading;
+
     protected int attachmentSlots;
     [SerializeField]
     protected Sprite gunSprite;
@@ -249,6 +249,11 @@ public abstract class Weapon : MonoBehaviour
             reload.Play();
             StartCoroutine(ReloadDelay(stats));
         }
+    }
+
+    public bool isReloading()
+    {
+        return reloading;
     }
 
     public abstract void WeaponControls(Vector3 target, PlayerStats stats);

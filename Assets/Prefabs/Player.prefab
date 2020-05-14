@@ -159,6 +159,7 @@ MonoBehaviour:
   - {fileID: 6670677521191254175}
   currentWeapon: {fileID: 0}
   canShoot: {fileID: 11400000, guid: c8282a224df97af44bffc16843161ae9, type: 2}
+  settingPanel: {fileID: 0}
 --- !u!114 &2025874942849830261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +234,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8195740675761002153, guid: cb38766bdc7ee644892e9964638395d1,
         type: 3}
+    - target: {fileID: 3698409536695697743, guid: b30e5934eb9025a4e994fca10464b86d,
+        type: 3}
+      propertyPath: reloadSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d030e400a9e502344a24caf8d9c9bf92, type: 3}
+    - target: {fileID: 3698409536695697743, guid: b30e5934eb9025a4e994fca10464b86d,
+        type: 3}
+      propertyPath: revvingUp
+      value: 
+      objectReference: {fileID: 8300000, guid: 687d68175f1d17549a366e8be193c823, type: 3}
+    - target: {fileID: 3698409536695697743, guid: b30e5934eb9025a4e994fca10464b86d,
+        type: 3}
+      propertyPath: constantReving
+      value: 
+      objectReference: {fileID: 8300000, guid: 8e2d8d66a8a115547b620aa377b8a12b, type: 3}
+    - target: {fileID: 3698409536695697743, guid: b30e5934eb9025a4e994fca10464b86d,
+        type: 3}
+      propertyPath: shotSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e01bbbd67d0e0c74e946160aef4da3f8, type: 3}
     - target: {fileID: 9157678550685881506, guid: b30e5934eb9025a4e994fca10464b86d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -455,6 +476,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1173576629346760290, guid: cb38766bdc7ee644892e9964638395d1,
         type: 3}
+    - target: {fileID: 5180037969589997210, guid: ea9c481957d4d9b429f796a74e4cc157,
+        type: 3}
+      propertyPath: reloadSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d030e400a9e502344a24caf8d9c9bf92, type: 3}
+    - target: {fileID: 5180037969589997210, guid: ea9c481957d4d9b429f796a74e4cc157,
+        type: 3}
+      propertyPath: revvingUp
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c82b84bde34a4044812c60a5461e667, type: 3}
+    - target: {fileID: 5180037969589997210, guid: ea9c481957d4d9b429f796a74e4cc157,
+        type: 3}
+      propertyPath: constantReving
+      value: 
+      objectReference: {fileID: 8300000, guid: bda01a4e3353f2a428b815789d9095cf, type: 3}
+    - target: {fileID: 5180037969589997210, guid: ea9c481957d4d9b429f796a74e4cc157,
+        type: 3}
+      propertyPath: revvingDown
+      value: 
+      objectReference: {fileID: 8300000, guid: d0728f7a85d920247a928a8ba538262e, type: 3}
     - target: {fileID: 7941482557816473875, guid: ea9c481957d4d9b429f796a74e4cc157,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -553,6 +594,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7735505976364863236, guid: cb38766bdc7ee644892e9964638395d1,
         type: 3}
+    - target: {fileID: 4651755907293831608, guid: 7e839362fd841d64285a41ebc2847a33,
+        type: 3}
+      propertyPath: reloadSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d030e400a9e502344a24caf8d9c9bf92, type: 3}
+    - target: {fileID: 4651755907293831608, guid: 7e839362fd841d64285a41ebc2847a33,
+        type: 3}
+      propertyPath: shotSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 84cd61aece928bc4a910a0224aa4a193, type: 3}
     - target: {fileID: 4651755907293831614, guid: 7e839362fd841d64285a41ebc2847a33,
         type: 3}
       propertyPath: m_LocalPosition.x

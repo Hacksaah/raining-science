@@ -14,10 +14,12 @@ public class LaserPistol : Weapon
     {
         shot = gameObject.AddComponent<AudioSource>();
         shot.loop = false;
+        shot.playOnAwake = false;
         shot.clip = shotSound;
 
         re = gameObject.AddComponent<AudioSource>();
         re.loop = false;
+        re.playOnAwake = false;
         re.clip = reloadSound;
 
         AssignBaseStats();

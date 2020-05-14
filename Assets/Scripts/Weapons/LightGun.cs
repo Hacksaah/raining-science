@@ -6,9 +6,15 @@ public class LightGun : Weapon
 {
     public AudioClip shotSound;
     public AudioClip reloadSound;
+    public AudioClip revvingUp;
+    public AudioClip constantReving;
+    public AudioClip revvingDown;
 
     private AudioSource shot;
     private AudioSource re;
+    private AudioSource revUp;
+    private AudioSource constant;
+    private AudioSource revDown;
     private float rampUpTime, rampUpTimer;
     private float currFireRate;
     private float currShootBloom;
@@ -19,11 +25,28 @@ public class LightGun : Weapon
     {
         shot = gameObject.AddComponent<AudioSource>();
         shot.loop = false;
+        shot.playOnAwake = false;
         shot.clip = shotSound;
 
         re = gameObject.AddComponent<AudioSource>();
         re.loop = false;
+        re.playOnAwake = false;
         re.clip = reloadSound;
+
+        revUp = gameObject.AddComponent<AudioSource>();
+        revUp.loop = false;
+        revUp.playOnAwake = false;
+        revUp.clip = revvingUp;
+
+        constant = gameObject.AddComponent<AudioSource>();
+        constant.loop = true;
+        constant.playOnAwake = false;
+        constant.clip = constantReving;
+
+        revDown = gameObject.AddComponent<AudioSource>();
+        revDown.loop = false;
+        revDown.playOnAwake = false;
+        revDown.clip = revvingDown;
 
         AssignBaseStats();
         ammoInClip = clipSize;
@@ -61,6 +84,9 @@ public class LightGun : Weapon
         {
             shoot = shot;
             reload = re;
+            revingUp = revUp;
+            constantRev = constant;
+            revingDown = revDown;
 
             // if we havent ramped up yet
             if (rampUpModifier > 1)
@@ -69,6 +95,8 @@ public class LightGun : Weapon
                 if (rampUpTimer <= 0)
                 {
                     // Conduct ramp up
+                    if(!revingUp.isPlaying)
+                        revingUp.Play();
                     rampUpModifier--;
                     currFireRate = fireRate * rampUpModifier;
                     currShootBloom = shootBloom * rampUpModifier;
@@ -80,6 +108,8 @@ public class LightGun : Weapon
             {
                 // shoot the shit
                 shoot.Play();
+                if (!revingUp.isPlaying && !constantRev.isPlaying)
+                    constantRev.Play();
                 ammoInClip--;
                 stats.AmmoInClip = ammoInClip;
                 updateUI.Raise();
@@ -91,6 +121,9 @@ public class LightGun : Weapon
         }
         if (Input.GetButtonUp("Fire1"))
         {
+            revingUp.Stop();
+            constantRev.Stop();
+            revingDown.Play();
             rampUpModifier = 5;
             rampUpTimer = 0;
             currFireRate = fireRate * rampUpModifier;

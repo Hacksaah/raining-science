@@ -47,6 +47,9 @@ public abstract class Weapon : MonoBehaviour
 
     protected AudioSource shoot;
     protected AudioSource reload;
+    protected AudioSource revingUp;
+    protected AudioSource constantRev;
+    protected AudioSource revingDown;
 
 
     //Attachment variables
@@ -208,6 +211,14 @@ public abstract class Weapon : MonoBehaviour
             projectileBehavior = baseProjectileBehavior;        
     }
 
+    public void stopSound()
+    {
+        shoot.Stop();
+        reload.Stop();
+        revingUp.Stop();
+        constantRev.Stop();
+        revingDown.Stop();
+    }
     private void UpdateWeaponBehavior()
     {
         if (attachments.Count > 0)

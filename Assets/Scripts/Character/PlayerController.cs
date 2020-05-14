@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     //Weapon list
     [SerializeField]
-    private Weapon[] weaponsList;
+    private Weapon[] weaponsList = null;
 
     //Current weapon in hand
     [SerializeField]
@@ -37,12 +37,12 @@ public class PlayerController : MonoBehaviour
 
     //Stops player from shooting if false
     [SerializeField]
-    private VarBool canShoot;
+    private VarBool canShoot = null;
 
     private RaycastHit mousePos;
 
     [SerializeField]
-    private GameObject settingPanel;
+    private GameObject settingPanel = null;
 
     private void Awake()
     {

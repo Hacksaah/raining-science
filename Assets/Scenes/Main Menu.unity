@@ -915,7 +915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.69000006, y: 0.77949643}
   m_AnchorMax: {x: 0.69000006, y: 0.77949643}
-  m_AnchoredPosition: {x: 14.101013, y: 1.835022}
+  m_AnchoredPosition: {x: 14.100586, y: 1.8349609}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &396142839
@@ -4197,7 +4197,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.41956297}
   m_AnchorMax: {x: 0.5, y: 0.41956297}
-  m_AnchoredPosition: {x: 5.7335, y: 2.3549957}
+  m_AnchoredPosition: {x: 5.7335, y: 2.3549805}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1842076581
@@ -4343,7 +4343,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1880678873}
   - component: {fileID: 1880678874}
-  - component: {fileID: 1880678875}
   m_Layer: 5
   m_Name: VolumeSlider
   m_TagString: Untagged
@@ -4423,8 +4422,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1880678875}
-        m_MethodName: SetLevel
+      - m_Target: {fileID: 0}
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4434,18 +4433,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1880678875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1880678872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c87a2a260b7f68d449bbf860b8a63b05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1901611185
 GameObject:
   m_ObjectHideFlags: 0
@@ -4752,7 +4739,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.13250001, y: 0.77949643}
   m_AnchorMax: {x: 0.13250001, y: 0.77949643}
-  m_AnchoredPosition: {x: -28, y: 1.835022}
+  m_AnchoredPosition: {x: -28, y: 1.8349609}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2121250834
@@ -4811,12 +4798,12 @@ PrefabInstance:
     - target: {fileID: 4773527909102300347, guid: 965ec8e9d602c1f45aa2a3c949a54922,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.9999695
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4773527909508235389, guid: 965ec8e9d602c1f45aa2a3c949a54922,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -8.999878
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 4773527910333960642, guid: 965ec8e9d602c1f45aa2a3c949a54922,
         type: 3}
@@ -4946,7 +4933,7 @@ PrefabInstance:
     - target: {fileID: 4773527910333960701, guid: 965ec8e9d602c1f45aa2a3c949a54922,
         type: 3}
       propertyPath: PlayScene
-      value: GameOverUI_Test
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4773527910333960701, guid: 965ec8e9d602c1f45aa2a3c949a54922,
         type: 3}
@@ -4957,7 +4944,7 @@ PrefabInstance:
     - target: {fileID: 4773527910489294050, guid: 965ec8e9d602c1f45aa2a3c949a54922,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.999939
+      value: -6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 965ec8e9d602c1f45aa2a3c949a54922, type: 3}

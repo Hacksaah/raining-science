@@ -6,13 +6,13 @@ using UnityEngine;
 public class EnemyStats : ScriptableObject
 {
     [SerializeField]
-    private VarInt maxHP;
+    private VarInt maxHP = null;
     [SerializeField]
-    private VarFloat moveSpeed;
+    private VarFloat moveSpeed = null;
     [SerializeField]
-    private VarString enemyName;
+    private VarString enemyName = null;
     [SerializeField]
-    private VarFloat sightDistance;
+    private VarFloat sightDistance = null;
 
     public int GetMaxHP() { return maxHP.value; }
     public float GetMoveSpeed() { return moveSpeed.value; }

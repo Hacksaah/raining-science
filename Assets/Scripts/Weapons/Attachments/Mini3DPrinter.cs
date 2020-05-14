@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mini3DPrinter : Attachment
 {
-    float amount = 0.2f;
+    float amount = 0.5f;
 
     public Mini3DPrinter()
     {

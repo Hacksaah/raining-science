@@ -6,21 +6,21 @@ using UnityEngine;
 public class PlayerStats : ScriptableObject
 {
     [SerializeField]
-    private VarInt maxHP;
+    private VarInt maxHP = null;
     [SerializeField]
-    private VarInt currHP;
+    private VarInt currHP = null;
 
     [SerializeField]
-    private VarFloat moveSpeed;
+    private VarFloat moveSpeed = null;
     [SerializeField]
-    private VarFloat dashSpeed;
+    private VarFloat dashSpeed = null;
 
     [SerializeField]
-    private VarInt currentAmmoCapacity;
+    private VarInt currentAmmoCapacity = null;
     [SerializeField]
-    private VarInt currentAmmoInClip;
+    private VarInt currentAmmoInClip = null;
     [SerializeField]
-    private VarFloat currentReloadTime;
+    private VarFloat currentReloadTime = null;
 
     public int MaxHP { get { return maxHP.value; } }
     public int CurrHP { get { return currHP.value; } set { currHP.value = value; } }

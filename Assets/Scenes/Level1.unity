@@ -809,7 +809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: {fileID: 11400000, guid: 2941db0e6bd8268408305cdea31776fc, type: 2}
-  percentChanceToSpawn: 50
+  percentChanceToSpawn: 15
   numItemsToSpawn: 1
   collide: 0
 --- !u!1 &795674718
@@ -959,7 +959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: {fileID: 11400000, guid: 2941db0e6bd8268408305cdea31776fc, type: 2}
-  percentChanceToSpawn: 50
+  percentChanceToSpawn: 15
   numItemsToSpawn: 1
   collide: 0
 --- !u!1 &877266999
@@ -2121,7 +2121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: {fileID: 11400000, guid: 2941db0e6bd8268408305cdea31776fc, type: 2}
-  percentChanceToSpawn: 50
+  percentChanceToSpawn: 15
   numItemsToSpawn: 1
   collide: 0
 --- !u!1 &1361960671
@@ -2735,7 +2735,7 @@ PrefabInstance:
     - target: {fileID: 9050998672392819828, guid: 173b14165c29beb40be7f26f768d6580,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1
+      value: 1.0000305
       objectReference: {fileID: 0}
     - target: {fileID: 9050998672392819828, guid: 173b14165c29beb40be7f26f768d6580,
         type: 3}
@@ -3728,7 +3728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: {fileID: 11400000, guid: 2941db0e6bd8268408305cdea31776fc, type: 2}
-  percentChanceToSpawn: 50
+  percentChanceToSpawn: 15
   numItemsToSpawn: 1
   collide: 0
 --- !u!1001 &1994557313

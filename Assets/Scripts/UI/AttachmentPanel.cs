@@ -8,7 +8,7 @@ public class AttachmentPanel : MonoBehaviour
     public AttachmentButton[] attachmentButtons;
 
     [SerializeField]
-    private GameObject AttachmentTriggerPrefab;
+    private GameObject AttachmentTriggerPrefab = null;
 
     //New attachment icon
     public Image IncomingAttachmentIcon;
@@ -35,7 +35,7 @@ public class AttachmentPanel : MonoBehaviour
     private Vector3 originalPosition;
 
     [SerializeField]
-    private VarBool canShootSO;
+    private VarBool canShootSO = null;
 
     static AttachmentPanel instance;
     public static AttachmentPanel Instance

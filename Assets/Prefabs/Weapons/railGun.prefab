@@ -44,7 +44,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 0, g: 1, b: 1, a: 1}
   m_Intensity: 0
-  m_Range: 10
+  m_Range: 100
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -235,4 +235,9 @@ MonoBehaviour:
   projectilePoolKey: railGun
   updateUI: {fileID: 11400000, guid: 941f7b58015ec6a44a0fafb81734058c, type: 2}
   reloadEvent: {fileID: 11400000, guid: b8173e48433952c4d8b703edd9b3d041, type: 2}
+  gunSprite: {fileID: 0}
   pointLight: {fileID: 9157678549970372917}
+  shotSound: {fileID: 0}
+  reloadSound: {fileID: 0}
+  revvingUp: {fileID: 0}
+  constantReving: {fileID: 0}

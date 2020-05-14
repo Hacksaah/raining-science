@@ -9,6 +9,7 @@ TagManager:
   - BossRoom
   - SpawnRoom
   - Door
+  - Wall
   layers:
   - Default
   - TransparentFX

@@ -29,6 +29,7 @@ public class GameObjectPoolManager : MonoBehaviour
             for(int i = 0; i < options.amount; i++)
             {
                 PoolableGameObject newObj = Instantiate(options.prefab).GetComponent<PoolableGameObject>();
+                newObj.transform.parent = gameObject.transform;
                 newObj.key = options.key;
                 newObj.gameObject.SetActive(false);
                 options.AddObjectToPool(newObj.gameObject);

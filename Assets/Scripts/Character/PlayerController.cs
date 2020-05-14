@@ -41,6 +41,9 @@ public class PlayerController : MonoBehaviour
 
     private RaycastHit mousePos;
 
+    [SerializeField]
+    private GameObject settingPanel;
+
     private void Awake()
     {
         //Set base variables
@@ -61,6 +64,12 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out mousePos);
 
+        if(stats.CurrHP <= 0)
+        {
+            AttachmentPanel.Instance.CloseMenu();
+            settingPanel.SetActive(false);
+            return;
+        }
         CheckMovementInput();
 
         HandleMovement();
@@ -80,6 +89,15 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Tab))
         {
             AttachmentPanel.Instance.CloseMenu();
+        }
+        //Open/close settings panel
+        if (Input.GetKeyUp(KeyCode.Escape) && !settingPanel.activeInHierarchy)
+        {
+            settingPanel.SetActive(true);
+        }
+        else if(Input.GetKeyUp(KeyCode.Escape) && settingPanel.activeInHierarchy)
+        {
+            settingPanel.SetActive(false);
         }
     }
 
@@ -198,7 +216,7 @@ public class PlayerController : MonoBehaviour
         takeDamage.Raise();
         if (stats.CurrHP <= 0)
         {
-            // ToDo player death
+            GameOverUI.Instance.ActivateUI();
         }
     }
 

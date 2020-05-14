@@ -16,7 +16,7 @@ public class AcidGun_projectile : WeaponProjectile
     private void OnTriggerEnter(Collider other)
     {
         // the first projectile shot will split upon impacting anything
-        if (split > 0 && other.gameObject.layer != 12)
+        if (split > 0 && other.gameObject.layer != 12 && other.gameObject.layer != 11)
             SplitProjectile();
 
         // perform projectile behavior

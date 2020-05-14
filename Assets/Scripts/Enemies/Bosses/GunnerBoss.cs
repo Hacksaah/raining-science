@@ -45,15 +45,7 @@ public class GunnerBoss : EnemyActor
         Startup();
         ResetActor();
 
-        //Test stuff
-        roomKey = 0;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {        
         BossUI.Instance.ReadyUI();
-        AttackTarget = GameObjectPoolManager.PlayerTarget;
         stateMachine.ChangeState(gunnerBoss_phase1.Instance);
     }
 
@@ -88,7 +80,7 @@ public class GunnerBoss : EnemyActor
         
         currTarget.y = transform.position.y;
         float moveSpeed = stats.GetMoveSpeed();
-        int lenght = movePath.Length;
+        int lenght = movePath.Count;
         while (moveTargetIndex < lenght)
         {            
             transform.position = Vector3.MoveTowards(transform.position, currTarget, moveSpeed * Time.deltaTime);
@@ -167,6 +159,7 @@ public class GunnerBoss : EnemyActor
     public void EjectHealthOrb()
     {
         StopAllCoroutines();
+        retreivingOrb = true;
         HealthOrb_GameObj.transform.position = transform.position;
         HealthOrb_GameObj.transform.LookAt(transform.forward);
         HealthOrb_GameObj.SetActive(true);
@@ -174,8 +167,7 @@ public class GunnerBoss : EnemyActor
 
     public IEnumerator RetreiveHealthOrb()
     {
-        stateMachine.HaltState();
-        retreivingOrb = true;
+        stateMachine.HaltState();        
 
         //Retreive path to orb
         currTarget = HealthOrb_GameObj.transform.position;
@@ -184,8 +176,11 @@ public class GunnerBoss : EnemyActor
         {
             yield return null;
         }
+        //Found a path to orb
+
+        // Moving to orb
         currTarget.y = transform.position.y;
-        int lenght = movePath.Length;
+        int lenght = movePath.Count;
         float moveSpeed = stats.GetMoveSpeed();
         float moveSpeedRampUP = 1.0f;
         while (moveTargetIndex != lenght)
@@ -194,7 +189,7 @@ public class GunnerBoss : EnemyActor
             transform.position = Vector3.MoveTowards(transform.position, currTarget, moveSpeed * moveSpeedRampUP * Time.deltaTime);
             moveSpeedRampUP += Time.deltaTime;
             if (moveTargetIndex == lenght - 1 && Vector3.Distance(transform.position, HealthOrb_GameObj.transform.position) <= 6.0f)
-                moveTargetIndex = lenght;
+                break;
             else if (Vector3.Distance(currTarget, transform.position) < 2.0f)
             {
                 moveTargetIndex++;
@@ -209,8 +204,13 @@ public class GunnerBoss : EnemyActor
                     moveTargetIndex = -1;
                     RequestPath();
                     while (moveTargetIndex < 0)
+                    {
                         yield return null;
-                    lenght = movePath.Length;
+                    }                        
+                    lenght = movePath.Count;
+                    currTarget.y = transform.position.y;
+                    if (lenght == 0)
+                        break;
                 }
             }
             yield return null;

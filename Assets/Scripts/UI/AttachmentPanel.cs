@@ -10,13 +10,14 @@ public class AttachmentPanel : MonoBehaviour
     [SerializeField]
     private GameObject AttachmentTriggerPrefab;
 
-    public GameObject player;
-
     //New attachment icon
     public Image IncomingAttachmentIcon;
 
     //Spritesheet with attachments
     public Sprite[] SpriteSheet;
+
+    //Sprite for locked attachments
+    public Sprite LockSprite;
 
     //Hover display items
     public Text HoverAttachmentName;
@@ -36,9 +37,31 @@ public class AttachmentPanel : MonoBehaviour
     [SerializeField]
     private VarBool canShootSO;
 
+    static AttachmentPanel instance;
+    public static AttachmentPanel Instance
+    {
+        get
+        {
+            if (instance == null)
+                new AttachmentPanel();
+            return instance;
+        }
+    }
+
+    AttachmentPanel() { instance = this; }
+
     private void Awake()
     {
         originalPosition = IncomingAttachmentIcon.transform.position;
+    }
+
+    public void OpenPanel(Weapon currentWeapon, Attachment incAttachment)
+    {
+        if (!gameObject.activeSelf)
+        {
+            gameObject.SetActive(true);
+            UpdatePanel(currentWeapon, incAttachment);
+        }
     }
 
     //Sets up relevant fields in the attachment panel
@@ -97,6 +120,7 @@ public class AttachmentPanel : MonoBehaviour
             else
             {
                 attachmentButtons[i].Available = false;
+                attachmentButtons[i].GetComponent<Image>().sprite = LockSprite;
             }
         }
     }
@@ -105,7 +129,13 @@ public class AttachmentPanel : MonoBehaviour
     public void ExchangeAttachments(AttachmentButton button)
     {
         int buttonIndexToMoveTo = 0;
-
+        foreach (Attachment att in weaponToChange.attachments)
+        {
+            if(newAttachment.AttachmentID == att.AttachmentID)
+            {
+                Debug.Log("Attachment already exists");
+            }
+        }
         //Various tests to make sure attachments are good to go
         if(newAttachment == null)
         {
@@ -122,11 +152,6 @@ public class AttachmentPanel : MonoBehaviour
             Debug.Log("Attachments full");
             return;
         }*/
-        else if(weaponToChange.attachments.Contains(newAttachment)) //If attachment already exists
-        {
-            Debug.Log("Attachment already exists");
-            return;
-        }
         else if(button.Attachment == null & button.Available) //If the selected button is available and null 
         {
             //Add first attachment or add to an empty button
@@ -179,10 +204,10 @@ public class AttachmentPanel : MonoBehaviour
         }
         
         //Make new attachment
-        GameObject newAttachmentPrefab = Instantiate(AttachmentTriggerPrefab, player.transform.position, Quaternion.identity, null);
+        GameObject newAttachmentPrefab = Instantiate(AttachmentTriggerPrefab, GameLevelManager.Instance.Player.transform.position, Quaternion.identity, null);
 
         //Change the triggers ID
-        newAttachmentPrefab.GetComponentInChildren<Attachment_Trigger>().DropAttachment(player.transform.forward, button.Attachment.AttachmentID);
+        newAttachmentPrefab.GetComponentInChildren<Attachment_Trigger>().DropAttachment(GameLevelManager.Instance.Player.transform.forward, button.Attachment.AttachmentID);
 
         //Remove attachment
         weaponToChange.RemoveAttachment(button.Attachment);
@@ -214,7 +239,8 @@ public class AttachmentPanel : MonoBehaviour
 
     public void ChangeWeapon(Weapon newWeapon)
     {
-        UpdatePanel(newWeapon, newAttachment);
+        if(gameObject.activeSelf)
+            UpdatePanel(newWeapon, newAttachment);
     }
 
     public void UpdateDataPanel(AttachmentButton button)

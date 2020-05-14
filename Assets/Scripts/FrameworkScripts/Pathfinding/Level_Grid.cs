@@ -13,6 +13,9 @@ public class Level_Grid : MonoBehaviour
             return instance;
         }
     }
+
+    public Transform PlayerTransform { get; set; }
+
     private Dictionary<int, Room_Grid> roomDict = new Dictionary<int, Room_Grid>();
     [SerializeField]
     private int roomKey = 0;

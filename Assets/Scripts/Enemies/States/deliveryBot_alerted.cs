@@ -41,15 +41,19 @@ public class deliveryBot_alerted : State<DeliveryBot>
 
     public override void FixedUpdateState(DeliveryBot owner)
     {
+        // turns the delivery bot towards the player target
+        float angle = owner.TurnToFace(owner.AttackTarget.position, 1.3f);
+
+        // check if delivery bot runs into a static or dynamic object
         Physics.Raycast(owner.rayOrigin.position, owner.transform.forward, out hit, 1.25f);
         if (hit.collider)
-        {
-            owner.TakeDamage(owner.currHP, Vector3.zero, 0);
-        }
-        float angle = owner.TurnToFace(owner.AttackTarget.position, 1.3f);
-        if (angle < 90 && angle > -90 && Vector3.Distance(owner.transform.position, owner.AttackTarget.position) < 1.25f)
-        {
-            owner.TakeDamage(owner.currHP, Vector3.zero, 0);
+        {            
+            // explodes upon impact
+            int layer = hit.collider.gameObject.layer;
+            if(layer == 9 || layer == 11)
+            {
+                owner.TakeDamage(owner.currHP, Vector3.zero, 0);
+            }
         }
     }
 

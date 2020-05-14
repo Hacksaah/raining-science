@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public List<GameObject> EnemyPrefabs;
+  
 
     public int spawnCount = 10;
 
@@ -19,21 +20,38 @@ public class EnemySpawner : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {        
-        SpawnEnemies();
+    {
+        StartCoroutine(SpawnEnemyDelay());
     }
 
     void SpawnEnemies()
     {
-        for(int i = 0; i < spawnCount; i++)
+        if (gameObject.transform.parent.gameObject.tag == "GenRoom")
         {
-            int rand = Random.Range(0, EnemyPrefabs.Count);
-            EnemyActor newEnemy = Instantiate(EnemyPrefabs[rand]).GetComponent<EnemyActor>();
-            newEnemy.gameObject.SetActive(false);
-            newEnemy.roomKey = roomGrid.RoomKey;
-            newEnemy.AttackTarget = roomGrid.PlayerTransform;
-            newEnemy.SpawnActor(roomGrid.AnOpenSpot(), newEnemy.AttackTarget.position);
-            newEnemy.gameObject.SetActive(true);
+            for (int i = 0; i < spawnCount; i++)
+            {
+
+                int rand = Random.Range(0, EnemyPrefabs.Count);
+                EnemyActor newEnemy = Instantiate(EnemyPrefabs[rand]).GetComponent<EnemyActor>();
+                newEnemy.gameObject.SetActive(false);
+                newEnemy.transform.parent = gameObject.transform.parent;
+                newEnemy.roomKey = roomGrid.RoomKey;
+                //newEnemy.AttackTarget = Level_Grid.Instance.PlayerTransform;
+                //newEnemy.SpawnActor(roomGrid.AnOpenSpot(), newEnemy.AttackTarget.position);
+                newEnemy.gameObject.SetActive(true);
+            }
         }
+        if (gameObject.transform.parent.gameObject.tag == "BossRoom")
+        {
+            
+        }
+    }
+
+    IEnumerator SpawnEnemyDelay()
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        SpawnEnemies();
     }
 }

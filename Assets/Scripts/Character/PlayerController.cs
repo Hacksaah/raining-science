@@ -42,9 +42,6 @@ public class PlayerController : MonoBehaviour
     private RaycastHit mousePos;
 
     [SerializeField]
-    private AttachmentPanel aPanel;
-
-    [SerializeField]
     private GameObject settingPanel;
 
     private void Awake()
@@ -52,13 +49,13 @@ public class PlayerController : MonoBehaviour
         //Set base variables
         controller = GetComponent<CharacterController>();
         moveInput = Vector3.zero;
-        SpawnPlayer();
+        groundChecker = transform.GetChild(0);
         canShoot.value = true;
     }
 
     private void Start()
     {
-        groundChecker = transform.GetChild(0);
+        SpawnPlayer();        
     }
 
     // Update is called once per frame
@@ -69,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
         if(stats.CurrHP <= 0)
         {
-            aPanel.gameObject.SetActive(false);
+            AttachmentPanel.Instance.CloseMenu();
             settingPanel.SetActive(false);
             return;
         }
@@ -87,13 +84,11 @@ public class PlayerController : MonoBehaviour
         // opens the attachment UI whenever the player holds down TAB
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            aPanel.gameObject.SetActive(true);
-            Attachment nullAtt = null;
-            aPanel.UpdatePanel(currentWeapon, nullAtt);
+            AttachmentPanel.Instance.OpenPanel(currentWeapon, null);
         }
         else if (Input.GetKeyUp(KeyCode.Tab))
         {
-            aPanel.CloseMenu();
+            AttachmentPanel.Instance.CloseMenu();
         }
         //Open/close settings panel
         if (Input.GetKeyUp(KeyCode.Escape) && !settingPanel.activeInHierarchy)
@@ -193,8 +188,7 @@ public class PlayerController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
-            if (aPanel.gameObject.activeSelf)
-                aPanel.ChangeWeapon(currentWeapon);
+            AttachmentPanel.Instance.ChangeWeapon(currentWeapon);
         }
         //Scroll down through weapons list
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
@@ -212,8 +206,7 @@ public class PlayerController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
-            if (aPanel.gameObject.activeSelf)
-                aPanel.ChangeWeapon(currentWeapon);
+            AttachmentPanel.Instance.ChangeWeapon(currentWeapon);
         }
     }
 

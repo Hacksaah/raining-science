@@ -1535,7 +1535,6 @@ MonoBehaviour:
   - {fileID: 6875994984471426725}
   AttachmentTriggerPrefab: {fileID: 506189500519609654, guid: dbe9af97267fbdd4787071742aa72392,
     type: 3}
-  player: {fileID: 0}
   IncomingAttachmentIcon: {fileID: 3540472504597454061}
   SpriteSheet:
   - {fileID: 3088284539819664608, guid: cb38766bdc7ee644892e9964638395d1, type: 3}
@@ -1545,6 +1544,7 @@ MonoBehaviour:
   - {fileID: -3463774265537186357, guid: cb38766bdc7ee644892e9964638395d1, type: 3}
   - {fileID: 352485826730203783, guid: cb38766bdc7ee644892e9964638395d1, type: 3}
   - {fileID: -3711640501395271004, guid: cb38766bdc7ee644892e9964638395d1, type: 3}
+  LockSprite: {fileID: 21300000, guid: 8ffd6215520429c44adb0aa5409a947e, type: 3}
   HoverAttachmentName: {fileID: 8867841579365437370}
   HoverAttachmentStats: {fileID: 511861343287746274}
   HoverAttachmentFlavor: {fileID: 2828775699680641187}

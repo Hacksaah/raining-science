@@ -53,23 +53,33 @@ public class mobileGunner_followPath : State<MobileGunner>
 
     public override void FixedUpdateState(MobileGunner owner)
     {
-        // Turn to face the current waypoint        
+              
         if (owner.moveTargetIndex > -1)
-        {            
+        {
+            owner.requestedPath = false;
+            // checks if close enough to next path node
             if (Vector3.Distance(owner.currTarget, owner.transform.position) < nodeRadius)
             {
                 owner.moveTargetIndex++;
-                if (owner.moveTargetIndex >= owner.movePath.Length)
+                // checks if reached last node in move path
+                if (owner.moveTargetIndex >= owner.movePath.Count)
                 {
+                    // requests a new path
                     owner.moveTargetIndex = -1;
-                    //ToDO Owner should poll for a decision
-                    owner.currTarget = owner.AttackTarget.position;
+                    owner.currTarget = Level_Grid.Instance.GetRoom(owner.roomKey).AnOpenSpot();
                     owner.RequestPath();
                     return;
                 }
             }
             Vector3 moveTo = owner.movePath[owner.moveTargetIndex];
             owner.currTarget = moveTo;
+        }
+
+        if(owner.moveTargetIndex < 0 && !owner.requestedPath)
+        {
+            owner.requestedPath = true;
+            owner.currTarget = Level_Grid.Instance.GetRoom(owner.roomKey).AnOpenSpot();
+            owner.RequestPath();
         }
     }
 }

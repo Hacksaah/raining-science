@@ -28,10 +28,10 @@ public class EnemyActorDebugger : MonoBehaviour
                     Gizmos.DrawWireSphere(transform.position, enemyActor.stats.GetSightDistance());
                 }
 
-                if (enemyActor.movePath.Length > 0)
+                if (enemyActor.movePath.Count > 0)
                 {
                     Gizmos.color = Color.yellow;
-                    for (int i = 0; i < enemyActor.movePath.Length; i++)
+                    for (int i = 0; i < enemyActor.movePath.Count; i++)
                     {
                         Gizmos.DrawCube(enemyActor.movePath[i], Vector3.one * 2);
                         if (i > 0)
@@ -51,10 +51,10 @@ public class EnemyActorDebugger : MonoBehaviour
                 Gizmos.DrawWireSphere(transform.position, enemyActor.stats.GetSightDistance());
             }
 
-            if (enemyActor.movePath.Length > 0)
+            if (enemyActor.movePath.Count > 0)
             {
                 Gizmos.color = Color.yellow;
-                for (int i = 0; i < enemyActor.movePath.Length; i++)
+                for (int i = 0; i < enemyActor.movePath.Count; i++)
                 {
                     Gizmos.DrawCube(enemyActor.movePath[i], Vector3.one * 2);
                     if (i > 0)

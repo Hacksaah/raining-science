@@ -16,7 +16,7 @@ public class PathRequestManager : MonoBehaviour
     private void Awake()
     {
         pathfinding = GetComponent<Pathfinding>();
-        Debug.Log("Path Request Manager made");
+        //Debug.Log("Path Request Manager made");
     }
 
     private void Update()

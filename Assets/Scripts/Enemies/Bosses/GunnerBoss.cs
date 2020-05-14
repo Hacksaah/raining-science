@@ -80,7 +80,7 @@ public class GunnerBoss : EnemyActor
         
         currTarget.y = transform.position.y;
         float moveSpeed = stats.GetMoveSpeed();
-        int lenght = movePath.Length;
+        int lenght = movePath.Count;
         while (moveTargetIndex < lenght)
         {            
             transform.position = Vector3.MoveTowards(transform.position, currTarget, moveSpeed * Time.deltaTime);
@@ -180,7 +180,7 @@ public class GunnerBoss : EnemyActor
 
         // Moving to orb
         currTarget.y = transform.position.y;
-        int lenght = movePath.Length;
+        int lenght = movePath.Count;
         float moveSpeed = stats.GetMoveSpeed();
         float moveSpeedRampUP = 1.0f;
         while (moveTargetIndex != lenght)
@@ -207,7 +207,7 @@ public class GunnerBoss : EnemyActor
                     {
                         yield return null;
                     }                        
-                    lenght = movePath.Length;
+                    lenght = movePath.Count;
                     currTarget.y = transform.position.y;
                     if (lenght == 0)
                         break;

@@ -16,7 +16,7 @@ public class EnemyActor : MonoBehaviour
     public float size;
 
     // Pathfinding variables    
-    public Vector3[] movePath;
+    public List<Vector3> movePath;
     public int moveTargetIndex;
 
     // Physic Components
@@ -51,7 +51,7 @@ public class EnemyActor : MonoBehaviour
     public void ResetActor()
     {
         currHP = stats.GetMaxHP();
-        System.Array.Clear(movePath, 0, movePath.Length);
+        movePath.Clear();
     }
 
     //Turns this enemy actor to face a target vector3 without altering its X or Z rotation
@@ -103,28 +103,26 @@ public class EnemyActor : MonoBehaviour
     {
         if (currTarget != null && roomKey > -1)
         {
-            Debug.Log("Requesting Path");
             PathRequestManager.RequestPath(new PathRequest(transform.position, currTarget, roomKey, OnPathFound));
         }
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
-        
         if (pathSuccessful)
         {
-            //if (movePath.Length > 0)
-            //    System.Array.Clear(movePath, 0, movePath.Length);
-            movePath = newPath;
-            if(newPath.Length > 0)
-            {
-                moveTargetIndex = 0;
-                currTarget = movePath[moveTargetIndex];
-            }
-            Debug.Log("Path found :: " + gameObject.name);
-            return;
+            if (movePath.Count > 0)
+                movePath.Clear();
+            foreach (Vector3 v in newPath)
+                movePath.Add(v);
+            moveTargetIndex = 0;
+            currTarget = movePath[moveTargetIndex];
+            //Debug.Log("Path found :: " + gameObject.name);
         }
-        Debug.Log("Path failed :: " + gameObject.name);
+        else
+        {
+            //Debug.Log("Path failed :: " + gameObject.name);
+        }
     }
 
     protected IEnumerator ApplyDoT()

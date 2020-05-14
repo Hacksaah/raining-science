@@ -11,7 +11,7 @@ public class Pathfinding : MonoBehaviour
 
     private void Awake()
     {
-        levelGrid = GetComponent<Level_Grid>();
+        levelGrid = Level_Grid.Instance;
     }
 
     public void FindPath(PathRequest request, Action<PathResult> callback)
@@ -23,10 +23,13 @@ public class Pathfinding : MonoBehaviour
 
         Room_Grid roomGrid = levelGrid.GetRoom(request.roomKey);
 
+        //Debug.Log("Room key :: " + roomGrid.RoomKey);
+
         PathNode startNode = roomGrid.NodeFromWorldPoint(request.pathStart);
         PathNode targetNode = roomGrid.NodeFromWorldPoint(request.pathEnd);
-
-        Debug.Log("Startnode :: " + startNode.isWalkable + " ,  TargetNode :: " + targetNode.isWalkable);
+        
+        //Debug.Log("Startnode :: " + startNode.isWalkable + " ,  TargetNode :: " + targetNode.isWalkable);
+        //Debug.Log("Startnode world pos :: " + startNode.worldPos.ToString() + " , Targetnode world pos :: " + targetNode.worldPos.ToString());
 
         if(startNode.isWalkable && targetNode.isWalkable)
         {

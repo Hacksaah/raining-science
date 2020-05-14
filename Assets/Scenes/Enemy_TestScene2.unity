@@ -3263,7 +3263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   room: {fileID: 1384728142}
   branchPercent: 20
-  numberOfRooms: 6
+  numberOfRooms: 15
   maxConnectingRooms: 2
   bossRoomSpawnChance: 5
 --- !u!4 &1314276756
@@ -3531,8 +3531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyPrefabs:
-  - {fileID: 234422367404991758, guid: 68ac7b9a927e56d49ae922845c36680d, type: 3}
   - {fileID: 1734252470901273888, guid: 44f777f05e02fbe42bc2112fddf27e5e, type: 3}
+  - {fileID: 234422367404991758, guid: 68ac7b9a927e56d49ae922845c36680d, type: 3}
   spawnCount: 7
 --- !u!114 &1401367507
 MonoBehaviour:
@@ -4705,7 +4705,7 @@ PrefabInstance:
     - target: {fileID: 9050998672392819828, guid: 173b14165c29beb40be7f26f768d6580,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1
+      value: 0.9999695
       objectReference: {fileID: 0}
     - target: {fileID: 9050998672392819828, guid: 173b14165c29beb40be7f26f768d6580,
         type: 3}

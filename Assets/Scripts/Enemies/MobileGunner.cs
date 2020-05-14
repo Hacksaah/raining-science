@@ -6,6 +6,8 @@ using UnityEditor;
 
 public class MobileGunner : EnemyActor
 {
+    public bool requestedPath = false;
+
     //Custom Components
     protected EnemyWeapon weapon;
     private float timer_lineOfSight = 0.0f;
@@ -33,6 +35,7 @@ public class MobileGunner : EnemyActor
         timer_lineOfSight = Random.Range(1.7f, 3.0f);
 
         RequestPath();
+        requestedPath = true;
         stateMachine.ChangeState(mobileGunner_followPath.Instance);
     }
 
@@ -119,5 +122,4 @@ public class MobileGunner : EnemyActor
         }
     }
 
-    
 }

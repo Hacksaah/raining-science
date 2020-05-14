@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public abstract class Weapon : MonoBehaviour
 {
     public WeaponStats baseStats;
+    public bool reloading;
     public Transform shootFromTransform;
 
     [SerializeField]
@@ -30,7 +31,6 @@ public abstract class Weapon : MonoBehaviour
     protected Damage_Type damageType;
     
     protected float fireRateTimer;
-    protected bool reloading;
     
     protected int attachmentSlots;
     [SerializeField]
@@ -44,6 +44,9 @@ public abstract class Weapon : MonoBehaviour
 
     protected IWeapon baseWeaponBehavior;
     protected IWeapon weaponBehavior;
+
+    protected AudioSource shoot;
+    protected AudioSource reload;
 
 
     //Attachment variables
@@ -243,6 +246,7 @@ public abstract class Weapon : MonoBehaviour
         {
             fireRateTimer = 0;
             reloading = true;
+            reload.Play();
             StartCoroutine(ReloadDelay(stats));
         }
     }

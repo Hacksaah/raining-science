@@ -3,9 +3,24 @@ using UnityEngine;
 
 public class LaserPistol : Weapon
 {
+    public AudioClip shotSound;
+    public AudioClip reloadSound;
+
+    private AudioSource shot;
+    private AudioSource re;
+
     // Start is called before the first frame update
     void Start()
     {
+        shot = gameObject.AddComponent<AudioSource>();
+        shot.loop = false;
+        shot.clip = shotSound;
+
+        re = gameObject.AddComponent<AudioSource>();
+        re.loop = false;
+        re.clip = reloadSound;
+
+
         AssignBaseStats();
         ammoInClip = clipSize;
         currentAmmoCapacity = maxAmmoCapacity;
@@ -36,12 +51,16 @@ public class LaserPistol : Weapon
         {
             if (fireRateTimer == 0 && !reloading && ammoInClip > 0)
             {
+                shoot = shot;
+                reload = re;
+
                 ammoInClip--;
                 stats.AmmoInClip = ammoInClip;
                 updateUI.Raise();
 
                 fireRateTimer = fireRate;
                 target.y = shootFromTransform.position.y;
+                shoot.Play();
                 weaponBehavior.FireWeapon(projectilePoolKey, shootFromTransform.position, target, damage, projectileSpeed, shootBloom, damageType, projectileBehavior);
             }
         }
@@ -50,6 +69,8 @@ public class LaserPistol : Weapon
             fireRateTimer = 0;
         }
         if (ammoInClip == 0 && !reloading && Input.GetButtonDown("Fire1"))
+        {
             ReloadWeapon(stats);
+        }
     }
 }

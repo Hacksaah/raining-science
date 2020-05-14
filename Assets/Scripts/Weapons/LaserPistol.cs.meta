@@ -3,7 +3,14 @@ guid: dff15cf1c6d15fa40a2e87d04c00c803
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - baseStats: {instanceID: 0}
+  - shootFromTransform: {instanceID: 0}
+  - updateUI: {instanceID: 0}
+  - reloadEvent: {instanceID: 0}
+  - gunSprite: {instanceID: 0}
+  - shot: {fileID: 8300000, guid: fb1e80db8add6bb42bcbfe87a355c202, type: 3}
+  - reload: {fileID: 8300000, guid: d030e400a9e502344a24caf8d9c9bf92, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

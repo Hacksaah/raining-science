@@ -392,6 +392,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 234459a459020454cb4c68fe180909b1,
         type: 3}
+    - target: {fileID: 6752622887126169415, guid: 00bc7094cb53e05459f0e3fe6b50b722,
+        type: 3}
+      propertyPath: shot
+      value: 
+      objectReference: {fileID: 8300000, guid: fb1e80db8add6bb42bcbfe87a355c202, type: 3}
+    - target: {fileID: 6752622887126169415, guid: 00bc7094cb53e05459f0e3fe6b50b722,
+        type: 3}
+      propertyPath: reload
+      value: 
+      objectReference: {fileID: 8300000, guid: d030e400a9e502344a24caf8d9c9bf92, type: 3}
+    - target: {fileID: 6752622887126169415, guid: 00bc7094cb53e05459f0e3fe6b50b722,
+        type: 3}
+      propertyPath: shotSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fb1e80db8add6bb42bcbfe87a355c202, type: 3}
+    - target: {fileID: 6752622887126169415, guid: 00bc7094cb53e05459f0e3fe6b50b722,
+        type: 3}
+      propertyPath: reloadSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d030e400a9e502344a24caf8d9c9bf92, type: 3}
     - target: {fileID: 6752622887126169417, guid: 00bc7094cb53e05459f0e3fe6b50b722,
         type: 3}
       propertyPath: m_Name

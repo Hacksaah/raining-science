@@ -16,6 +16,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject HowToPlayPanel = null;
 
+    [SerializeField]
+    private GameObject CreditsPanel = null;
+
     public void PlayGame()
     {
         //Play the game.
@@ -31,6 +34,12 @@ public class MainMenu : MonoBehaviour
     public void OpenHowToPlay()
     {
         HowToPlayPanel.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
+    public void OpenCredits()
+    {
+        CreditsPanel.SetActive(true);
         gameObject.SetActive(false);
     }
 

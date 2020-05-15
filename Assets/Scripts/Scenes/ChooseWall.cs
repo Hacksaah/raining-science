@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChooseWall : MonoBehaviour
 {
     public GameObjectSet walls;
+    public PhysicMaterial material;
     
     void Awake()
     {
@@ -18,7 +19,10 @@ public class ChooseWall : MonoBehaviour
         wall.tag = "Wall";
         wall.layer = LayerMask.NameToLayer("StaticEnvironment");
         wall.AddComponent<MeshCollider>();
+        wall.GetComponent<MeshCollider>().material = material;
         wall.AddComponent<BoxCollider>();
+        wall.GetComponent<BoxCollider>().material = material;
+        wall.GetComponent<BoxCollider>().isTrigger = true;
         wall.GetComponent<BoxCollider>().size = new Vector3(wall.GetComponent<BoxCollider>().size.x, wall.GetComponent<BoxCollider>().size.y, 0.5f);
         wall.transform.parent = gameObject.transform;
         wall.transform.localPosition = new Vector3(0f, 0f, 0f);

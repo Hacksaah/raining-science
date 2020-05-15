@@ -39,6 +39,7 @@ public abstract class Weapon : MonoBehaviour
     protected new string name;
     protected string flavorText;
 
+    protected bool isPiercing = false;
     protected IProjectile baseProjectileBehavior;
     protected IProjectile projectileBehavior;
 

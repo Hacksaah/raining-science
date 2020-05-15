@@ -7,6 +7,8 @@ public class GunnerBoss : EnemyActor
 {    
     private StateMachine<GunnerBoss> stateMachine;
 
+    public VarInt BossCount;
+
     public EnemyWeapon shotGunTurret1;
     public EnemyWeapon shotGunTurret2;
     public EnemyWeapon spinningTurret;
@@ -303,6 +305,7 @@ public class GunnerBoss : EnemyActor
             }
         }
         explosiveParticles.Play();
+        BossCount.value--;
         yield return null;
     }
 }

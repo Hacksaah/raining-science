@@ -10,6 +10,7 @@ public class LevelGen : MonoBehaviour
     public int numberOfRooms;
     public int maxConnectingRooms;
     public int bossRoomSpawnChance = 5;
+    public VarInt BossCount;
 
     private Queue<GameObject> rooms = new Queue<GameObject>();
     private int roomsSpawned = 0;
@@ -144,6 +145,7 @@ public class LevelGen : MonoBehaviour
         if (!bossRoomSpawned)
         {
             roomMap[spawnedRooms.Last.Value].tag="BossRoom";
+            BossCount.value++;
             bossRoomSpawned = true;
         }
         print("Spawned all " + (roomsSpawned + 1) + " out of " + (numberOfRooms + 1));
@@ -195,6 +197,7 @@ public class LevelGen : MonoBehaviour
                     if (!bossRoomSpawned && random(bossRoomSpawnChance))
                     {
                         newRoom.tag = "BossRoom";
+                        BossCount.value++;
                         bossRoomSpawned = true;
                     }
                     else

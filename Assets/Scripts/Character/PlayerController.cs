@@ -38,11 +38,9 @@ public class PlayerController : MonoBehaviour
     //Stops player from shooting if false
     [SerializeField]
     private VarBool canShoot = null;
+    private bool canOpenMenus = true;
 
-    private RaycastHit mousePos;
-
-    [SerializeField]
-    private GameObject settingPanel = null;
+    private RaycastHit mousePos;    
 
     private void Awake()
     {
@@ -63,13 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out mousePos);
-
-        if(stats.CurrHP <= 0)
-        {
-            AttachmentPanel.Instance.CloseMenu();
-            settingPanel.SetActive(false);
-            return;
-        }
+        
         CheckMovementInput();
 
         HandleMovement();
@@ -82,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
 
         // opens the attachment UI whenever the player holds down TAB
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (canOpenMenus && Input.GetKeyDown(KeyCode.Tab))
         {
             AttachmentPanel.Instance.OpenPanel(currentWeapon, null);
         }
@@ -90,14 +82,11 @@ public class PlayerController : MonoBehaviour
         {
             AttachmentPanel.Instance.CloseMenu();
         }
+
         //Open/close settings panel
-        if (Input.GetKeyUp(KeyCode.Escape) && !settingPanel.activeInHierarchy)
+        if (canOpenMenus && Input.GetKeyDown(KeyCode.Escape))
         {
-            settingPanel.SetActive(true);
-        }
-        else if(Input.GetKeyUp(KeyCode.Escape) && settingPanel.activeInHierarchy)
-        {
-            settingPanel.SetActive(false);
+            SettingsMenu.Instance.ActivateMenu();
         }
     }
 
@@ -216,7 +205,10 @@ public class PlayerController : MonoBehaviour
         takeDamage.Raise();
         if (stats.CurrHP <= 0)
         {
+            canOpenMenus = false;
             GameOverUI.Instance.ActivateUI();
+            SettingsMenu.Instance.CloseMenu();
+            AttachmentPanel.Instance.CloseMenu();
         }
     }
 

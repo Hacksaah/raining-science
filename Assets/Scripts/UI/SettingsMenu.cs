@@ -5,10 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour
 {
-    public void ResumeGame()
+    static SettingsMenu instance;
+    public static SettingsMenu Instance
+    {
+        get
+        {
+            if (instance == null)
+                new SettingsMenu();
+            return instance;
+        }
+    }
+
+    SettingsMenu() { instance = this; }
+
+    public void ActivateMenu()
+    {
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
+        else
+            gameObject.SetActive(false);
+    }
+
+    public void CloseMenu()
     {
         gameObject.SetActive(false);
     }
+
+
     public void QuitToMainMenu()
     {
         SceneManager.LoadScene("Main Menu");

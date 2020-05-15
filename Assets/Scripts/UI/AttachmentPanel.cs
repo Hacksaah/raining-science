@@ -7,6 +7,8 @@ public class AttachmentPanel : MonoBehaviour
 {
     public AttachmentButton[] attachmentButtons;
 
+    public VarInt BossCount;
+
     [SerializeField]
     private GameObject AttachmentTriggerPrefab = null;
 
@@ -34,6 +36,8 @@ public class AttachmentPanel : MonoBehaviour
 
     private Vector3 originalPosition;
 
+    private GameObject nextLevelButton;
+
     [SerializeField]
     private VarBool canShootSO = null;
 
@@ -53,7 +57,17 @@ public class AttachmentPanel : MonoBehaviour
     private void Awake()
     {
         originalPosition = IncomingAttachmentIcon.transform.position;
+        nextLevelButton = transform.GetChild(5).gameObject;
+        nextLevelButton.SetActive(false);
     }
+
+    private void Update()
+    {
+        if (!nextLevelButton.activeSelf)
+            if (BossCount.value == 0)
+                nextLevelButton.SetActive(true);
+    }
+
 
     public void OpenPanel(Weapon currentWeapon, Attachment incAttachment)
     {

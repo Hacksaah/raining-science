@@ -78,9 +78,9 @@ public class Pathfinding : MonoBehaviour
         }
         else
         {
-            Debug.Log("Start or target is not walkable node");
-            Debug.Log("Start: " + startNode.isWalkable);
-            Debug.Log("End: " + targetNode.isWalkable);
+            //Debug.Log("Start or target is not walkable node");
+            //Debug.Log("Start: " + startNode.isWalkable);
+            //Debug.Log("End: " + targetNode.isWalkable);
         }
 
         if (pathSuccess)
@@ -122,7 +122,7 @@ public class Pathfinding : MonoBehaviour
         List<Vector3> waypoints = new List<Vector3>();
         Vector2 directionOld = Vector2.zero;
 
-        Debug.Log("Path count = " + path.Count);
+        //Debug.Log("Path count = " + path.Count);
 
         for(int i = 1; i < path.Count; i++)
         {

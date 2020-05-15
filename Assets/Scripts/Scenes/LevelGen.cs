@@ -42,6 +42,8 @@ public class LevelGen : MonoBehaviour
         positions.AddFirst(new Vector3(room.transform.position.x, room.transform.position.y, room.transform.position.z));
         numberOfRooms--;
         genLevel();
+
+        BossUI.Instance.UpdateBossCount();
     }
 
     void unlockDoors()

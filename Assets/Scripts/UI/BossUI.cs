@@ -55,7 +55,6 @@ public class BossUI : MonoBehaviour
             slider.gameObject.SetActive(false);
             if (BossCount.value > 0)
             {
-                UpdateBossCount();
                 bossCount_Panel.SetActive(true);
             }                
         }        

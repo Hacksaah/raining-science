@@ -133,6 +133,6 @@ MonoBehaviour:
   moveTargetIndex: 0
   rb: {fileID: 0}
   AttackTarget: {fileID: 0}
-  bossMaxHP: {fileID: 11400000, guid: e576b943bafeaed4a8c8aa9d95fb644c, type: 2}
-  bossCurrHP: {fileID: 11400000, guid: 16f758e47f6631346bb9f2098dc2d23b, type: 2}
+  bossCurrHp: {fileID: 11400000, guid: 16f758e47f6631346bb9f2098dc2d23b, type: 2}
+  bossMaxHp: {fileID: 11400000, guid: e576b943bafeaed4a8c8aa9d95fb644c, type: 2}
   force: 5000

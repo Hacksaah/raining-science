@@ -3280,7 +3280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   room: {fileID: 1384728142}
   branchPercent: 20
-  numberOfRooms: 15
+  numberOfRooms: 2
   maxConnectingRooms: 2
   bossRoomSpawnChance: 5
   BossCount: {fileID: 11400000, guid: 9f384dfbfd6b1644694c05f5332af2f7, type: 2}
@@ -5173,6 +5173,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8276104910995352139, guid: 7578b0d4b5edb3244bc42e23dad09ea0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.59999084
       objectReference: {fileID: 0}
     - target: {fileID: 8921165000634899323, guid: 7578b0d4b5edb3244bc42e23dad09ea0,
         type: 3}

@@ -34,6 +34,7 @@ public class gunnerBoss_phase1 : State<GunnerBoss>
 
     public override void EnterState(GunnerBoss owner)
     {
+        Debug.Log("Entering Phase1");
         owner.currTarget = owner.AttackTarget.position;
     }
 
@@ -59,28 +60,34 @@ public class gunnerBoss_phase1 : State<GunnerBoss>
         else
         {
             attackCount++;
-            timeBetweenThoughts = Random.Range(3f, 5);
+            timeBetweenThoughts = Random.Range(1.2f, 2f);
             int chance = Random.Range(0, 1000 / attackCount);
-            if (owner.moveTargetIndex == -1 && Random.Range(0, 100) < 25)
-                owner.StartCoroutine(owner.RequestMovePathToAttack());
-            else if (chance < 20)
+            if (owner.moveTargetIndex == -1 && Random.Range(0, 100) < 15)
             {
-                owner.StartCoroutine(owner.SpawnExplosiveBot());
-                owner.currTarget = owner.AttackTarget.transform.position;
+                owner.stateMachine.ChangeState(gunnerBoss_reposition.Instance);
+                //owner.StartCoroutine(owner.RequestMovePathToAttack());
+            }                
+            else if (chance < 20 || attackCount > 3)
+            {
+                owner.SpawnExplosiveBot();
+                attackCount = 0;
             }
             else
             {
+                // Fire guns
                 switch(Random.Range(0, 2))
                 {
                     case 0:
-                        owner.StartCoroutine(owner.FireShotGuns());
+                        //owner.StartCoroutine(owner.FireShotGuns());
+                        owner.stateMachine.ChangeState(gunnerBoss_fireShotGuns.Instance);
                         break;
                     case 1:
                         owner.StartCoroutine(owner.FireSpinningTurret(Random.Range(5, 10)));
                         break;
                     case 2:
-                        owner.StartCoroutine(owner.FireShotGuns());
+                        //owner.StartCoroutine(owner.FireShotGuns());                       
                         owner.StartCoroutine(owner.FireSpinningTurret(Random.Range(7, 10)));
+                        owner.stateMachine.ChangeState(gunnerBoss_fireShotGuns.Instance);
                         break;
                 }
             }

@@ -93,6 +93,7 @@ public class Room_Grid : MonoBehaviour
 
         int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+
         
         return grid[x, y];
     }

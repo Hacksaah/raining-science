@@ -32,6 +32,8 @@ public class gunnerBoss_intermission : State<GunnerBoss>
 
     public override void EnterState(GunnerBoss owner)
     {
+        Debug.Log("Entering intermission");
+
         timer = 5.0f;
         owner.EjectHealthOrb();
     }
@@ -44,7 +46,8 @@ public class gunnerBoss_intermission : State<GunnerBoss>
     public override void FixedUpdateState(GunnerBoss owner)
     {
         if (timer < 0)
-            owner.StartCoroutine(owner.RetreiveHealthOrb());
+            owner.stateMachine.ChangeState(gunnerBoss_moveToHealthOrb.Instance);
+            //owner.StartCoroutine(owner.RetreiveHealthOrb());
     }
 
     public override void UpdateState(GunnerBoss owner)

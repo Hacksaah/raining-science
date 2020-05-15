@@ -5,18 +5,28 @@ using UnityEngine.UI;
 
 public class AmmoUI : MonoBehaviour
 {
-    public VarInt ammoInClip;
-    public VarInt maxAmmo;
-
     public Text ammoInClipText;
     public Text maxAmmoText;
 
-    public void UpdateText()
+    static AmmoUI instance;
+    public static AmmoUI Instance
     {
-        ammoInClipText.text = ammoInClip.value.ToString();
-        if (maxAmmo.value < 0)
+        get
+        {
+            if (instance == null)
+                new AmmoUI();
+            return instance;
+        }
+    }
+
+    AmmoUI() { instance = this; }
+
+    public void UpdateText(int ammoInClip, int maxAmmo)
+    {
+        ammoInClipText.text = ammoInClip.ToString();
+        if (maxAmmo < 0)
             maxAmmoText.text = "∞";
         else
-            maxAmmoText.text = maxAmmo.value.ToString();
+            maxAmmoText.text = maxAmmo.ToString();
     }
 }

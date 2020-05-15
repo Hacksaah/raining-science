@@ -4939,6 +4939,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   AttackTarget: {fileID: 0}
   rayOrigin: {fileID: 2331629919718762358}
+  bossMob: 1
   explosionForce: 10
   blastRadius: 7
   explosionLayers:

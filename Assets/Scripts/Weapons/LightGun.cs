@@ -21,7 +21,7 @@ public class LightGun : Weapon
     private int rampUpModifier;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         shot = gameObject.AddComponent<AudioSource>();
         shot.loop = false;
@@ -112,7 +112,7 @@ public class LightGun : Weapon
                     constantRev.Play();
                 ammoInClip--;
                 stats.AmmoInClip = ammoInClip;
-                updateUI.Raise();
+                AmmoUI.Instance.UpdateText(ammoInClip, maxAmmoCapacity);
 
                 fireRateTimer = currFireRate;
 

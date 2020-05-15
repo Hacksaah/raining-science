@@ -10,7 +10,7 @@ public class LaserPistol : Weapon
     private AudioSource re;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         shot = gameObject.AddComponent<AudioSource>();
         shot.loop = false;
@@ -57,7 +57,8 @@ public class LaserPistol : Weapon
 
                 ammoInClip--;
                 stats.AmmoInClip = ammoInClip;
-                updateUI.Raise();
+                AmmoUI.Instance.UpdateText(ammoInClip, maxAmmoCapacity);
+                //updateUI.Raise();
 
                 fireRateTimer = fireRate;
                 target.y = shootFromTransform.position.y;

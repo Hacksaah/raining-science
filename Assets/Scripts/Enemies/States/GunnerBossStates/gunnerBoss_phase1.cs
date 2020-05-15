@@ -34,7 +34,7 @@ public class gunnerBoss_phase1 : State<GunnerBoss>
 
     public override void EnterState(GunnerBoss owner)
     {
-        Debug.Log("Entering Phase1");
+        //Debug.Log("Entering Phase1");
         owner.currTarget = owner.AttackTarget.position;
     }
 

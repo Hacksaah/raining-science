@@ -77,6 +77,11 @@ public abstract class Weapon : MonoBehaviour
     public string Name { get { return name; } }
     public string FlavorText { get { return flavorText; } }
 
+    private void OnEnable()
+    {
+        AmmoUI.Instance.UpdateText(ammoInClip, maxAmmoCapacity);
+    }
+
     private void OnDisable()
     {
         reloading = false;
@@ -298,7 +303,7 @@ public abstract class Weapon : MonoBehaviour
         }
         ammoInClip = clipSize;
         stats.AmmoInClip = ammoInClip;
-        updateUI.Raise();
+        AmmoUI.Instance.UpdateText(ammoInClip, maxAmmoCapacity);
         reloading = false;
     }
 

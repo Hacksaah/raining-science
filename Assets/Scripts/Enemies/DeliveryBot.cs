@@ -9,6 +9,8 @@ public class DeliveryBot : EnemyActor
     public void HaltState() { stateMachine.HaltState(); }
     public Transform rayOrigin;
 
+
+    public bool bossMob;
     public float explosionForce;
     public float blastRadius;
     public LayerMask explosionLayers;
@@ -28,8 +30,13 @@ public class DeliveryBot : EnemyActor
     private void Start()
     {
         Startup();
-        Room_Grid room = Level_Grid.Instance.GetRoom(roomKey);
-        SpawnActor(room.AnOpenSpot(), Vector3.zero);
+        if (!bossMob)
+        {
+            Room_Grid room = Level_Grid.Instance.GetRoom(roomKey);
+            SpawnActor(room.AnOpenSpot(), Vector3.zero);
+        }
+        else
+            SpawnActor(transform.position, Vector3.zero);
     }
 
     private void OnEnable()

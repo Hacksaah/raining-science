@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        SpawnPlayer();        
+        SpawnPlayer();
     }
 
     // Update is called once per frame
@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour
                 currentWeapon.gameObject.SetActive(true);
             }
             //TODO: Update weapon sprite to currentWeapon's sprite
-            AttachmentPanel.Instance.ChangeWeapon(currentWeapon);
+            AttachmentPanel.Instance.ChangeWeapon(currentWeapon);            
         }
     }
 

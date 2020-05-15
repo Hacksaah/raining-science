@@ -13,7 +13,7 @@ public class RailGun : Weapon
     private AudioSource revUp;
     private AudioSource constant;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         shot = gameObject.AddComponent<AudioSource>();
         shot.loop = false;
@@ -85,7 +85,7 @@ public class RailGun : Weapon
 
                 ammoInClip--;
                 stats.AmmoInClip = ammoInClip;
-                updateUI.Raise();
+                AmmoUI.Instance.UpdateText(ammoInClip, maxAmmoCapacity);
 
                 int size;
                 if (fireRateTimer >= fireRate)

@@ -18,21 +18,15 @@ public class Mini3DPrinter : Attachment
     }
 
     public override void AlterWeapon(Weapon weapon)
-    {
-        bool updateUI = false;
-        if (weapon.AmmoInClip == weapon.ClipSize)
-            updateUI = true;
+    {       
 
         if (weapon.ClipSize < 5)
             weapon.ClipSize += 1;
         else
             weapon.ClipSize += (int)(weapon.ClipSize * amount);
 
-        if(updateUI)
-        {
-            weapon.AmmoInClip = weapon.ClipSize;
-            weapon.updateUI.Raise();
-        }            
+        weapon.AmmoInClip += (int)(weapon.ClipSize * amount);
+        AmmoUI.Instance.UpdateText(weapon.AmmoInClip, weapon.MaxAmmoCapacity);            
     }
 
     public override void ReverseAlter(Weapon weapon)

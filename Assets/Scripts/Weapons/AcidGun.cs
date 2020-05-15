@@ -10,7 +10,7 @@ public class AcidGun : Weapon
     private AudioSource shot;
     private AudioSource re;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         shot = gameObject.AddComponent<AudioSource>();
         shot.loop = false;
@@ -58,7 +58,7 @@ public class AcidGun : Weapon
                 shoot.Play();
                 ammoInClip--;
                 stats.AmmoInClip = ammoInClip;
-                updateUI.Raise();
+                AmmoUI.Instance.UpdateText(ammoInClip, maxAmmoCapacity);
 
                 fireRateTimer = fireRate;
                 target.y = shootFromTransform.position.y;

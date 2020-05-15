@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PoolableGameObject : MonoBehaviour
 {
-    [HideInInspector]
-    public string key;
+    string key;
+    public string Key { set; get; }
 
     private void OnDisable()
     {
-        GameObjectPoolManager.ReturnItemToPool(gameObject, key);
+        GameObjectPoolManager.Instance.ReturnItemToPool(gameObject, Key);
     }
 }

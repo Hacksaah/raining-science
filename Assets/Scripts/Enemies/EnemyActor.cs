@@ -117,11 +117,11 @@ public class EnemyActor : MonoBehaviour
                 movePath.Add(v);
             moveTargetIndex = 0;
             currTarget = movePath[moveTargetIndex];
-            //Debug.Log("Path found :: " + gameObject.name);
+            Debug.Log("Path found :: " + gameObject.name);
         }
         else
         {
-            //Debug.Log("Path failed :: " + gameObject.name);
+            Debug.Log("Path failed :: " + gameObject.name);
         }
     }
 

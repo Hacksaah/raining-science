@@ -15,17 +15,22 @@ public class Pooler : ScriptableObject
 
     public void AddObjectToPool(GameObject obj) { pool.Enqueue(obj); }
 
+    public void ClearPool()
+    {        
+        pool.Clear();
+    }
+
     public GameObject GetObjectFromPool()
     {
         if(pool.Count > 0)
         {
             return pool.Dequeue();
-        }        
+        }
         
         else if (expandPool && (amount < maxAmountAllowed || maxAmountAllowed < 0))
         {
             PoolableGameObject newObj = Instantiate(prefab).GetComponent<PoolableGameObject>();
-            newObj.key = key;
+            newObj.Key = key;
             amount++;
             return newObj.gameObject;
         }

@@ -7,6 +7,8 @@ public class AttachmentPanel : MonoBehaviour
 {
     public AttachmentButton[] attachmentButtons;
 
+    public VarInt BossCount;
+
     [SerializeField]
     private GameObject AttachmentTriggerPrefab = null;
 
@@ -34,6 +36,8 @@ public class AttachmentPanel : MonoBehaviour
 
     private Vector3 originalPosition;
 
+    private GameObject nextLevelButton;
+
     [SerializeField]
     private VarBool canShootSO = null;
 
@@ -53,7 +57,18 @@ public class AttachmentPanel : MonoBehaviour
     private void Awake()
     {
         originalPosition = IncomingAttachmentIcon.transform.position;
+        nextLevelButton = transform.GetChild(5).gameObject;
+        nextLevelButton.GetComponent<Button>().onClick.AddListener(ProceedToNextLevel);
+        nextLevelButton.SetActive(false);
     }
+
+    private void Update()
+    {
+        if (!nextLevelButton.activeSelf)
+            if (BossCount.value == 0)
+                nextLevelButton.SetActive(true);
+    }
+
 
     public void OpenPanel(Weapon currentWeapon, Attachment incAttachment)
     {
@@ -95,9 +110,7 @@ public class AttachmentPanel : MonoBehaviour
         //Set gun information
         GunName.text = currentGun.Name;
         GunSprite.sprite = currentGun.GunSprite;
-        GunFlavor.text = currentGun.FlavorText;
-
-        
+        GunFlavor.text = currentGun.FlavorText;        
 
         //Edit button text fields and attachments to represent the current weapons attachments
         int count = 0;
@@ -274,5 +287,10 @@ public class AttachmentPanel : MonoBehaviour
         HoverAttachmentName.text = "Attachment?";
         HoverAttachmentStats.text = "Stat Changes?";
         HoverAttachmentFlavor.text = "";
+    }
+
+    public void ProceedToNextLevel()
+    {
+        GameLevelManager.Instance.LoadNextLevel();
     }
 }

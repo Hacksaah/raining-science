@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
 
                 int rand = Random.Range(0, EnemyPrefabs.Count);
                 EnemyActor newEnemy = Instantiate(EnemyPrefabs[rand]).GetComponent<EnemyActor>();
-                newEnemy.gameObject.SetActive(false);
+                //newEnemy.gameObject.SetActive(false);
                 newEnemy.transform.parent = gameObject.transform.parent;
                 newEnemy.roomKey = roomGrid.RoomKey;
                 //newEnemy.AttackTarget = Level_Grid.Instance.PlayerTransform;

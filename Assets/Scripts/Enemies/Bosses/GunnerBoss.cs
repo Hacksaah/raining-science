@@ -5,7 +5,9 @@ using StateMachine;
 
 public class GunnerBoss : EnemyActor
 {    
-    private StateMachine<GunnerBoss> stateMachine;
+    public StateMachine<GunnerBoss> stateMachine;
+
+    public VarInt BossCount;
 
     public EnemyWeapon shotGunTurret1;
     public EnemyWeapon shotGunTurret2;
@@ -22,7 +24,8 @@ public class GunnerBoss : EnemyActor
     public bool pathNotDone = false;
     [HideInInspector]
     public bool spinAttack = false;
-    private bool retreivingOrb = false;
+    [HideInInspector]
+    public bool retreivingOrb = false;
 
     private Transform spinTurretTurnPosition;
     private Vector3 spinTurretOffest;
@@ -44,8 +47,7 @@ public class GunnerBoss : EnemyActor
 
         Startup();
         ResetActor();
-
-        BossUI.Instance.ReadyUI();
+        
         stateMachine.ChangeState(gunnerBoss_phase1.Instance);
     }
 
@@ -69,69 +71,7 @@ public class GunnerBoss : EnemyActor
                 stateMachine.ChangeState(gunnerBoss_intermission.Instance);
         }
     }
-
-    public IEnumerator RequestMovePathToAttack()
-    {
-        currTarget = PathRequestManager.FindOpenMoveSpotBetween(AttackTarget.position, 2, 6, roomKey);
-        RequestPath();
-        pathNotDone = true;
-        while (moveTargetIndex == -1)
-            yield return null;
-        
-        currTarget.y = transform.position.y;
-        float moveSpeed = stats.GetMoveSpeed();
-        int lenght = movePath.Count;
-        while (moveTargetIndex < lenght)
-        {            
-            transform.position = Vector3.MoveTowards(transform.position, currTarget, moveSpeed * Time.deltaTime);
-            if (Vector3.Distance(currTarget, transform.position) < 2.0f)
-            {
-                moveTargetIndex++;
-                if(moveTargetIndex < lenght)
-                {
-                    currTarget = movePath[moveTargetIndex];
-                    currTarget.y = transform.position.y;
-                }
-                    
-            }
-            yield return null;
-        }
-        moveTargetIndex = -1;
-        pathNotDone = false;
-        currTarget = AttackTarget.position;
-    }
-
-    public IEnumerator FireShotGuns()
-    {
-        currTarget = AttackTarget.transform.position;
-
-        float timer = 0.75f;
-        while(timer > 0)
-        {
-            timer -= Time.deltaTime;
-            yield return null;
-        }
-
-        Vector3 dir = transform.position + transform.forward * 100;
-
-        shotGunTurret1.FireWeapon(dir, -5);
-        shotGunTurret1.FireWeapon(dir, -15);
-        shotGunTurret1.FireWeapon(dir, 5);
-        shotGunTurret1.FireWeapon(dir, 15);
-
-        timer = Random.Range(0.2f, 0.4f);
-        while (timer > 0)
-        {
-            timer -= Time.deltaTime;
-            yield return null;
-        }
-        
-        shotGunTurret2.FireWeapon(dir, -5);
-        shotGunTurret2.FireWeapon(dir, -15);
-        shotGunTurret2.FireWeapon(dir, 5);
-        shotGunTurret2.FireWeapon(dir, 15);
-    }
-
+    
     public IEnumerator FireSpinningTurret(float duration)
     {
         if (!spinAttack)
@@ -164,100 +104,20 @@ public class GunnerBoss : EnemyActor
         HealthOrb_GameObj.transform.LookAt(transform.forward);
         HealthOrb_GameObj.SetActive(true);
     }
-
-    public IEnumerator RetreiveHealthOrb()
+    
+    public void SpawnExplosiveBot()
     {
-        stateMachine.HaltState();        
-
-        //Retreive path to orb
-        currTarget = HealthOrb_GameObj.transform.position;
-        RequestPath();
-        while (moveTargetIndex < 0)
-        {
-            yield return null;
-        }
-        //Found a path to orb
-
-        // Moving to orb
-        currTarget.y = transform.position.y;
-        int lenght = movePath.Count;
-        float moveSpeed = stats.GetMoveSpeed();
-        float moveSpeedRampUP = 1.0f;
-        while (moveTargetIndex != lenght)
-        {
-            TurnToFace(currTarget, 8f);
-            transform.position = Vector3.MoveTowards(transform.position, currTarget, moveSpeed * moveSpeedRampUP * Time.deltaTime);
-            moveSpeedRampUP += Time.deltaTime;
-            if (moveTargetIndex == lenght - 1 && Vector3.Distance(transform.position, HealthOrb_GameObj.transform.position) <= 6.0f)
-                break;
-            else if (Vector3.Distance(currTarget, transform.position) < 2.0f)
-            {
-                moveTargetIndex++;
-                if (moveTargetIndex < lenght)
-                {
-                    currTarget = movePath[moveTargetIndex];
-                    currTarget.y = transform.position.y;
-                }
-                else
-                {
-                    currTarget = HealthOrb_GameObj.transform.position;
-                    moveTargetIndex = -1;
-                    RequestPath();
-                    while (moveTargetIndex < 0)
-                    {
-                        yield return null;
-                    }                        
-                    lenght = movePath.Count;
-                    currTarget.y = transform.position.y;
-                    if (lenght == 0)
-                        break;
-                }
-            }
-            yield return null;
-        }
-        moveTargetIndex = -1;
-        StartCoroutine(PickUpHealthOrb());
-    }
-
-    private IEnumerator PickUpHealthOrb()
-    {
-        //Pick it up
-        Rigidbody orbRB = HealthOrb_GameObj.GetComponent<Rigidbody>();
-        orbRB.velocity = Vector3.zero;
-        orbRB.isKinematic = true;
-        Vector3 position = transform.position;
-        while (HealthOrb_GameObj.transform.position != position)
-        {
-            HealthOrb_GameObj.transform.position = Vector3.MoveTowards(HealthOrb_GameObj.transform.position, position, 3.5f * Time.deltaTime);
-            yield return null;
-        }
-        orbRB.isKinematic = false;
-        HealthOrb_GameObj.SetActive(false);
-
-        //Change state to attack phase
-        if (bossCurrHP.value <= 0)
-        {
-            StartCoroutine(Explode());
-        }
-        else
-        {
-            retreivingOrb = false;
-            stateMachine.ChangeState(gunnerBoss_phase1.Instance);
-        }
-    }
-
-    public IEnumerator SpawnExplosiveBot()
-    {
-        GameObject bot = GameObjectPoolManager.RequestItemFromPool("deliBot");
+        GameObject bot = GameObjectPoolManager.Instance.RequestItemFromPool("deliBot");
         bot.transform.position = shotGunTurret2.transform.GetChild(0).transform.position;
         Vector3 target = bot.transform.position + transform.forward;
         target.y = bot.transform.position.y;
         bot.transform.LookAt(target);
-        yield return null;
     }
 
-    private IEnumerator Explode()
+    public IEnumerator Explode()
     {
+        stateMachine.HaltState();
+
         float timer = 0;
         float startX = transform.position.x;
         float startZ = transform.position.z;
@@ -303,6 +163,7 @@ public class GunnerBoss : EnemyActor
             }
         }
         explosiveParticles.Play();
-        yield return null;
+        BossCount.value--;
+        BossUI.Instance.UpdateBossCount();
     }
 }

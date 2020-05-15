@@ -5317,10 +5317,12 @@ MonoBehaviour:
   roomKey: 0
   currTarget: {x: 0, y: 0, z: 0}
   isAlive: 0
+  size: 3
   movePath: []
   moveTargetIndex: 0
   rb: {fileID: 0}
   AttackTarget: {fileID: 0}
+  BossCount: {fileID: 11400000, guid: 9f384dfbfd6b1644694c05f5332af2f7, type: 2}
   shotGunTurret1: {fileID: 7359053588204356411}
   shotGunTurret2: {fileID: 7359053588144051062}
   spinningTurret: {fileID: 7359053589085245435}

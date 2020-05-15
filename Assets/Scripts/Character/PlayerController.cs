@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private VarBool canShoot = null;
     private bool canOpenMenus = true;
+    private bool isAlive;
 
     private RaycastHit mousePos;    
 
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
         moveInput = Vector3.zero;
         groundChecker = transform.GetChild(0);
         canShoot.value = true;
+        isAlive = true;
     }
 
     private void Start()
@@ -59,29 +61,32 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out mousePos);
-        
-        CheckMovementInput();
 
-        HandleMovement();
-
-        HandleDash();
-
-        FaceMouse();
-
-        HandleGun();
-
-
-        // opens the attachment UI whenever the player holds down TAB
-        if (canOpenMenus && Input.GetKeyDown(KeyCode.Tab))
+        if (isAlive)
         {
-            AttachmentPanel.Instance.OpenPanel(currentWeapon, null);
-        }
-        else if (Input.GetKeyUp(KeyCode.Tab))
-        {
-            AttachmentPanel.Instance.CloseMenu();
-        }
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Physics.Raycast(ray, out mousePos);
+
+            CheckMovementInput();
+
+            HandleMovement();
+
+            HandleDash();
+
+            FaceMouse();
+
+            HandleGun();
+
+            // opens the attachment UI whenever the player holds down TAB
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                AttachmentPanel.Instance.OpenPanel(currentWeapon, null);
+            }
+            else if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                AttachmentPanel.Instance.CloseMenu();
+            }
+        }       
 
         //Open/close settings panel
         if (canOpenMenus && Input.GetKeyDown(KeyCode.Escape))
@@ -206,7 +211,9 @@ public class PlayerController : MonoBehaviour
         if (stats.CurrHP <= 0)
         {
             canOpenMenus = false;
+            isAlive = false;
             gameObject.SetActive(false);
+            
             GameOverUI.Instance.ActivateUI();
             SettingsMenu.Instance.CloseMenu();
             AttachmentPanel.Instance.CloseMenu();

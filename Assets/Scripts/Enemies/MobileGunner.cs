@@ -32,7 +32,7 @@ public class MobileGunner : EnemyActor
         Room_Grid room = Level_Grid.Instance.GetRoom(roomKey);
         SpawnActor(room.AnOpenSpot(), room.AnOpenSpot());
 
-        timer_lineOfSight = Random.Range(1.7f, 3.0f);
+        timer_lineOfSight = Random.Range(0.5f, 1.2f);
 
         RequestPath();
         requestedPath = true;
@@ -73,14 +73,14 @@ public class MobileGunner : EnemyActor
                 timer_lineOfSight -= Time.deltaTime;
                 if(timer_lineOfSight <= 0f)
                 {
-                    timer_lineOfSight = Random.Range(1.7f, 3.0f);
+                    timer_lineOfSight = Random.Range(0.5f, 1.2f);
                     stateMachine.ChangeState(mobileGunner_attack.Instance);
                 }
             }
             else
             {
                 if (timer_lineOfSight > 0)
-                    timer_lineOfSight += Time.deltaTime;
+                    timer_lineOfSight -= Time.deltaTime;
             }
         }
     }    

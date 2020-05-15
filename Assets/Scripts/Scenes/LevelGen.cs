@@ -22,6 +22,7 @@ public class LevelGen : MonoBehaviour
 
     private void Start()
     {
+        BossCount.value = 0;
         CombineMesh meshScript = (CombineMesh)room.GetComponent(typeof(CombineMesh));
         meshScript.combine();
         if (maxConnectingRooms > 4)
@@ -84,7 +85,7 @@ public class LevelGen : MonoBehaviour
                 }
             }
         }
-        print("Doors unlocked");
+        //print("Doors unlocked");
     }
     void genLevel()
     {
@@ -106,13 +107,13 @@ public class LevelGen : MonoBehaviour
                 iterationThreshold++;
                 if (maxThreshold == 3)
                 {
-                    print("Final Threshold hit with " + (roomsSpawned+1) + " number of rooms spawned out of " + (numberOfRooms+1));
+                    //print("Final Threshold hit with " + (roomsSpawned+1) + " number of rooms spawned out of " + (numberOfRooms+1));
                     return;
                 }
                 if (iterationThreshold == 3 && !nextThreshold)
                 {
-                    print("Threshold 1 hit with " + (roomsSpawned + 1) + " number of rooms spawned out of " + (numberOfRooms + 1));
-                    print("Trying to spawn rooms from existing rooms");
+                    //print("Threshold 1 hit with " + (roomsSpawned + 1) + " number of rooms spawned out of " + (numberOfRooms + 1));
+                    //print("Trying to spawn rooms from existing rooms");
                     nextThreshold = true;
                     iterationThreshold = 0;
                     positions.Clear();
@@ -124,11 +125,11 @@ public class LevelGen : MonoBehaviour
                 }
                 else if (iterationThreshold == 3 && nextThreshold)
                 {
-                    print("Threshold 2 hit with " + (roomsSpawned + 1) + " number of rooms spawned out of " + (numberOfRooms + 1));
-                    print("Trying to spawn rooms from existing rooms");
+                    //print("Threshold 2 hit with " + (roomsSpawned + 1) + " number of rooms spawned out of " + (numberOfRooms + 1));
+                    //print("Trying to spawn rooms from existing rooms");
                     if (maxConnectingRooms < 4)
                     {
-                        print("Increasing max connections from " + maxConnectingRooms + " to " + (maxConnectingRooms + 1));
+                        //print("Increasing max connections from " + maxConnectingRooms + " to " + (maxConnectingRooms + 1));
                         maxConnectingRooms++;
                     }
                     iterationThreshold = 0;
@@ -148,7 +149,7 @@ public class LevelGen : MonoBehaviour
             BossCount.value++;
             bossRoomSpawned = true;
         }
-        print("Spawned all " + (roomsSpawned + 1) + " out of " + (numberOfRooms + 1));
+        //print("Spawned all " + (roomsSpawned + 1) + " out of " + (numberOfRooms + 1));
         unlockDoors();
     }
 

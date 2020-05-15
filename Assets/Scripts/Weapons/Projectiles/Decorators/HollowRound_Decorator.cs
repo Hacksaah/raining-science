@@ -16,8 +16,8 @@ public class HollowRound_Decorator : Projectile_Decorator
 
     public override void Deal_Damage(GameObject projectile, EnemyActor enemy, int damage, Vector3 velocity, Damage_Type damage_Type)
     {
-        WeaponProjectile projectile1 = GameObjectPoolManager.RequestItemFromPool("hollow").GetComponent<WeaponProjectile>();
-        WeaponProjectile projectile2 = GameObjectPoolManager.RequestItemFromPool("hollow").GetComponent<WeaponProjectile>();
+        WeaponProjectile projectile1 = GameObjectPoolManager.Instance.RequestItemFromPool("hollow").GetComponent<WeaponProjectile>();
+        WeaponProjectile projectile2 = GameObjectPoolManager.Instance.RequestItemFromPool("hollow").GetComponent<WeaponProjectile>();
 
         // check if this is a lightGun projectile
         if (lineFlag)

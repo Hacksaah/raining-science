@@ -20,25 +20,29 @@ public class GameObjectPoolManager : MonoBehaviour
 
     GameObjectPoolManager() { instance = this; }
 
-    public static Dictionary<string, Pooler> pools = new Dictionary<string, Pooler>();
+    public Dictionary<string, Pooler> pools = new Dictionary<string, Pooler>();
 
-    void Awake()
-    {
-        foreach(Pooler options in Objects)
+    public void SpawnItemPools()
+    {        
+        foreach (Pooler options in Objects)
         {
-            for(int i = 0; i < options.amount; i++)
+            options.ClearPool();
+            pools.Remove(options.key);
+            for (int i = 0; i < options.amount; i++)
             {
                 PoolableGameObject newObj = Instantiate(options.prefab).GetComponent<PoolableGameObject>();
-                newObj.transform.parent = gameObject.transform;
-                newObj.key = options.key;
+
+                newObj.gameObject.transform.parent = gameObject.transform;
+                newObj.Key = options.key;
                 newObj.gameObject.SetActive(false);
                 options.AddObjectToPool(newObj.gameObject);
             }
+
             pools.Add(options.key, options);
         }
     }
 
-    public static void ReturnItemToPool(GameObject obj, string key)
+    public void ReturnItemToPool(GameObject obj, string key)
     {
         Pooler pool;
         if (pools.TryGetValue(key, out pool))
@@ -47,10 +51,9 @@ public class GameObjectPoolManager : MonoBehaviour
             return;
     }
 
-    public static GameObject RequestItemFromPool(string key)
+    public GameObject RequestItemFromPool(string key)
     {
-        Pooler pool;
-        if (pools.TryGetValue(key, out pool))
+        if (pools.TryGetValue(key, out Pooler pool))
         {
             GameObject obj = pool.GetObjectFromPool();
             if (obj != null)

@@ -136,6 +136,7 @@ MonoBehaviour:
   moveTargetIndex: -1
   rb: {fileID: 0}
   AttackTarget: {fileID: 0}
+  requestedPath: 0
 --- !u!114 &8339964349909063709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyActor: {fileID: 0}
-  isSelected: 0
+  isSelected: 1
   seeViewDistance: 0
 --- !u!1 &5118770597697643892
 GameObject:

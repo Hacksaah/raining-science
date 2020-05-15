@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameLevelManager : MonoBehaviour
 {
@@ -33,11 +34,17 @@ public class GameLevelManager : MonoBehaviour
         
         Level_Grid.Instance.PlayerTransform = Player.transform;
         InteractManager.Instance.PlayerTransform = Player.transform;
+        GameObjectPoolManager.Instance.SpawnItemPools();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene("Enemy_TestScene2");
     }
 }

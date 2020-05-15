@@ -47,7 +47,7 @@ public class GunnerBoss : EnemyActor
         Startup();
         ResetActor();
 
-        BossUI.Instance.ReadyUI();
+        BossUI.Instance.ReadyHealthBar(bossMaxHP.value);
         stateMachine.ChangeState(gunnerBoss_phase1.Instance);
     }
 
@@ -250,7 +250,7 @@ public class GunnerBoss : EnemyActor
 
     public IEnumerator SpawnExplosiveBot()
     {
-        GameObject bot = GameObjectPoolManager.RequestItemFromPool("deliBot");
+        GameObject bot = GameObjectPoolManager.Instance.RequestItemFromPool("deliBot");
         bot.transform.position = shotGunTurret2.transform.GetChild(0).transform.position;
         Vector3 target = bot.transform.position + transform.forward;
         target.y = bot.transform.position.y;

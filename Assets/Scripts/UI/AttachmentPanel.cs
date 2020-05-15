@@ -58,6 +58,7 @@ public class AttachmentPanel : MonoBehaviour
     {
         originalPosition = IncomingAttachmentIcon.transform.position;
         nextLevelButton = transform.GetChild(5).gameObject;
+        nextLevelButton.GetComponent<Button>().onClick.AddListener(ProceedToNextLevel);
         nextLevelButton.SetActive(false);
     }
 
@@ -288,5 +289,10 @@ public class AttachmentPanel : MonoBehaviour
         HoverAttachmentName.text = "Attachment?";
         HoverAttachmentStats.text = "Stat Changes?";
         HoverAttachmentFlavor.text = "";
+    }
+
+    public void ProceedToNextLevel()
+    {
+        GameLevelManager.Instance.LoadNextLevel();
     }
 }

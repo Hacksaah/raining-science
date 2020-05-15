@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GunnerBoss_HealthOrb : EnemyActor
 {
-    public VarInt bossMaxHP;
-    public VarInt bossCurrHP;
 
     public int force;
 
@@ -14,17 +12,13 @@ public class GunnerBoss_HealthOrb : EnemyActor
         rb = GetComponent<Rigidbody>();
         size = 3f;
         Startup();
-        ResetActor();
-        bossMaxHP.value = stats.GetMaxHP();
-        bossCurrHP.value = currHP;      
+        ResetActor();    
     }
 
     private void Start()
     {
-        BossUI.Instance.gameObject.SetActive(true);
-        BossUI.Instance.ReadyUI();
-
         gameObject.SetActive(false);
+        BossUI.Instance.ReadyHealthBar(stats.GetMaxHP());
     }
 
     private void OnEnable()
@@ -41,8 +35,7 @@ public class GunnerBoss_HealthOrb : EnemyActor
     public override void TakeDamage(int incomingDamage, Vector3 force, Damage_Type dam_Type)
     {
         base.TakeDamage(incomingDamage, force, dam_Type);
-        bossCurrHP.value = currHP;
-        BossUI.Instance.UpdateHealthBar();
+        BossUI.Instance.UpdateHealthBar(currHP);
         if (currHP <= 0)
             StopAllCoroutines();
     }

@@ -67,7 +67,7 @@ public class LightGun : Weapon
         weaponBehavior = baseWeaponBehavior;
 
         baseProjectileBehavior = new LightGun_IProjectile();
-        projectileBehavior = baseProjectileBehavior;
+        projectileBehavior = baseProjectileBehavior;        
     }
 
     // Update is called once per frame

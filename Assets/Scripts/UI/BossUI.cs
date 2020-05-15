@@ -5,30 +5,65 @@ using UnityEngine.UI;
 
 public class BossUI : MonoBehaviour
 {
-    public VarInt bossMaxHP;
-    public VarInt bossCurrHP;
+    public VarInt BossCount;
 
-    public static BossUI Instance;
+    static BossUI instance;
+    public static BossUI Instance
+    {
+        get
+        {
+            if (instance == null)
+                new BossUI();
+            return instance;
+        }
+    }
+
     Slider slider;
+    Text bossCount_text;
+    GameObject bossCount_Panel;
+
+    BossUI() { instance = this; }
 
     private void Awake()
     {
-        slider = GetComponent<Slider>();
-        Instance = this;
-        gameObject.SetActive(false);
+        slider = transform.GetChild(1).GetComponent<Slider>();
+        bossCount_Panel = transform.GetChild(0).gameObject;
+        bossCount_text = bossCount_Panel.transform.GetChild(1).GetComponent<Text>();
+        slider.gameObject.SetActive(false);
     }
 
-    public void ReadyUI()
+    private void Start()
     {
-        slider.maxValue = bossMaxHP.value;
-        slider.value = bossCurrHP.value;
-        gameObject.SetActive(true);
+        new WaitForEndOfFrame();
+        UpdateBossCount();
     }
 
-    public void UpdateHealthBar()
+    public void ReadyHealthBar(int maxHp)
     {
-        slider.value = bossCurrHP.value;
-        if (bossCurrHP.value <= 0)
-            gameObject.SetActive(false);
+        slider.maxValue = maxHp;
+        slider.value = maxHp;
+        slider.gameObject.SetActive(true);
+
+        bossCount_Panel.SetActive(false);
+    }
+
+    public void UpdateHealthBar(int incHp)
+    {
+        slider.value = incHp;
+        if (incHp <= 0)
+        {
+            slider.gameObject.SetActive(false);
+            BossCount.value--;            
+            if (BossCount.value > 0)
+            {
+                UpdateBossCount();
+                bossCount_Panel.SetActive(true);
+            }                
+        }        
+    }
+
+    public void UpdateBossCount()
+    {
+        bossCount_text.text = BossCount.value.ToString();
     }
 }

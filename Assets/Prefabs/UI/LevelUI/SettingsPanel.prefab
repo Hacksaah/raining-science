@@ -795,6 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43fd9cf0130d76e4bb77afc661f6ee1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanShoot: {fileID: 11400000, guid: c8282a224df97af44bffc16843161ae9, type: 2}
 --- !u!1 &4307359695798170319
 GameObject:
   m_ObjectHideFlags: 0

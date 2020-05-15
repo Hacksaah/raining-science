@@ -18,7 +18,6 @@ public class AcidGun_projectile : WeaponProjectile
     {
         if (!bounce && (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Door"))
         {
-            print("colliding");
             bounce = true;
             gameObject.GetComponent<Rigidbody>().velocity = Vector3.Reflect(gameObject.GetComponent<Rigidbody>().velocity, collision.contacts[0].normal);
         }
@@ -40,11 +39,6 @@ public class AcidGun_projectile : WeaponProjectile
             acidPool.transform.position = transform.position;
             gameObject.SetActive(false);
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-       
     }
 
     private void SplitProjectile()

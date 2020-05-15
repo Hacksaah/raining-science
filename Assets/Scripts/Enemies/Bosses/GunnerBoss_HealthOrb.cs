@@ -21,7 +21,6 @@ public class GunnerBoss_HealthOrb : EnemyActor
 
     private void Start()
     {
-
         BossUI.Instance.ReadyHealthBar(bossMaxHp.value);
         gameObject.SetActive(false);
     }

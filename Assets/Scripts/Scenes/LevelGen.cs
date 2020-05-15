@@ -20,9 +20,13 @@ public class LevelGen : MonoBehaviour
     private Boolean bossRoomSpawned = false;
 
 
-    private void Start()
+    private void Awake()
     {
         BossCount.value = 0;
+    }
+
+    private void Start()
+    {        
         CombineMesh meshScript = (CombineMesh)room.GetComponent(typeof(CombineMesh));
         meshScript.combine();
         if (maxConnectingRooms > 4)

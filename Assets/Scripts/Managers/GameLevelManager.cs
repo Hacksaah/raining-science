@@ -37,14 +37,8 @@ public class GameLevelManager : MonoBehaviour
         GameObjectPoolManager.Instance.SpawnItemPools();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene("Enemy_TestScene2");
+        SceneManager.LoadScene(1);
     }
 }

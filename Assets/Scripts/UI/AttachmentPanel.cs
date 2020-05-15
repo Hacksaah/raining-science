@@ -110,9 +110,7 @@ public class AttachmentPanel : MonoBehaviour
         //Set gun information
         GunName.text = currentGun.Name;
         GunSprite.sprite = currentGun.GunSprite;
-        GunFlavor.text = currentGun.FlavorText;
-
-        
+        GunFlavor.text = currentGun.FlavorText;        
 
         //Edit button text fields and attachments to represent the current weapons attachments
         int count = 0;

@@ -53,7 +53,6 @@ public class BossUI : MonoBehaviour
         if (incHp <= 0)
         {
             slider.gameObject.SetActive(false);
-            BossCount.value--;            
             if (BossCount.value > 0)
             {
                 UpdateBossCount();

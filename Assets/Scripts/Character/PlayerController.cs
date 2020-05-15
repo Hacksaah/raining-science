@@ -206,6 +206,7 @@ public class PlayerController : MonoBehaviour
         if (stats.CurrHP <= 0)
         {
             canOpenMenus = false;
+            gameObject.SetActive(false);
             GameOverUI.Instance.ActivateUI();
             SettingsMenu.Instance.CloseMenu();
             AttachmentPanel.Instance.CloseMenu();

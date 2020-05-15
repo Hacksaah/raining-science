@@ -5196,7 +5196,6 @@ GameObject:
   - component: {fileID: 7359053589108137976}
   - component: {fileID: 7359053589108137977}
   - component: {fileID: 7359053589108137862}
-  - component: {fileID: 7359053589108137863}
   - component: {fileID: 3030881205805614894}
   m_Layer: 11
   m_Name: Boss_DemoAsset
@@ -5333,21 +5332,7 @@ MonoBehaviour:
   bossCurrHP: {fileID: 11400000, guid: 16f758e47f6631346bb9f2098dc2d23b, type: 2}
   pathNotDone: 0
   spinAttack: 0
---- !u!114 &7359053589108137863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7359053589108137860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f490828f1a5379a4687c554203628511, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyActor: {fileID: 7359053589108137862}
-  isSelected: 0
-  seeViewDistance: 0
+  retreivingOrb: 0
 --- !u!198 &3030881205805614894
 ParticleSystem:
   m_ObjectHideFlags: 0

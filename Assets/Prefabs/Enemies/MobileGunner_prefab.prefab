@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 1734252470901274078}
   - component: {fileID: 1734252470901273889}
   - component: {fileID: 8339964349909063709}
-  - component: {fileID: 3684451531903810458}
   m_Layer: 11
   m_Name: MobileGunner_prefab
   m_TagString: Enemy
@@ -153,21 +152,6 @@ MonoBehaviour:
   projectileKey: basic
   projectileSpeed: 50
   damage: 5
---- !u!114 &3684451531903810458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734252470901273888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f490828f1a5379a4687c554203628511, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyActor: {fileID: 0}
-  isSelected: 1
-  seeViewDistance: 0
 --- !u!1 &5118770597697643892
 GameObject:
   m_ObjectHideFlags: 0

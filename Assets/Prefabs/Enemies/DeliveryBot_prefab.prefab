@@ -201,7 +201,6 @@ GameObject:
   - component: {fileID: 234422367404991796}
   - component: {fileID: 234422367404991795}
   - component: {fileID: 234422367404991794}
-  - component: {fileID: 234422367404991793}
   - component: {fileID: 234422367404991759}
   - component: {fileID: 234422367404991792}
   m_Layer: 11
@@ -5048,27 +5047,13 @@ MonoBehaviour:
   rb: {fileID: 0}
   AttackTarget: {fileID: 0}
   rayOrigin: {fileID: 234422367009252492}
+  bossMob: 0
   explosionForce: 10
   blastRadius: 7
   explosionLayers:
     serializedVersion: 2
     m_Bits: 2048
   explosiveParticles: {fileID: 0}
---- !u!114 &234422367404991793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234422367404991758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f490828f1a5379a4687c554203628511, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyActor: {fileID: 234422367404991794}
-  isSelected: 0
-  seeViewDistance: 0
 --- !u!54 &234422367404991759
 Rigidbody:
   m_ObjectHideFlags: 0

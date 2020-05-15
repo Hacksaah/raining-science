@@ -91,7 +91,6 @@ GameObject:
   - component: {fileID: 2331629919054390990}
   - component: {fileID: 2331629919054390985}
   - component: {fileID: 2331629919054390984}
-  - component: {fileID: 2331629919054390987}
   - component: {fileID: 2331629919054391029}
   - component: {fileID: 2331629919054390986}
   - component: {fileID: 8810624061645376630}
@@ -4946,21 +4945,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   explosiveParticles: {fileID: 0}
---- !u!114 &2331629919054390987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2331629919054391028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f490828f1a5379a4687c554203628511, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyActor: {fileID: 2331629919054390984}
-  isSelected: 0
-  seeViewDistance: 0
 --- !u!54 &2331629919054391029
 Rigidbody:
   m_ObjectHideFlags: 0

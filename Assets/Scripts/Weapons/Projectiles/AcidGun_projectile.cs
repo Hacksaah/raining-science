@@ -42,11 +42,6 @@ public class AcidGun_projectile : WeaponProjectile
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-       
-    }
-
     private void SplitProjectile()
     {
         int amount = Random.Range(4, 6);

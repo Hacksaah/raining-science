@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         //Set base variables
         controller = GetComponent<CharacterController>();
         moveInput = Vector3.zero;
-        groundChecker = transform.GetChild(0);
+        groundChecker = transform.GetChild(2).transform;
         canShoot.value = true;
         isAlive = true;
     }
@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
         {
             // if we're grounded
             if (isGrounded)
-            {                
+            {
                 velocity += Vector3.Scale(moveInput, dashDistance * new Vector3((Mathf.Log(1f/(Time.deltaTime * drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * drag + 1)) / -Time.deltaTime)));
                 pushPower = 25f;
             }

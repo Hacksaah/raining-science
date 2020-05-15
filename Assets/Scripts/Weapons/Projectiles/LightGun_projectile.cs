@@ -32,7 +32,11 @@ public class LightGun_projectile : WeaponProjectile
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, 75, DynamicLayer))
         {
-            if(hit.collider.gameObject.tag == "Enemy")
+            if(hit.collider.gameObject.tag == "Wall" || hit.collider.gameObject.tag == "Door")
+            {
+                lineRend.SetPosition(1, hit.point);
+            }
+            else if(hit.collider.gameObject.tag == "Enemy")
             {
                 lineRend.SetPosition(1, hit.point);
                 EnemyActor enemy = hit.collider.gameObject.GetComponent<EnemyActor>();                

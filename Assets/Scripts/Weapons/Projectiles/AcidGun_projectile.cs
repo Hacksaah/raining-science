@@ -5,6 +5,7 @@ using UnityEngine;
 public class AcidGun_projectile : WeaponProjectile
 {
     public int split = 0;
+    private bool bounce = false;
 
     private void OnEnable()
     {
@@ -13,26 +14,37 @@ public class AcidGun_projectile : WeaponProjectile
         transform.localScale = Vector3.one / 1.5f;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
+        if (!bounce && (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Door"))
+        {
+            print("colliding");
+            bounce = true;
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.Reflect(gameObject.GetComponent<Rigidbody>().velocity, collision.contacts[0].normal);
+        }
         // the first projectile shot will split upon impacting anything
-        if (split > 0 && other.gameObject.layer != 12 && other.gameObject.layer != 11)
+        if (split > 0 && collision.gameObject.layer != 12 && collision.gameObject.layer != 11 && collision.gameObject.tag != "Wall" && collision.gameObject.tag != "Door")
             SplitProjectile();
 
         // perform projectile behavior
-        if (other.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
-            EnemyActor enemy = other.gameObject.GetComponent<EnemyActor>();
+            EnemyActor enemy = collision.gameObject.GetComponent<EnemyActor>();
             projectileBehavior.Deal_Damage(gameObject, enemy, damage, rb.velocity, damage_Type);
         }
 
         // spawns an acid pool upon touching the static environment
-        if (other.gameObject.layer == 9)
+        if (collision.gameObject.layer == 9 && collision.gameObject.tag != "Wall" && collision.gameObject.tag != "Door")
         {
             GameObject acidPool = GameObjectPoolManager.RequestItemFromPool("acidPool");
             acidPool.transform.position = transform.position;
             gameObject.SetActive(false);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+       
     }
 
     private void SplitProjectile()

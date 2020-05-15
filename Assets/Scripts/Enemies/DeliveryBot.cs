@@ -28,7 +28,8 @@ public class DeliveryBot : EnemyActor
     private void Start()
     {
         Startup();
-        SpawnActor(transform.position, Vector3.zero);
+        Room_Grid room = Level_Grid.Instance.GetRoom(roomKey);
+        SpawnActor(room.AnOpenSpot(), Vector3.zero);
     }
 
     private void OnEnable()

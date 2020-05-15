@@ -18,6 +18,9 @@ public class ChooseWall : MonoBehaviour
         GameObject wall = GameObject.Instantiate((GameObject)walls.items.ToArray().GetValue(index));
         wall.tag = "Wall";
         wall.layer = LayerMask.NameToLayer("StaticEnvironment");
+        wall.AddComponent<Rigidbody>();
+        wall.GetComponent<Rigidbody>().useGravity = false;
+        wall.GetComponent<Rigidbody>().isKinematic = true;
         wall.AddComponent<MeshCollider>();
         wall.GetComponent<MeshCollider>().material = material;
         wall.AddComponent<BoxCollider>();
